@@ -91,8 +91,10 @@ def compare_source(knee: Model, robot: Model | None, assets: AssetLibrary,
                 unchanged.append(compare_part(part, original[previous[part.name].archived_name], source))
         # Check the hip-side frame, lower-leg mounting lug, and unchanged
         # pulley body above the resized sun hub as B-rep regions, not just bounds.
+        # The distal lug check starts beyond the OLD 25.5 mm-radius disk;
+        # including that disk's edge would misclassify its intentional resize.
         regions = (("upper_leg", box(200, 200, 200, (0, 144, 0))),
-                   ("carrier", box(200, 200, 200, (0, -120, 0))),
+                   ("carrier", box(200, 200, 200, (0, -126, 0))),
                    ("sun_pulley", box(200, 200, 200, (0, 0, 123.6))))
         interfaces = []
         for name, clip in regions:

@@ -51,3 +51,16 @@ def test_exact_fallback_cannot_hide_a_changed_solid(reference_archive, changed):
     result = compare_part(Part("right_component", actual), reference, reference_archive)
     assert result["pass"] is (not changed)
     assert "symmetric_difference_mm3" in result
+
+
+def test_distal_carrier_mount_stays_put_beyond_the_resized_disk():
+    from ria.geometry import box
+    from ria.knee import output_carrier
+
+    # The old disk reaches Y=-25.5; the new disk reaches only Y=-19.5.
+    # The unchanged mounting region contains both holes, at -31 and -37.
+    clip = box(200, 200, 200, (0, -126, 0))
+    old = output_carrier(RobotConfig.archived()).intersect(clip)
+    new = output_carrier(RobotConfig()).intersect(clip)
+    assert old.Volume() > 0 and new.Volume() > 0
+    assert old.cut(new).Volume() + new.cut(old).Volume() < 1e-8
