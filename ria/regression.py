@@ -8,18 +8,41 @@ import numpy as np
 import trimesh
 from scipy.spatial import cKDTree
 
-from .assets import AssetLibrary, SourceArchive
+from .assets import AssetLibrary, HEAD_OBJECTS, SourceArchive
 from .config import RobotConfig
 from .export import mesh_of
 from .geometry import bounds, box
 from .knee import build_knee
 from .model import Model
+from .robot import installed
 
 # These are the only local parts allowed to differ from the 28/14/56 build.
 CHANGED = {"upper_leg", "carrier", "sun_pulley", "motor_pulley", "belt"}
 CHANGED |= {f"planet_{i}" for i in range(3)}
 CHANGED |= {f"planet_pin_{i}" for i in range(3)}
 CHANGED |= {f"planet_bearing_{i}_{race}" for i in range(3) for race in ("inner", "outer", "shields")}
+
+
+def reference_solid(name: str, source: SourceArchive) -> cq.Shape:
+    """Read the actual reference solid in the same local or installed frame.
+
+    The archive stores per-part STEPs only for the local knee. Installed
+    meshes were produced by rigidly transforming those same solids; there
+    are no `right_*.step` or `left_*.step` files in its build directory.
+    """
+    with tempfile.TemporaryDirectory(prefix="ria-regression-") as temp:
+        path = Path(temp) / "reference.step"
+        if name in HEAD_OBJECTS.values():
+            path.write_bytes(source.read("references/head_neck_reference.step"))
+            item = cq.Assembly.importStep(str(path)).objects[name]
+            return item.obj.moved(item.loc)
+        if name.startswith(("right_", "left_")):
+            side, local_name = name.split("_", 1)
+            path.write_bytes(source.read("build/" + local_name + ".step"))
+            shape = cq.importers.importStep(str(path)).val()
+            return installed(shape, RobotConfig.archived(), left=side == "left")
+        path.write_bytes(source.read("build/" + name + ".step"))
+        return cq.importers.importStep(str(path)).val()
 
 
 def compare_part(part, reference: dict, source: SourceArchive) -> dict:
@@ -41,10 +64,8 @@ def compare_part(part, reference: dict, source: SourceArchive) -> dict:
     if not row["pass"]:
         # Matching solids can be triangulated differently, particularly on a
         # long belt span. Resolve that ambiguity with two exact solid cuts.
-        with tempfile.TemporaryDirectory(prefix="ria-regression-") as temp:
-            path = Path(temp) / "reference.step"
-            path.write_bytes(source.read("build/" + reference["name"] + ".step"))
-            shape = cq.importers.importStep(str(path)).val()
+        print("  exact-solid fallback: " + part.name, flush=True)
+        shape = reference_solid(reference["name"], source)
         delta = part.shape.cut(shape).Volume() + shape.cut(part.shape).Volume()
         row["symmetric_difference_mm3"] = delta
         row["pass"] = delta < 1e-4
@@ -92,6 +113,7 @@ def compare_source(knee: Model, robot: Model | None, assets: AssetLibrary,
                         reference = old_robot.get(part.name)
                     if reference is None:
                         raise ValueError("Missing installed reference part: " + part.archived_name)
+                    print("  unchanged installed: " + part.name, flush=True)
                     head.append(compare_part(part, reference, source))
         report = {"archived_fixture": rows, "unchanged_local_parts": unchanged,
                   "unchanged_installed_parts": head, "preserved_interfaces": interfaces,
