@@ -1,0 +1,29 @@
+name: Temporary checked CAD import
+on:
+  push:
+    branches: [cad-vendor-import]
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify binary CAD transport
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os, json, base64, hashlib, urllib.request
+          root = 'https://api.github.com/repos/' + os.environ['GITHUB_REPOSITORY']
+          def api(path, data=None):
+              request = urllib.request.Request(root + path, data=json.dumps(data).encode() if data is not None else None,
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'})
+              with urllib.request.urlopen(request) as response:
+                  return json.load(response)
+          expected = 'a53c188c4cda1b4d156cdfe2c46c878addb164f5'
+          raw = base64.b64decode(api('/git/blobs/' + expected)['content'])
+          assert hashlib.sha256(raw).hexdigest() == '79c7662903f30f4f94746a0df22e0de443645c4ffd6b503cc368c129ffb9d238'
+          result = api('/git/blobs', {'encoding': 'base64', 'content': base64.b64encode(raw).decode()})
+          assert result['sha'] == expected
+          print('Checked binary CAD transport:', expected)
+          PY
