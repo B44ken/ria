@@ -8,22 +8,37 @@ jobs:
   import:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify binary CAD transport
+      - name: Reassemble and verify original CAD bytes
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           python - <<'PY'
-          import os, json, base64, hashlib, urllib.request
+          import os, json, base64, hashlib, urllib.request, lzma
           root = 'https://api.github.com/repos/' + os.environ['GITHUB_REPOSITORY']
           def api(path, data=None):
               request = urllib.request.Request(root + path, data=json.dumps(data).encode() if data is not None else None,
                   headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json'})
               with urllib.request.urlopen(request) as response:
                   return json.load(response)
-          expected = 'a53c188c4cda1b4d156cdfe2c46c878addb164f5'
-          raw = base64.b64decode(api('/git/blobs/' + expected)['content'])
-          assert hashlib.sha256(raw).hexdigest() == '79c7662903f30f4f94746a0df22e0de443645c4ffd6b503cc368c129ffb9d238'
-          result = api('/git/blobs', {'encoding': 'base64', 'content': base64.b64encode(raw).decode()})
-          assert result['sha'] == expected
-          print('Checked binary CAD transport:', expected)
+          recipes = [
+              {'name': '5010_stator.step.xz', 'size': 71628, 'sha256': 'eb89185a1eda5dc1fb915d5e13ac6e43885bf27e14828199859537a421488452',
+               'git_sha': '5c5b95c109dca3ae5197364e0a338f6832551999',
+               'chunks': ['1c3ece4bfe39103029d773b5b862bc1029b4cdc2', '2562200127a8496cfac4307bdd35fa6335e2b793', 'ed1e71f7793ac9db40dcf64a07ba12b77955f05b', '27dc24acb75a6084113fafecc051aff964edf87e', '7088a4772ceff838674586a59430bb408718ca5d', 'a935b5648d9540e966aa0a82a98cc08795177221', '14937cc088b7b05ed7fa7bcd2d65b10a00612dd3', '3029cf6fffb76767269afab9b630e1faf9ddcf1e']},
+              {'name': '5010_rotor.step.xz', 'size': 70016, 'sha256': '6d2f4a72cc8159255994c7b62b7d16740a5d7292d0e0cc10d645a8baa630f437',
+               'git_sha': '06da3c559cee916fa810c49fb22c132f25bf8dc6',
+               'chunks': ['40db7f075f2541f87b58e2687ea49843fa60927a', '9c4e37293717f1f22c49347ed43133e06a47ada1', '562a4f28c035a9fe6b6d13295d19e4f0c3162d27', 'aa1f40d6421195cfebb19ce08763a5000bf84d54', '9cbea44f21df7a20ddab93cc8d2a18fd246bb9bc', '580e2f826cd0e2ef6ae355e1ef8ea5ad20b37b7b', '15db4864733a96764b382ebe82636d2f31c354b4', '8847442f4f8a0cea20858e3d2983b61f01eecc04']}
+          ]
+          for record in recipes:
+              raw = b''.join(base64.b64decode(api('/git/blobs/' + sha)['content']) for sha in record['chunks'])
+              assert len(raw) == record['size'], record['name']
+              assert hashlib.sha256(raw).hexdigest() == record['sha256'], record['name']
+              assert b'ISO-10303-21;' in lzma.decompress(raw)[:100], record['name']
+              result = api('/git/blobs', {'encoding': 'base64', 'content': base64.b64encode(raw).decode()})
+              assert result['sha'] == record['git_sha'], result
+              print(json.dumps({'name': record['name'], 'git_sha': result['sha'], 'sha256': record['sha256'], 'bytes': len(raw)}))
+          for sha in ['a53c188c4cda1b4d156cdfe2c46c878addb164f5', '632c669b3cf51dd3ae9c5678867ec72337891579']:
+              raw = base64.b64decode(api('/git/blobs/' + sha)['content'])
+              assert lzma.decompress(raw)
+              assert hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest() == sha
+              print('verified servo asset', sha)
           PY
