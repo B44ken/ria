@@ -1,5 +1,6 @@
 cadquery==2.8.0
 numpy==2.3.5
+pytest==9.0.2
 scipy==1.17.0
 shapely==2.1.2
 trimesh==4.11.1
