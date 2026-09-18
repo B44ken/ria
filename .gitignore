@@ -1,0 +1,7 @@
+/build/
+/assets/reference/*.brep.xz
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+.DS_Store
