@@ -18,7 +18,7 @@ The installed model is checked between sides and against the head at neutral. Th
 
 Run `python main.py --compare-source /path/to/ria.zip` to compare the port with the supplied built geometry. The old source is never executed. New functions build an explicit archived 28/14/56 fixture, which is checked against all 56 original local components. Tests compare tessellated vertex sets in both directions, CAD volumes and bounds; a differing triangulation falls back to two B-rep cuts and their symmetric-difference volume.
 
-The default new design then checks its 35 unchanged local parts, 72 unchanged installed parts including the two head objects, and three preserved mating regions. Changes are confined to the belt, motor pulley, knee gears, their carrier/frame/hub, and the bearings/pins moved to the new planet orbit. The motor grub screw is absent. The hip-side frame at Y >= 44, distal carrier mount at Y <= -26 (beyond the old carrier disk) and pulley body at Z >= 23.6 retain their geometry.
+The default new design then checks its 35 unchanged local parts, 72 unchanged installed parts including the two head objects, and three preserved mating regions. Allowed changes include the belt, motor pulley, knee gears, their carrier/frame/hub, moved planet bearings/pins, and the new three-part frame and its fasteners. The motor grub screw is absent. The hip-side frame at Y >= 44, distal carrier mount at Y <= -26 (beyond the old carrier disk) and pulley body at Z >= 23.6 retain their geometry.
 
 Reports are geometric evidence, not certification that any chosen printer, belt, screw or motor will assemble and carry load. The thin planet wall, screwless shaft connection and stock-belt length mismatch are explicit limitations in the report and print notes.
 
@@ -27,9 +27,9 @@ Reports are geometric evidence, not certification that any chosen printer, belt,
 
 The input is the user's supplied `ria.zip`, containing the previous 28/14/56 build, Python source, reference STEP models and timing-pulley profile references.
 
-`ria/assets.py` selects the two original head objects, the hip nose clipped from the original local leg, and sixteen named existing/purchased hip components. Each retained compressed B-rep is accompanied by the source-relative path, SHA-256 of the source STEP bytes, SHA-256 of the cached B-rep, volume, bounds and solid count in `assets/reference/manifest.json`. No user-specific upload path is embedded in the application.
+`src/assets.py` selects the two original head objects, the hip nose clipped from the original local leg, and sixteen named existing/purchased hip components. Each retained compressed B-rep is accompanied by the source-relative path, SHA-256 of the source STEP bytes, SHA-256 of the cached B-rep, volume, bounds and solid count in `assets/reference/manifest.json`. No user-specific upload path is embedded in the application.
 
-`ria/gears.py` rewrites the original Python's involute construction and sampling; it does not import or execute the archived SCAD. The timing groove polygon in `ria/belt.py` retains the archived `tooth_profile_GT2_3mm` coordinates, width allowance and depth offset without re-fitting. The archive attributes the timing-profile source to droftarts and rbuckland; its `pulley_profiles.scad` also credits Per Ivar Nerseth's modifications. This inherited groove is not asserted to be a manufacturer-certified GT3 profile.
+`src/gears.py` rewrites the original Python's involute construction and sampling; it does not import or execute the archived SCAD. The timing groove polygon in `src/belt.py` retains the archived `tooth_profile_GT2_3mm` coordinates, width allowance and depth offset without re-fitting. The archive attributes the timing-profile source to droftarts and rbuckland; its `pulley_profiles.scad` also credits Per Ivar Nerseth's modifications. This inherited groove is not asserted to be a manufacturer-certified GT3 profile.
 
 Original third-party notices and ownership are not replaced by a new licence grant here. The supplied `involute_gears.scad` identifies GregFrost and a Creative Commons / GNU LGPL 2.1 licence, but that SCAD implementation is not required or distributed as runtime source by this rewrite. The original archive remains the provenance record for the supplied references. No licence for purchased/reference CAD is inferred from its presence in that archive.
 
@@ -38,7 +38,7 @@ Original third-party notices and ownership are not replaced by a new licence gra
 
 All exported STL coordinates are in millimetres and touch Z=0. Caps face the bed on the head shell and both pulleys; the planet bearing socket faces up. The assembly STEP/GLB poses are unchanged by these print orientations.
 
-There are eight distinct robot prints: upper leg/ring (2), carrier (2), 12T planet (6), sun/48T pulley (2), motor pulley (2), hip pinion (2), head shell (1), head lid (1). The seven additional files are fit coupons, not assembly components. Quantity and orientation are also recorded in `build/print_manifest.json`.
+There are ten distinct robot prints: hip link (2), knee backplate (2), knee ring (2), carrier (2), 12T planet (6), sun/48T pulley (2), motor pulley (2), hip pinion (2), head shell (1), head lid (1). The nine additional files are fit coupons, not assembly components. Quantity and orientation are also recorded in `build/print_manifest.json`.
 
 ## fit first
 
@@ -46,7 +46,7 @@ Try the 8.0/8.1/8.2 mm bearing coupons, the 2.9/3.0/3.1 mm pin pilots and the 16
 
 The 12T planet root diameter is 9.5 mm. Its 8.1 mm bearing seat leaves only **0.70 mm of radial material**. Do not assume it can withstand a forced bearing insertion or rated motor torque. Inspect the sliced wall and tooth paths, print a planet, and check it before assembling the robot. No material or infill prescription here is a strength certification.
 
-The frame's raised backplate/bridge still needs underside support. Inspect support contact around the ring teeth, bearing bores, hip interface and head features in the slicer. Cap-down pulley orientation reduces the large underside overhang; the small sun-to-hub transition still needs a slicer check. The project does not contain printer-specific G-code or a validated support strategy.
+The frame is now three flat-printing parts. Both knee pieces have no unsupported growth in the 0.2 mm layer audit; the unchanged hip has two small counterbore bridges. Inspect the head and other retained parts in the slicer. Cap-down pulley orientation reduces the large underside overhang; the small sun-to-hub transition still needs a slicer check. The project does not contain printer-specific G-code or a validated support strategy.
 
 The exploded/cutaway appearance in a preview is never a printable part. Bearings, wires, purchased motors, metal pins, inner-race spacers and screws are context/hardware geometry, not included as fake plastic substitutes.
 
@@ -60,7 +60,7 @@ There is **no motor-pulley grub screw** in the new bill of materials, and no rad
 
 ## assembly order
 
-Start with the carrier, central bearing and rear inner spacer, without the three dowels. Slide that assembly into the side opening below the ring, then seat it. Install the dowels with the carrier supported; the rear access windows track their new 15 mm orbit. Do not use insertion force to compensate for an incorrect print fit.
+Start with the carrier, central bearing and rear inner spacer, without the planet dowels. Place it on the separate knee backplate before attaching the ring; see the flat-print frame sequence below. Install the planet dowels with the carrier supported; the rear access windows track their 15 mm orbit. Do not use insertion force to compensate for an incorrect print fit.
 
 Fit a bearing into each planet and lower each onto its pin, phased as shown in the neutral CAD pose. The bearing protrudes 0.3 mm behind the gear. Its inner race rests on the carrier pad; the outer race clears the annular recess.
 
@@ -71,3 +71,13 @@ Install the rotated SG90 and route its leads as in the supplied geometry. The wi
 The drawn taut pitch path is **298.339 mm at 100 mm centres**. A nominal 300 mm pitch-length belt has 1.661 mm extra length. The render contains no bow, but does not make that stock belt taut. No tensioner, centre adjustment or retention solution is specified by this port.
 
 Check assembly access, retention, free movement, backlash, axial play and belt tracking by hand before any powered test. The correct input-to-output ratio is 10:1, with the ring fixed. Actual load capacity, service life, friction and belt skipping remain to be established.
+
+## flat-print leg frame
+
+The old monolithic leg is replaced by `hip_link`, `knee_backplate` and `knee_ring`. Print two of each using the exported orientations: all three broad front faces go down. Heights are 9.7, 8.2 and 10.4 mm. The old `upper_leg.stl` is removed on rebuild. The hip/knee centres, ring teeth and drivetrain stack are unchanged.
+
+Per leg: three M3x25 socket-head screws, three M3 nuts (5.5 mm flats, 2.4 mm thick), three M3 washers (7 mm OD, 0.5 mm thick), two 3x25 mm smooth steel dowels. Nuts seat in the rear pockets. Bolts clamp; dowels locate the ring. The hip link uses 2.95 mm press pilots; the upper pieces use 3.05 mm slip bores. Test the two supplied frame-dowel coupons first. Do not force an undersized printed bore.
+
+Seat the nuts. Fit the carrier bearing and rear spacer and place the carrier on the backplate before fitting the ring. Stack the three frame pieces, start the screws loosely, then install the locating dowels flush with the ring face while supporting the hip link. Snug screws progressively; do not crush the nut-pocket floor. Finish the existing planet/input assembly above. Screw tips extend 1.4 mm and dowels 1.9 mm behind the hip plate, included in the collision check.
+
+`frame_print_parts.png` shows actual print orientations; `frame_exploded.png` is assembly only. Each frame STL is checked at 0.2 mm layers for floating islands and growth beyond 45 degrees. Both knee parts pass without unsupported growth. The retained hip has two short counterbore bridges (unsupported components under 7 mm), explicitly reported in `frame_printability.json`. Check their bridge paths in your slicer. This is not G-code or a physical print test. An 8 mm driver envelope clears each clamp screw in the neutral assembly. Printed fits, bolt preload, stiffness and fatigue strength still require testing.

@@ -1,8 +1,9 @@
 """Design inputs and derived dimensions. All lengths are millimetres.
 
 The supplied model defines the unchanged hip interfaces and axial stack.
-Only the planetary tooth counts, ring margin, belt display and motor pulley
-retaining screw differ from the archived 28/14/56 prototype.
+The default frame is now three flat-printing parts. The planetary tooth
+counts, ring margin, belt display and motor pulley also differ from the
+archived 28/14/56 prototype, which remains an explicit regression fixture.
 """
 
 from dataclasses import dataclass, field
@@ -156,6 +157,7 @@ class RobotConfig:
     hip_world_offset: float = 40.7
     knee_world_height: float = -88.0
     knee_travel: float = 120.0
+    split_frame: bool = True
 
     @property
     def total_ratio(self) -> float:
@@ -173,4 +175,5 @@ class RobotConfig:
                             ring_root_wall=1.75),
             belt=BeltDrive(model_slack=True),
             motor_set_screw=True,
+            split_frame=False,
         )

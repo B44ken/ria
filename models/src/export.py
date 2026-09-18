@@ -13,6 +13,7 @@ from trimesh.visual.material import PBRMaterial
 from .belt import timing_pulley
 from .config import RobotConfig
 from .geometry import annulus, bounds, cylinder
+from .frame import FRAME_PARTS, JOINT
 from .model import COLOURS, Model, Part
 from .robot import head_transform
 
@@ -78,6 +79,10 @@ def fit_coupons() -> list[Part]:
         name = f"fit_pin_{diameter:.1f}".replace(".", "p")
         parts.append(Part(name, annulus(4, diameter / 2, 0, 4), print_quantity=1,
                           note=f"3 mm steel dowel fit coupon; {diameter:.1f} mm pilot."))
+    for diameter in (2.95, 3.05):
+        name = f"fit_frame_dowel_{diameter:.2f}".replace(".", "p")
+        parts.append(Part(name, annulus(4, diameter / 2, 0, 4.5), print_quantity=1,
+                          note=f"Frame locating dowel coupon; {diameter:.2f} mm CAD bore."))
     pulley = timing_pulley(16, 0, 3).cut(cylinder(2.45, -0.1, 3.1))
     parts.append(Part("fit_pulley_16t_4p9", pulley, material="yellow", print_quantity=1,
                       note="Check the actual belt tooth profile and 4.8 mm shaft in this 4.9 mm bore."))
@@ -96,7 +101,7 @@ def export_printables(parts: list[Part], directory: Path) -> tuple[list[dict], d
     records, meshes = [], {}
     for part in parts:
         # Put closed caps on the bed; leave bearing sockets facing upward.
-        flip = part.name in {"head_shell", "sun_pulley", "motor_pulley", "planet_0"}
+        flip = part.name in {"head_shell", "sun_pulley", "motor_pulley", "planet_0", *FRAME_PARTS}
         oriented = part.shape.rotate((0, 0, 0), (1, 0, 0), 180) if flip else part.shape
         extent = bounds(oriented)
         transform = (-(extent[0][0] + extent[1][0]) / 2,
@@ -117,6 +122,7 @@ def export_printables(parts: list[Part], directory: Path) -> tuple[list[dict], d
         records.append({"name": part.name, "file": f"printable/{path.name}",
                         "quantity_for_robot": part.print_quantity, "note": part.note,
                         "rotation_deg_xyz": [180 if flip else 0, 0, 0],
+                        "translation_mm": list(transform),
                         "bounds_mm": mesh.bounds.tolist(), "volume_mm3": float(mesh.volume),
                         "watertight": True, "single_solid": True,
                         "sha256": sha256(path.read_bytes()).hexdigest()})
@@ -133,6 +139,11 @@ def part_record(part: Part) -> dict:
 def export_models(knee: Model, robot: Model | None, config: RobotConfig,
                   destination: Path) -> dict:
     destination.mkdir(parents=True, exist_ok=True)
+    # Remove only obsolete generated frame artifacts when upgrading an existing build.
+    if config.split_frame:
+        for relative in ("printable/upper_leg.stl", "cad_parts/upper_leg.step",
+                         "previews/parts/upper_leg.png"):
+            (destination / relative).unlink(missing_ok=True)
     part_dir = destination / "cad_parts"
     part_dir.mkdir(exist_ok=True)
     knee_mesh = make_meshes(knee)
@@ -141,6 +152,10 @@ def export_models(knee: Model, robot: Model | None, config: RobotConfig,
     print("  exporting knee STEP / glTF", flush=True)
     knee.assembly("ria_knee").export(str(destination / "knee.step"))
     export_glb(knee, knee_mesh, destination / "knee.glb")
+    if config.split_frame:
+        frame = Model(parts=[p for p in knee.parts if p.name in FRAME_PARTS or p.name.startswith("frame_")])
+        frame.assembly("ria_printable_frame").export(str(destination / "frame.step"))
+        export_glb(frame, knee_mesh, destination / "frame.glb")
     full_mesh = None
     if robot:
         print("  exporting robot STEP / glTF", flush=True)
@@ -152,7 +167,8 @@ def export_models(knee: Model, robot: Model | None, config: RobotConfig,
     manifest, print_mesh = export_printables(prints, destination / "printable")
     (destination / "print_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     metadata = {"units": {"cad": "mm", "stl": "mm", "glb": "m, Y-up"},
-                "config": asdict(config), "derived": {
+                "config": asdict(config),
+                "frame_joint": asdict(JOINT) if config.split_frame else None, "derived": {
                     "planetary_ratio": config.gears.sun_per_carrier,
                     "planet_absolute_spin_per_carrier": config.gears.planet_per_carrier,
                     "belt_ratio": config.belt.ratio, "total_ratio": config.total_ratio,

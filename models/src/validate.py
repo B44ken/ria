@@ -22,6 +22,8 @@ from .config import RobotConfig
 from .export import CAD_TO_GLTF
 from .gears import external_profile, internal_void_profile
 from .geometry import bounds
+from .frame import JOINT, FRAME_PARTS
+from .printability import audit_frame_prints
 from .model import Model
 
 
@@ -66,9 +68,12 @@ def check_carrier_sweep(config: RobotConfig, samples: int = 241) -> dict:
     if root > -20:
         lug = [(-8, root), *lug, (8, root)]
     carrier = Point(0, 0).buffer(radius, quad_segs=256).union(Polygon(lug))
-    neck = Polygon([(-10, g.case_radius - 5), (10, g.case_radius - 5),
-                    (10, g.case_radius + 5), (-10, g.case_radius + 5)])
-    neck = neck.difference(Point(0, 0).buffer(g.case_radius - 1.4, quad_segs=256))
+    if config.split_frame:
+        neck = Polygon(JOINT.outline).difference(Point(0, 0).buffer(JOINT.neck_inner_radius, quad_segs=256))
+    else:
+        neck = Polygon([(-10, g.case_radius - 5), (10, g.case_radius - 5),
+                        (10, g.case_radius + 5), (-10, g.case_radius + 5)])
+        neck = neck.difference(Point(0, 0).buffer(g.case_radius - 1.4, quad_segs=256))
     peak, minimum = 0.0, float("inf")
     for angle in np.linspace(-config.knee_travel, config.knee_travel, samples):
         moving = rotate(carrier, float(angle), origin=(0, 0))
@@ -77,7 +82,7 @@ def check_carrier_sweep(config: RobotConfig, samples: int = 241) -> dict:
     return {"samples": samples, "range_deg": [-config.knee_travel, config.knee_travel],
             "worst_carrier_neck_overlap_mm2": peak, "minimum_carrier_neck_gap_mm": minimum,
             "rear_plate_axial_gap_mm": config.stack.carrier_bottom - config.stack.backplate_top,
-            "scope": "Conservative carrier silhouette against neck; web and backplate lie below the carrier. No combined hip sweep.",
+            "scope": "Conservative carrier silhouette against neck; link and backplate lie below the carrier. No combined hip sweep.",
             "pass": peak < 1e-6 and minimum > 0 and config.stack.carrier_bottom > config.stack.backplate_top}
 
 
@@ -124,7 +129,7 @@ def check_static(knee: Model, robot: Model | None) -> dict:
             continue
         pair = frozenset((a, b))
         if not installed and ((a in gear_names and b in gear_names)
-                              or ("upper_leg" in pair and bool(pair & gear_names))):
+                              or (bool(pair & {"upper_leg", "knee_ring"}) and bool(pair & gear_names))):
             checked.append({"parts": [a, b], "method": "extruded-profile gear audit and disjoint axial stack"})
             continue
         # Intersect the actual B-reps, including purchased/reference interfaces.
@@ -150,9 +155,39 @@ def check_static(knee: Model, robot: Model | None) -> dict:
             "scope": "All neutral local pairs and installed cross-group pairs broadphase checked. Gear extrusion pairs use the all-phase profile test. No load/deflection or combined hip motion analysis."}
 
 
+
+def check_frame_access(knee: Model) -> dict:
+    """Straight 8 mm diameter driver access from the installed front side."""
+    from .geometry import cylinder
+    collisions, paths = [], []
+    for index, centre in enumerate(JOINT.bolts):
+        driver = cylinder(4, 26.7, 70, centre)
+        checks = []
+        for part in knee.parts:
+            if broadphase(driver, part.shape):
+                volume = max(0.0, driver.intersect(part.shape).Volume())
+                checks.append({"part": part.name, "overlap_mm3": volume})
+                if volume > 0.012:
+                    collisions.append({"bolt": index, "part": part.name, "overlap_mm3": volume})
+        paths.append({"bolt": index, "centre_mm": list(centre), "radius_mm": 4,
+                      "z_range_mm": [26.7, 70], "checks": checks})
+    parts = knee.by_name()
+    contacts = []
+    for first, second in (("hip_link", "knee_backplate"), ("knee_backplate", "knee_ring")):
+        gap = parts[first].shape.distance(parts[second].shape)
+        contacts.append({"parts": [first, second], "gap_mm": gap})
+    return {"driver_paths": paths, "unexpected_driver_collisions": collisions,
+            "clamped_contacts": contacts, "pass": not collisions and all(p["gap_mm"] < 1e-6 for p in contacts),
+            "scope": "Driver envelope and real mating contact. Bolt preload and printed joint strength are not rated."}
+
+
 def check_exports(build: Path, knee: Model, robot: Model | None) -> dict:
     records = []
-    for name, model in (("knee", knee), ("robot", robot)):
+    assemblies = [("knee", knee), ("robot", robot)]
+    if "hip_link" in knee.by_name() and (build / "frame.step").exists():
+        frame = Model(parts=[p for p in knee.parts if p.name in FRAME_PARTS or p.name.startswith("frame_")])
+        assemblies.append(("frame", frame))
+    for name, model in assemblies:
         if model is None:
             continue
         path = build / (name + ".glb")
@@ -199,6 +234,10 @@ def validate_build(knee: Model, robot: Model | None, config: RobotConfig, export
         print("checking " + name, flush=True)
         checks[name] = call()
         (build / "validation.json").write_text(json.dumps(checks, indent=2) + "\n")
+    if config.split_frame:
+        print("checking flat-print frame layers", flush=True)
+        checks["frame_printability"] = audit_frame_prints(build)
+        checks["frame_access"] = check_frame_access(knee)
     checks["pass"] = all(item["pass"] for item in checks.values())
     checks["limitations"] = [
         "12T planet: 0.70 mm radial wall at the 8.1 mm bearing seat. Print and test coupons; strength/life not established.",

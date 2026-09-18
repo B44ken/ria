@@ -53,4 +53,4 @@ def add_knee_hardware(model: Model, config: RobotConfig) -> None:
     axle = axle.cut(box(3.6, 0.8, 1.2, (0, 0, 31.4))).cut(box(0.8, 3.6, 1.2, (0, 0, 31.4)))
     model.add("knee_axle", axle, material="steel", archived_name="common_axle_M3x20_pan",
               note="Fixed M3 x 20 knee bearing axle; not a lead screw or a motor-pulley grub screw.")
-    model.fit("knee_axle", "upper_leg", "M3 axle in 2.5 mm tap pilot")
+    model.fit("knee_axle", "knee_backplate" if config.split_frame else "upper_leg", "M3 axle in 2.5 mm tap pilot")

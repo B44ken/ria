@@ -12,12 +12,15 @@ from .assets import AssetLibrary, HEAD_OBJECTS, SourceArchive
 from .config import RobotConfig
 from .export import mesh_of
 from .geometry import bounds, box
+from .frame import FRAME_PARTS
 from .knee import build_knee
 from .model import Model
 from .robot import installed
 
 # These are the only local parts allowed to differ from the 28/14/56 build.
-CHANGED = {"upper_leg", "carrier", "sun_pulley", "motor_pulley", "belt"}
+CHANGED = {"upper_leg", "carrier", "sun_pulley", "motor_pulley", "belt", *FRAME_PARTS}
+CHANGED |= {f"frame_{kind}_{i}" for kind in ("screw", "washer", "nut") for i in range(3)}
+CHANGED |= {f"frame_dowel_{i}" for i in range(2)}
 CHANGED |= {f"planet_{i}" for i in range(3)}
 CHANGED |= {f"planet_pin_{i}" for i in range(3)}
 CHANGED |= {f"planet_bearing_{i}_{race}" for i in range(3) for race in ("inner", "outer", "shields")}
@@ -99,7 +102,8 @@ def compare_source(knee: Model, robot: Model | None, assets: AssetLibrary,
         interfaces = []
         for name, clip in regions:
             first = previous[name].shape.intersect(clip)
-            second = knee.by_name()[name].shape.intersect(clip)
+            current_name = "hip_link" if name == "upper_leg" and "hip_link" in knee.by_name() else name
+            second = knee.by_name()[current_name].shape.intersect(clip)
             delta = first.cut(second).Volume() + second.cut(first).Volume()
             interfaces.append({"part": name, "symmetric_difference_mm3": delta, "pass": delta < 1e-4})
         head = []

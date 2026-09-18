@@ -13,6 +13,7 @@ from vtk.util.numpy_support import numpy_to_vtk, numpy_to_vtkIdTypeArray
 
 from .export import CAD_TO_GLTF
 from .model import COLOURS, Part
+from .frame import FRAME_PARTS
 from .config import RobotConfig
 from .robot import motion_transform
 
@@ -51,7 +52,7 @@ def render_image(meshes: dict, materials: dict, path: Path, *, target=(0, 40, 15
         if cutaway and (name == "belt" or name == "motor_pulley" or name.startswith("hip_")):
             continue
         data = polydata(mesh)
-        if cutaway and name in ("sun_pulley", "upper_leg"):
+        if cutaway and name in ("sun_pulley", "upper_leg", "knee_ring"):
             is_sun = name == "sun_pulley"
             # Remove the pulley and hub above the sun, closing the section face.
             plane = vtk.vtkPlane()
@@ -157,6 +158,8 @@ def render_build(build: Path, config: RobotConfig, *, animate: bool = True) -> N
                      path, target=target, camera=camera, up=(0, 0, 1), scale=scale, size=(600, 520))
         tiles.append((path, name))
     contact_sheet(tiles, output / "all_printables.png")
+    if config.split_frame:
+        render_frame(build, knee, materials, output)
     if animate:
         frames, tiles = [], []
         for index, angle in enumerate(np.linspace(-120, 120, 25)):
@@ -176,3 +179,30 @@ def render_build(build: Path, config: RobotConfig, *, animate: bool = True) -> N
                          duration=90, loop=0, disposal=2)
         contact_sheet(tiles, output / "motion_contact_sheet.png", columns=5)
     print("  rendered previews, print contact sheet and motion", flush=True)
+
+
+def render_frame(build: Path, knee: dict, materials: dict, output: Path) -> None:
+    """Print-bed orientation and exploded view from the actual exported meshes."""
+    tiles, layout = [], {}
+    for index, name in enumerate(FRAME_PARTS):
+        mesh = trimesh.load_mesh(build / "printable" / (name + ".stl"), process=True)
+        layout[name] = mesh.copy().apply_translation(((index - 1) * 65, 0, 0))
+        tiles.append((output / "parts" / (name + ".png"), name + "  x2"))
+    contact_sheet(tiles, output / "frame_print_parts.png")
+    render_image(layout, materials, output / "frame_print_layout.png",
+                 target=(0, 0, 2), camera=(85, -190, 225), up=(0, 0, 1),
+                 scale=83, size=(1600, 1100))
+    selected = {name: mesh for name, mesh in knee.items()
+                if name in FRAME_PARTS or name.startswith("frame_")}
+    render_image(selected, materials, output / "frame_assembled.png",
+                 target=(0, 44, 9), camera=(150, -145, 245),
+                 scale=87, size=(1200, 1400))
+    exploded = {}
+    for name, mesh in selected.items():
+        height = {"hip_link": 0, "knee_backplate": 18, "knee_ring": 42}.get(name, 0)
+        if name.startswith(("frame_screw", "frame_washer", "frame_dowel")):
+            height = 65
+        exploded[name] = mesh.copy().apply_translation((0, 0, height))
+    render_image(exploded, materials, output / "frame_exploded.png",
+                 target=(0, 46, 35), camera=(170, -190, 180),
+                 scale=104, size=(1300, 1500))

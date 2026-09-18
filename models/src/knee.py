@@ -12,6 +12,7 @@ from .assets import AssetLibrary
 from .belt import belt_envelope, timing_pulley
 from .config import RobotConfig
 from .gears import external_profile, internal_void_profile
+from .frame import add_frame
 from .geometry import along_axis, annulus, box, cylinder, prism
 from .hardware import add_knee_hardware
 from .hip import add_hip
@@ -19,6 +20,7 @@ from .model import Model
 
 
 def upper_leg(assets: AssetLibrary, config: RobotConfig) -> cq.Shape:
+    """Regression only: the old suspended monolith, never a default print."""
     gears, stack = config.gears, config.stack
     frame = assets.load("hip_nose").fuse(box(20, 55, 4.5, (0, 66.5, 2.25)))
     frame = frame.cut(box(12.5, 23.5, 6, (0, 62.5, 2.25)))
@@ -115,9 +117,12 @@ def motor_pulley(config: RobotConfig) -> cq.Shape:
 def build_knee(assets: AssetLibrary, config: RobotConfig) -> Model:
     model = Model()
     gears = config.gears
-    model.add("upper_leg", upper_leg(assets, config), print_quantity=2,
-              archived_name="upper_leg_100mm_integral_ring",
-              note=f"100 mm centres; integral {gears.ring_teeth}T ring; {2 * gears.case_radius:g} mm case.")
+    if config.split_frame:
+        add_frame(model, assets, config)
+    else:  # Original one-piece frame exists only for geometry regression.
+        model.add("upper_leg", upper_leg(assets, config),
+                  archived_name="upper_leg_100mm_integral_ring",
+                  note="Archived monolithic frame; not an exported print design.")
     model.add("carrier", output_carrier(config), material="cyan", motion="carrier", print_quantity=2,
               archived_name="knee_output_carrier", note="Rear carrier; original lower-leg mounting interface.")
     planet_shape = planet(config)

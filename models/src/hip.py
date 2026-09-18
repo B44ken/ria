@@ -65,9 +65,9 @@ def add_hip(model: Model, assets: AssetLibrary, config: RobotConfig) -> None:
         name = f"hip_servo_mount_screw_{index}"
         model.add(name, shape, material="steel", motion="context",
                   archived_name=f"hip_SG90_mount_M2x10_direct_screw_{index}")
-        model.fit(name, "upper_leg", "M2 mounting screw in 1.6 mm tap pilot")
+        model.fit(name, "hip_link" if config.split_frame else "upper_leg", "M2 mounting screw in 1.6 mm tap pilot")
 
     for index in (2, 3, 4):
         model.add(f"hip_servo_wire_{index}", servo_wire(index), material="dark", motion="context",
                   archived_name=f"hip_sg90_wire_{index}")
-    model.fit("hip_axle_m3x12_pan_screw", "upper_leg", "Original hip axle / tap pilot")
+    model.fit("hip_axle_m3x12_pan_screw", "hip_link" if config.split_frame else "upper_leg", "Original hip axle / tap pilot")

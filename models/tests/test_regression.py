@@ -4,12 +4,12 @@ from pathlib import Path
 import cadquery as cq
 import pytest
 
-from ria.assets import HEAD_OBJECTS, SourceArchive
-from ria.config import RobotConfig
-from ria.export import mesh_of
-from ria.model import Part
-from ria.regression import compare_part, reference_solid
-from ria.robot import installed
+from src.assets import HEAD_OBJECTS, SourceArchive
+from src.config import RobotConfig
+from src.export import mesh_of
+from src.model import Part
+from src.regression import compare_part, reference_solid
+from src.robot import installed
 
 
 @pytest.fixture
@@ -54,8 +54,8 @@ def test_exact_fallback_cannot_hide_a_changed_solid(reference_archive, changed):
 
 
 def test_distal_carrier_mount_stays_put_beyond_the_resized_disk():
-    from ria.geometry import box
-    from ria.knee import output_carrier
+    from src.geometry import box
+    from src.knee import output_carrier
 
     # The old disk reaches Y=-25.5; the new disk reaches only Y=-19.5.
     # The unchanged mounting region contains both holes, at -31 and -37.

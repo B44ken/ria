@@ -24,11 +24,11 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     # Imports stay here: importing main has no CAD, filesystem, or viewer side effects.
     try:
-        from ria.assets import AssetLibrary, import_assets
-        from ria.config import RobotConfig
-        from ria.export import export_models
-        from ria.knee import build_knee
-        from ria.robot import build_robot
+        from src.assets import AssetLibrary, import_assets
+        from src.config import RobotConfig
+        from src.export import export_models
+        from src.knee import build_knee
+        from src.robot import build_robot
 
         if args.import_source:
             print("Importing unchanged reference geometry", flush=True)
@@ -41,13 +41,13 @@ def main(argv: list[str] | None = None) -> int:
         exported = export_models(knee, robot, config, args.output)
         passed = True
         if not args.no_validate:
-            from ria.validate import validate_build
+            from src.validate import validate_build
             passed = validate_build(knee, robot, config, exported, args.output)["pass"]
         if args.compare_source:
-            from ria.regression import compare_source
+            from src.regression import compare_source
             passed &= compare_source(knee, robot, assets, args.compare_source, args.output)["pass"]
         if not args.no_render:
-            from ria.render import render_build
+            from src.render import render_build
             render_build(args.output, config, animate=not args.no_animation)
         print("Outputs: " + str(args.output.resolve()), flush=True)
         if not passed:

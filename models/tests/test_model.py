@@ -10,14 +10,14 @@ import pytest
 from shapely.affinity import rotate
 from shapely.geometry import Polygon
 
-from ria.assets import AssetLibrary
-from ria.belt import belt_path, pulley_outline
-from ria.config import BeltDrive, GearTrain, RobotConfig
-from ria.gears import external_profile, internal_void_profile
-from ria.knee import motor_pulley, output_carrier, sun_and_pulley
-from ria.model import Part
-from ria.robot import head_transform, installed, motion_transform
-from ria.validate import check_carrier_sweep, check_gears
+from src.assets import AssetLibrary
+from src.belt import belt_path, pulley_outline
+from src.config import BeltDrive, GearTrain, RobotConfig
+from src.gears import external_profile, internal_void_profile
+from src.knee import motor_pulley, output_carrier, sun_and_pulley
+from src.model import Part
+from src.robot import head_transform, installed, motion_transform
+from src.validate import check_carrier_sweep, check_gears
 
 
 def test_default_ratios_and_envelopes():
