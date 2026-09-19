@@ -1,10 +1,6 @@
-/build/
-/assets/reference/*.brep.xz
-__pycache__/
-.pytest_cache/
-.venv/
+build
+agents.md
+__pycache__
 *.pyc
+.vscode
 .DS_Store
-
-/models/build/
-/models/assets/reference/
