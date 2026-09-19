@@ -10,7 +10,7 @@ import pytest
 from shapely.affinity import rotate
 from shapely.geometry import Polygon
 
-from src.assets import AssetLibrary
+from src.assets import MotorLibrary
 from src.belt import belt_path, pulley_outline
 from src.config import BeltDrive, GearTrain, RobotConfig
 from src.gears import external_profile, internal_void_profile
@@ -148,18 +148,18 @@ def test_importing_entrypoint_does_not_build(tmp_path, monkeypatch):
 
 
 def test_missing_assets_has_actionable_error(tmp_path):
-    with pytest.raises(FileNotFoundError, match="--import-source"):
-        AssetLibrary(tmp_path)
+    with pytest.raises(FileNotFoundError, match="Vendored motor assets"):
+        MotorLibrary(tmp_path)
 
 
 def test_manifest_cannot_escape_assets_directory(tmp_path):
     (tmp_path / "manifest.json").write_text(json.dumps({"parts": {"bad": {"file": "../escape.brep.xz"}}}))
     with pytest.raises(ValueError, match="outside"):
-        AssetLibrary(tmp_path).load("bad")
+        MotorLibrary(tmp_path).load("bad")
 
 
 def test_asset_checksum_is_enforced(tmp_path):
     (tmp_path / "bad.brep.xz").write_bytes(b"corrupt")
     (tmp_path / "manifest.json").write_text(json.dumps({"parts": {"bad": {"file": "bad.brep.xz", "sha256": "wrong"}}}))
     with pytest.raises(ValueError, match="checksum"):
-        AssetLibrary(tmp_path).load("bad")
+        MotorLibrary(tmp_path).load("bad")

@@ -8,21 +8,21 @@ from math import cos, radians, sin
 
 import cadquery as cq
 
-from .assets import AssetLibrary
+from .assets import MotorLibrary
 from .belt import belt_envelope, timing_pulley
 from .config import RobotConfig
 from .gears import external_profile, internal_void_profile
 from .frame import add_frame
 from .geometry import along_axis, annulus, box, cylinder, prism
 from .hardware import add_knee_hardware
-from .hip import add_hip
+from .hip import add_hip, hip_nose
 from .model import Model
 
 
-def upper_leg(assets: AssetLibrary, config: RobotConfig) -> cq.Shape:
+def upper_leg(config: RobotConfig) -> cq.Shape:
     """Regression only: the old suspended monolith, never a default print."""
     gears, stack = config.gears, config.stack
-    frame = assets.load("hip_nose").fuse(box(20, 55, 4.5, (0, 66.5, 2.25)))
+    frame = hip_nose(config).fuse(box(20, 55, 4.5, (0, 66.5, 2.25)))
     frame = frame.cut(box(12.5, 23.5, 6, (0, 62.5, 2.25)))
     for y in (48.5, 76.5):
         frame = frame.cut(cylinder(0.8, -0.1, 4.6, (0, y)))
@@ -114,13 +114,13 @@ def motor_pulley(config: RobotConfig) -> cq.Shape:
     return shape.translate((0, config.belt.centre_distance, 0))
 
 
-def build_knee(assets: AssetLibrary, config: RobotConfig) -> Model:
+def build_knee(motors: MotorLibrary, config: RobotConfig) -> Model:
     model = Model()
     gears = config.gears
     if config.split_frame:
-        add_frame(model, assets, config)
+        add_frame(model, config)
     else:  # Original one-piece frame exists only for geometry regression.
-        model.add("upper_leg", upper_leg(assets, config),
+        model.add("upper_leg", upper_leg(config),
                   archived_name="upper_leg_100mm_integral_ring",
                   note="Archived monolithic frame; not an exported print design.")
     model.add("carrier", output_carrier(config), material="cyan", motion="carrier", print_quantity=2,
@@ -150,5 +150,5 @@ def build_knee(assets: AssetLibrary, config: RobotConfig) -> Model:
               archived_name="300_3MGT_6_belt_slack_envelope",
               note="Smooth backing envelope; straight external-tangent spans; teeth omitted.")
     add_knee_hardware(model, config)
-    add_hip(model, assets, config)
+    add_hip(model, motors, config)
     return model

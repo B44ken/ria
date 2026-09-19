@@ -28,33 +28,40 @@ currently i'm working on the robot model itself, there will be software soon i p
 
 ### models
 
-for the time being ria relies on a bunch of assets from the old version, you'll need to import (below). specifically, we the hip and head aren't parametric yet and we don't have motor models vendored.
+the head, lid, hip mounts and printed gears are parametric python. the supplied 5010 and sg90 models are vendored in `models/assets/motors`; a fresh clone needs no old archive or import step.
 
 ```bash
 python -m pip install -r requirements.txt
-cd models
-python main.py --import-source /path/to/ria.zip
+python models/main.py
 ```
 
-then you can just run normally (build, help, test, respectively)
+outputs go to `models/build`. help and tests:
 
 ```bash
-python main.py
-python main.py --help
-python -m pytest
+python models/main.py --help
+cd models && python -m pytest
 ```
+
+for example, change the head dimensions without editing source:
+
+```bash
+python models/main.py --head-size 84 80 70 --head-wall 3 --output models/build-wide
+```
+
+`HeadConfig`, `HipConfig` and `HipGears` in `models/src/config.py` hold the dimensions. the lid and both hip installations follow the head size; motor/servo mounting patterns and the 28t/36t hip mesh remain fixed hardware interfaces. `--hip-mount-radius` adjusts the printed motor plate, not the motor itself.
 
 building makes some stuff in `build`. namely, you'll want to look at `build/robot.glb` and print the parts listed in `build/print_manifest.json`; `build/printable` also contains fit coupons.
 
 | file | responsibility |
 |---|---|
-| `src/config.py` | design inputs, tooth relationships, reductions and stack datums |
+| `src/config.py` | head/hip dimensions, gear relationships and stack datums |
+| `src/head.py` | shell, lid, bearing housings and integral hip sectors |
 | `src/frame.py` | three flat-print frame parts, bolts and locating pins |
 | `src/knee.py` | carrier, planets, integral sun/pulley and motor pulley |
 | `src/gears.py`, `src/belt.py` | explicit involute profiles, inherited timing grooves, tangent belt path |
-| `src/hardware.py`, `src/hip.py` | named bearings, pins, screws and retained hip hardware |
+| `src/hardware.py`, `src/hip.py` | parametric hip mount/pinion/spacers, bearings and screws |
 | `src/robot.py` | installed transforms and signed motion |
-| `src/assets.py` | one-time reference import, provenance and hash checks |
+| `src/assets.py` | hash-checked vendored motor CAD; archive reader for optional regression only |
 | `src/export.py`, `src/render.py` | STEP, metre-scaled GLB, bed-oriented STLs and actual-geometry previews |
 | `src/validate.py`, `src/regression.py` | geometry audits and comparison with the supplied build |
 

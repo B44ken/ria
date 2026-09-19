@@ -8,7 +8,8 @@ import numpy as np
 import trimesh
 from scipy.spatial import cKDTree
 
-from .assets import AssetLibrary, HEAD_OBJECTS, SourceArchive
+from .assets import MotorLibrary, SourceArchive
+from .head import HEAD_OBJECTS
 from .config import RobotConfig
 from .export import mesh_of
 from .geometry import bounds, box
@@ -75,7 +76,7 @@ def compare_part(part, reference: dict, source: SourceArchive) -> dict:
     return row
 
 
-def compare_source(knee: Model, robot: Model | None, assets: AssetLibrary,
+def compare_source(knee: Model, robot: Model | None, assets: MotorLibrary,
                    source_path: Path, output: Path) -> dict:
     source = SourceArchive(source_path)
     try:

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build ria's head and two upper-leg/knee assemblies. Run `python main.py --help`."""
 import argparse
+from dataclasses import replace
 from pathlib import Path
 import sys
 
@@ -9,9 +10,11 @@ ROOT = Path(__file__).resolve().parent
 
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=__doc__)
-    result.add_argument("--import-source", type=Path, help="Import unchanged reference geometry once from the original ria.zip or its extracted directory.")
-    result.add_argument("--assets", type=Path, default=ROOT / "assets/reference", help="Reference B-rep cache directory.")
+    result.add_argument("--assets", type=Path, default=ROOT / "assets/motors", help="Vendored motor CAD directory (normally leave unchanged).")
     result.add_argument("--output", type=Path, default=ROOT / "build", help="Generated files directory (default: build/ beside main.py).")
+    result.add_argument("--head-size", type=float, nargs=3, metavar=("WIDTH", "DEPTH", "HEIGHT"), help="Head outside dimensions in mm; both hip installations follow its depth.")
+    result.add_argument("--head-wall", type=float, help="Head wall/roof thickness in mm.")
+    result.add_argument("--hip-mount-radius", type=float, help="Printed 5010 mounting-plate radius in mm.")
     result.add_argument("--knee-only", action="store_true", help="Build one local leg assembly, without the head or installed pair.")
     result.add_argument("--no-render", action="store_true", help="Skip VTK previews; CAD and meshes are still exported.")
     result.add_argument("--no-animation", action="store_true", help="Render stills and print contact sheet, without the motion GIF.")
@@ -24,20 +27,23 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     # Imports stay here: importing main has no CAD, filesystem, or viewer side effects.
     try:
-        from src.assets import AssetLibrary, import_assets
+        from src.assets import MotorLibrary
         from src.config import RobotConfig
         from src.export import export_models
         from src.knee import build_knee
         from src.robot import build_robot
 
-        if args.import_source:
-            print("Importing unchanged reference geometry", flush=True)
-            import_assets(args.import_source, args.assets)
-        assets = AssetLibrary(args.assets)
+        assets = MotorLibrary(args.assets)
         config = RobotConfig()
+        if args.head_size:
+            config = replace(config, head=replace(config.head, **dict(zip(("width", "depth", "height"), args.head_size))))
+        if args.head_wall is not None:
+            config = replace(config, head=replace(config.head, wall=args.head_wall))
+        if args.hip_mount_radius is not None:
+            config = replace(config, hip=replace(config.hip, mount_radius=args.hip_mount_radius))
         print("Building 18T / 12T / 42T knee; total reduction 10:1", flush=True)
         knee = build_knee(assets, config)
-        robot = None if args.knee_only else build_robot(knee, assets, config)
+        robot = None if args.knee_only else build_robot(knee, config)
         exported = export_models(knee, robot, config, args.output)
         passed = True
         if not args.no_validate:

@@ -1,4 +1,4 @@
-"""Place two identical leg assemblies into the original head."""
+"""Place two identical legs against the parametric head's shared hip datums."""
 
 from dataclasses import replace
 from math import cos, radians, sin
@@ -6,7 +6,7 @@ from math import cos, radians, sin
 import cadquery as cq
 import numpy as np
 
-from .assets import AssetLibrary, HEAD_OBJECTS
+from .head import HEAD_OBJECTS, head_shell, head_lid
 from .config import RobotConfig
 from .model import Model, Part
 
@@ -27,11 +27,11 @@ def installed(shape: cq.Shape, config: RobotConfig, left: bool = False) -> cq.Sh
     return shape.rotate((0, 0, 0), (0, 0, 1), 180) if left else shape
 
 
-def build_robot(knee: Model, assets: AssetLibrary, config: RobotConfig) -> Model:
+def build_robot(knee: Model, config: RobotConfig) -> Model:
     robot = Model()
-    for name, original_name in HEAD_OBJECTS.items():
-        robot.add(name, assets.load(name), material="head", print_quantity=1,
-                  archived_name=original_name, note="Original head geometry, unchanged.")
+    for name, shape in (("head_shell", head_shell(config)), ("head_lid", head_lid(config))):
+        robot.add(name, shape, material="head", print_quantity=1,
+                  archived_name=HEAD_OBJECTS[name], note="Parametric head geometry; dimensions in config.head and config.hip.")
     for side in ("right", "left"):
         for part in knee.parts:
             robot.parts.append(replace(part, name=f"{side}_{part.name}",

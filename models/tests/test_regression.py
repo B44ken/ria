@@ -4,7 +4,8 @@ from pathlib import Path
 import cadquery as cq
 import pytest
 
-from src.assets import HEAD_OBJECTS, SourceArchive
+from src.assets import SourceArchive
+from src.head import HEAD_OBJECTS
 from src.config import RobotConfig
 from src.export import mesh_of
 from src.model import Part

@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 import trimesh
 
-from src.assets import AssetLibrary
+from src.assets import MotorLibrary
 from src.config import RobotConfig
 from src.export import export_printables
 from src.frame import (FRAME_PARTS, JOINT, add_frame, hip_link, knee_backplate,
@@ -23,16 +23,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="module")
 def assets():
-    path = ROOT / "assets/reference"
-    if not (path / "manifest.json").is_file():
-        pytest.skip("Import ria.zip to run reference-geometry integration tests.")
-    return AssetLibrary(path)
+    return MotorLibrary()
 
 
 @pytest.fixture(scope="module")
 def frame(assets):
     model = Model()
-    add_frame(model, assets, RobotConfig())
+    add_frame(model, RobotConfig())
     return model
 
 
@@ -67,14 +64,14 @@ def test_three_parts_touch_but_do_not_intersect(frame):
 
 
 def test_original_hip_interface_is_unchanged(frame, assets):
-    old = upper_leg(assets, replace(RobotConfig(), split_frame=False))
+    old = upper_leg(replace(RobotConfig(), split_frame=False))
     clip = box(200, 200, 200, (0, 144, 0))
     a, b = old.intersect(clip), frame.by_name()["hip_link"].shape.intersect(clip)
     assert a.cut(b).Volume() + b.cut(a).Volume() < 1e-6
 
 
 def test_original_42t_ring_tooth_region_is_unchanged(frame, assets):
-    old = upper_leg(assets, replace(RobotConfig(), split_frame=False))
+    old = upper_leg(replace(RobotConfig(), split_frame=False))
     clip = cylinder(25, 18.1, 23.1)
     a, b = old.intersect(clip), frame.by_name()["knee_ring"].shape.intersect(clip)
     assert a.cut(b).Volume() + b.cut(a).Volume() < 1e-6

@@ -11,11 +11,11 @@ from dataclasses import dataclass
 
 import cadquery as cq
 
-from .assets import AssetLibrary
 from .config import RobotConfig
 from .gears import internal_void_profile
 from .geometry import annulus, box, cylinder, hex_socket, prism
 from .model import Model
+from .hip import hip_nose, motor_mount_holes
 
 
 @dataclass(frozen=True)
@@ -46,19 +46,18 @@ def joint_holes(shape: cq.Shape, joint: FrameJoint = JOINT, *, press_fit: bool =
     return shape
 
 
-def hip_link(assets: AssetLibrary, joint: FrameJoint = JOINT) -> cq.Shape:
-    """Flat hip/servo spine. Original rear-facing hip boss is retained."""
-    shape = assets.load("hip_nose").fuse(box(20, 41, 4.5, (0, 64.5, 2.25)))
-    shape = shape.fuse(prism(joint.outline, 0, 4.5))
-    shape = shape.cut(box(12.5, 23.5, 6, (0, 62.5, 2.25)))
-    for y in (48.5, 76.5):
+def hip_link(config: RobotConfig, joint: FrameJoint = JOINT) -> cq.Shape:
+    """Flat hip/servo spine, including the parametric rear-facing hip boss."""
+    hip, axis_y = config.hip, config.belt.centre_distance
+    spine_end = axis_y - 15
+    shape = hip_nose(config).fuse(box(20, spine_end - 44, hip.plate_thickness,
+                                     (0, (spine_end + 44) / 2, hip.plate_thickness / 2)))
+    shape = shape.fuse(prism(joint.outline, 0, hip.plate_thickness))
+    servo_y = config.servo_output_y
+    shape = shape.cut(box(12.5, 23.5, 6, (0, servo_y - 5.5, 2.25)))
+    for y in (servo_y - 19.5, servo_y + 8.5):
         shape = shape.cut(cylinder(0.8, -0.1, 4.6, (0, y)))
-    for centre in ((-8, 100), (8, 100), (0, 90.5), (0, 109.5)):
-        shape = shape.cut(cylinder(1.6, -0.1, 4.6, centre))
-        shape = shape.cut(cylinder(3.1, -0.1, 0.2, centre))
-        countersink = cq.Solid.makeCone(3.1, 1.6, 1.5,
-                                       cq.Vector(*centre, 0.2), cq.Vector(0, 0, 1))
-        shape = shape.cut(countersink)
+    shape = motor_mount_holes(shape, config)
     shape = joint_holes(shape, joint, press_fit=True)
     # These pockets face UP in the exported print: no trapped-nut ceiling.
     for centre in joint.bolts:
@@ -116,8 +115,8 @@ def add_frame_hardware(model: Model, config: RobotConfig, joint: FrameJoint = JO
         model.fit(f"frame_dowel_{index}", "hip_link", "3 mm locating dowel retained in 2.95 mm printed press pilot.")
 
 
-def add_frame(model: Model, assets: AssetLibrary, config: RobotConfig) -> None:
-    model.add("hip_link", hip_link(assets), print_quantity=2,
+def add_frame(model: Model, config: RobotConfig) -> None:
+    model.add("hip_link", hip_link(config), print_quantity=2,
               note="Flat hip/servo spine. Print motor face down; captive nut pockets face up.")
     model.add("knee_backplate", knee_backplate(config), print_quantity=2,
               note="Carrier backplate and offset pad. Print carrier face down.")

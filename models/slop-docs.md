@@ -27,7 +27,7 @@ Reports are geometric evidence, not certification that any chosen printer, belt,
 
 The input is the user's supplied `ria.zip`, containing the previous 28/14/56 build, Python source, reference STEP models and timing-pulley profile references.
 
-`src/assets.py` selects the two original head objects, the hip nose clipped from the original local leg, and sixteen named existing/purchased hip components. Each retained compressed B-rep is accompanied by the source-relative path, SHA-256 of the source STEP bytes, SHA-256 of the cached B-rep, volume, bounds and solid count in `assets/reference/manifest.json`. No user-specific upload path is embedded in the application.
+`src/head.py` and `src/hip.py` now construct the custom head, lid, bearing housings, hip mount, pinion and spacers from dimensions. Default geometry is regressed against the original build. Only the four purchased actuator shapes remain as CAD assets: 5010 rotor/stator and SG90 body/spline. They are vendored under `assets/motors/`, with source paths, hashes and coordinate transforms in its manifest. Normal builds do not read the old archive or `assets/reference` cache.
 
 `src/gears.py` rewrites the original Python's involute construction and sampling; it does not import or execute the archived SCAD. The timing groove polygon in `src/belt.py` retains the archived `tooth_profile_GT2_3mm` coordinates, width allowance and depth offset without re-fitting. The archive attributes the timing-profile source to droftarts and rbuckland; its `pulley_profiles.scad` also credits Per Ivar Nerseth's modifications. This inherited groove is not asserted to be a manufacturer-certified GT3 profile.
 
@@ -38,7 +38,7 @@ Original third-party notices and ownership are not replaced by a new licence gra
 
 All exported STL coordinates are in millimetres and touch Z=0. Caps face the bed on the head shell and both pulleys; the planet bearing socket faces up. The assembly STEP/GLB poses are unchanged by these print orientations.
 
-There are ten distinct robot prints: hip link (2), knee backplate (2), knee ring (2), carrier (2), 12T planet (6), sun/48T pulley (2), motor pulley (2), hip pinion (2), head shell (1), head lid (1). The nine additional files are fit coupons, not assembly components. Quantity and orientation are also recorded in `build/print_manifest.json`.
+There are eleven distinct robot prints: hip link (2), knee backplate (2), knee ring (2), carrier (2), 12T planet (6), sun/48T pulley (2), motor pulley (2), hip pinion (2), SG90 ear spacer (4), head shell (1), head lid (1). The nine additional files are fit coupons, not assembly components. Quantity and orientation are also recorded in `build/print_manifest.json`.
 
 ## fit first
 
@@ -54,7 +54,7 @@ The exploded/cutaway appearance in a preview is never a printable part. Bearings
 
 Six 693ZZ bearing envelopes are retained: three planet bearings, one carrier bearing and two input bearings, each nominally 3 x 8 x 4 mm. Three smooth 3 x 8 mm steel dowels locate the planets. The fixed centre uses the original M3 x 20 pan-head axle with modelled 6 mm diameter, 2.4 mm high head.
 
-The metal spacers are 4.1 mm outside diameter / 3.1 mm bore, with lengths 0.7, 0.7, 2.7 and 0.5 mm. The SG90 retains its ear spacers and two M2 x 10 low-head screws (3.8 mm head diameter, 1.55 mm head height). Other hip/motor hardware is unchanged from the supplied references; check purchased head and shaft dimensions against the CAD.
+The metal spacers are 4.1 mm outside diameter / 3.1 mm bore, with lengths 0.7, 0.7, 2.7 and 0.5 mm. The SG90 retains its ear spacers and two M2 x 10 low-head screws (3.8 mm head diameter, 1.55 mm head height). The hip hardware is rebuilt parametrically to the supplied dimensions; check purchased head and shaft dimensions against the CAD.
 
 There is **no motor-pulley grub screw** in the new bill of materials, and no radial hole to tap. The 4.9 mm through bore clears the supplied 4.8 mm shaft. The requested removal leaves positive torque transfer and axial retention unresolved; do not power this interface on the assumption that the CAD fit secures it.
 
