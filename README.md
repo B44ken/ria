@@ -31,7 +31,7 @@ ria is built mostly from 3d printed parts designed in cadquery.
 ```bash
 cd models
 python3 main.py
-# outputs build/ria.glb
+# outputs build/ria.glb and build/stl/*.stl
 ```
 
 # pcb

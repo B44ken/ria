@@ -1,18 +1,23 @@
 import cadquery as cq
 import trimesh
 import numpy as np
+from pathlib import Path
 from util.frames import right, left
 import head, upperleg
+
+Path('../build/stl').mkdir(parents=True, exist_ok=True)
 
 def meshes(asm, bought):
     for name, part in asm.traverse():
         if part.obj is not None:
-            cq.exporters.export(part.obj.val().moved(part.loc), f'../build/{name}.stl', tolerance=0.1, angularTolerance=0.3)
-            m = trimesh.load(f'../build/{name}.stl')
+            cq.exporters.export(part.obj.val().moved(part.loc), f'../build/stl/{name}.stl', tolerance=0.1, angularTolerance=0.3)
+            m = trimesh.load(f'../build/stl/{name}.stl')
             m.visual.face_colors = part.color.toTuple()
             yield name, m
-    for name, T in bought:
-        yield name, trimesh.load(f'assets/{name}.glb').to_mesh().apply_scale(1000).apply_transform(T)
+    for i, (name, T) in enumerate(bought):
+        m = trimesh.load(f'assets/{name}.glb').to_mesh().apply_scale(1000).apply_transform(T)
+        m.export(f'../build/stl/{name}_{i}.stl')
+        yield name, m
 
 scene = trimesh.Scene()
 scene.graph.update(frame_from='world', frame_to='ria', matrix=np.diag([0.001, 0.001, 0.001, 1]))
