@@ -2,10 +2,20 @@ import cadquery as cq
 import trimesh
 import numpy as np
 from pathlib import Path
-from util.frames import right, left
+import xml.etree.ElementTree as ET
+from util.frames import right, left, knee_origin, wheel_origin
 import head, upperleg
 
 Path('../build/stl').mkdir(parents=True, exist_ok=True)
+
+origins = {'head': np.zeros(3), 'upper_leg': np.zeros(3), 'lower_leg': knee_origin, 'wheel': wheel_origin}
+mesh_origins = {
+    geom.attrib['mesh']: origins[body.attrib['name'].removesuffix('_r').removesuffix('_l')]
+    for body in ET.parse('../ria.xml').iter('body') for geom in body.findall('geom')
+}
+
+def export_local(name, mesh):
+    mesh.copy().apply_translation(-mesh_origins[name]).export(f'../build/stl/{name}.stl')
 
 def meshes(asm, bought):
     for name, part in asm.traverse():
@@ -13,10 +23,12 @@ def meshes(asm, bought):
             cq.exporters.export(part.obj.val().moved(part.loc), f'../build/stl/{name}.stl', tolerance=0.1, angularTolerance=0.3)
             m = trimesh.load(f'../build/stl/{name}.stl')
             m.visual.face_colors = part.color.toTuple()
+            if mesh_origins[name].any():
+                export_local(name, m)
             yield name, m
     for i, (name, T) in enumerate(bought):
         m = trimesh.load(f'assets/{name}.glb').to_mesh().apply_scale(1000).apply_transform(T)
-        m.export(f'../build/stl/{name}_{i}.stl')
+        export_local(f'{name}_{i}', m)
         yield name, m
 
 scene = trimesh.Scene()

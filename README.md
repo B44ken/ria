@@ -33,6 +33,12 @@ python3 main.py
 # outputs build/ria.glb and build/stl/*.stl
 ```
 
+the glb preserves the assembled cad layout. stls use their owning link's joint
+frame; `models/util/frames.py` defines the knee and wheel origins in millimetres.
+`ria.xml` assigns meshes to links, and `bot.json` (also at `software/bot.json`)
+loads those same local meshes in botblocks. tests compare both models against
+the cad assembly and check articulated ground contact.
+
 # pcb
 the pcb is a 50x60mm esp32-based board, built in tscircuit. it has usb c (pd and data), xt60 input (up to 25v), four spi headers for encoders, and an imu.
 

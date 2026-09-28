@@ -1,6 +1,7 @@
 from math import cos, pi, radians, sin
 import cadquery as cq
 from config import config
+from util.frames import wheel_origin
 
 ankle_z = config.leg.thickness + 0.3 + config.planetary.carrier_thickness
 ankle_board_z = ankle_z - config.motor_lower.nub_h - config.encoder.magnet_h - config.encoder.gap - config.encoder.height
@@ -31,4 +32,4 @@ def wheel():
         .faces('<Z').workplane().hole(m.dia + 1, w.width) \
         .faces('>Z').workplane().hole(8) \
         .faces('>Z').workplane().pushPoints(m.top_holes).hole(config.m3_dia) \
-        .translate((0, -2*config.leg.length, ankle_z + m.height - w.width))
+        .translate(tuple(wheel_origin - (0, 0, (w.width + 2) / 2)))

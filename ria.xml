@@ -60,7 +60,7 @@
       <geom mesh="tattu_lipo_5" mass="0.15" />
       <geom mesh="pipico_6" mass="0.005" />
       <geom mesh="mpu6050_7" mass="0.002" />
-      <body name="upper_leg_r" pos="0.0441 0 -0.0128" euler="1.5708 0 1.5708">
+      <body name="upper_leg_r" pos="0.0441 0 -0.0128" euler="1.5707963267948966 0 1.5707963267948966">
         <joint name="hip_r" range="-1.9 1.9" actuatorfrcrange="-0.25 0.25" />
         <geom mesh="upper_leg" />
         <geom mesh="pinion" />
@@ -76,20 +76,20 @@
         <geom mesh="as5600_4" mass="0.002" />
         <body name="lower_leg_r" pos="0 -0.1 0">
           <joint name="knee_r" range="-2.6 2.6" actuatorfrcrange="-3 3" />
-          <geom pos="0 0.1 0" mesh="lower_leg" />
-          <geom pos="0 0.1 0" mesh="planet_0" />
-          <geom pos="0 0.1 0" mesh="planet_1" />
-          <geom pos="0 0.1 0" mesh="planet_2" />
-          <geom pos="0 0.1 0" mesh="magnet_ankle" mass="0.001" />
-          <geom pos="0 0.1 0" mesh="gbm2804_3" mass="0.042" />
-          <geom pos="0 0.1 0" mesh="as5600_5" mass="0.002" />
+          <geom mesh="lower_leg" />
+          <geom mesh="planet_0" />
+          <geom mesh="planet_1" />
+          <geom mesh="planet_2" />
+          <geom mesh="magnet_ankle" mass="0.001" />
+          <geom mesh="gbm2804_3" mass="0.042" />
+          <geom mesh="as5600_5" mass="0.002" />
           <body name="wheel_r" pos="0 -0.1 0.02235">
             <joint name="wheel_r" actuatorfrcrange="-0.3 0.3" />
-            <geom pos="0 0.2 -0.02235" mesh="wheel" />
+            <geom mesh="wheel" />
           </body>
         </body>
       </body>
-      <body name="upper_leg_l" pos="-0.0441 0 -0.0128" euler="1.5708 0 -1.5708">
+      <body name="upper_leg_l" pos="-0.0441 0 -0.0128" euler="1.5707963267948966 0 -1.5707963267948966">
         <joint name="hip_l" range="-1.9 1.9" actuatorfrcrange="-0.25 0.25" />
         <geom mesh="upper_leg" />
         <geom mesh="pinion" />
@@ -105,16 +105,16 @@
         <geom mesh="as5600_4" mass="0.002" />
         <body name="lower_leg_l" pos="0 -0.1 0">
           <joint name="knee_l" range="-2.6 2.6" actuatorfrcrange="-3 3" />
-          <geom pos="0 0.1 0" mesh="lower_leg" />
-          <geom pos="0 0.1 0" mesh="planet_0" />
-          <geom pos="0 0.1 0" mesh="planet_1" />
-          <geom pos="0 0.1 0" mesh="planet_2" />
-          <geom pos="0 0.1 0" mesh="magnet_ankle" mass="0.001" />
-          <geom pos="0 0.1 0" mesh="gbm2804_3" mass="0.042" />
-          <geom pos="0 0.1 0" mesh="as5600_5" mass="0.002" />
+          <geom mesh="lower_leg" />
+          <geom mesh="planet_0" />
+          <geom mesh="planet_1" />
+          <geom mesh="planet_2" />
+          <geom mesh="magnet_ankle" mass="0.001" />
+          <geom mesh="gbm2804_3" mass="0.042" />
+          <geom mesh="as5600_5" mass="0.002" />
           <body name="wheel_l" pos="0 -0.1 0.02235">
             <joint name="wheel_l" actuatorfrcrange="-0.3 0.3" />
-            <geom pos="0 0.2 -0.02235" mesh="wheel" />
+            <geom mesh="wheel" />
           </body>
         </body>
       </body>
