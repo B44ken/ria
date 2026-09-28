@@ -1,0 +1,77 @@
+{
+  "name": "ria",
+  "mesh_includes": "../build/stl/",
+  "subsystems": [
+    { "name": "imu", "type": "imu", "parent": "head" },
+    { "name": "camera", "type": "camera", "parent": "head", "facing": [1,0,0], "offset": 0.04 }
+    { "name": "neck_l", "type": "servo", "joint": "upper_leg_l", "torque": 0.2, "speed": 8.7 },
+    { "name": "neck_r", "type": "servo", "joint": "upper_leg_r", "torque": 0.2, "speed": 8.7 },
+    { "name": "knee_l", "type": "motor", "joint": "lower_leg_l", "torque": 5.8, "speed": 40 },
+    { "name": "knee_r", "type": "motor", "joint": "lower_leg_r", "torque": 5.8, "speed": 40 },
+    { "name": "wheel_l", "type": "motor", "joint": "wheel_l", "torque": 1, "speed": 240 },
+    { "name": "wheel_r", "type": "motor", "joint": "wheel_r", "torque": 1, "speed": 240 }
+  ],
+  "parts": {
+    "name": "head",
+    "mass": 0.300,
+    "meshes": ["head_top", "head_bottom", "head_tray"],
+    "children": [{
+        "name": "upper_leg_r",
+        "mass": 0.80,
+        "meshes": ["upper_leg","pinion","sprocket_upper","belt","ring","sun","pulley","magnet_knee","5010_body_0","5010_rotor_1","sg90_body_2"],
+        "children": [{
+            "name": "lower_leg_r",
+            "mass": 0.80,
+            "meshes": ["lower_leg","magnet_ankle","gbm2804_3","as5600_5"],
+            "children": [{
+                "name": "wheel_r",
+                "mass": 0.80,
+                "meshes": ["wheel"],
+                "joint": {
+                  "origin": { "pos": [0,-0.1,0.0223] },
+                  "axis": [0,0,1]
+                }
+              }],
+            "joint": {
+              "origin": { "pos": [0,-0.1,0] },
+              "axis": [0,0,1],
+              "limits": [-2.6,2.6]
+            }
+          }],
+        "joint": {
+          "origin": { "pos": [0.0441,0,-0.0128], "rot": [1.57,0,1.57] },
+          "axis": [0,0,1],
+          "limits": [-1.9,1.9]
+        }
+      },
+      {
+        "name": "upper_leg_l",
+        "mass": 0.80,
+        "meshes": ["upper_leg","pinion","sprocket_upper","belt","ring","sun","pulley","magnet_knee","5010_body_0","5010_rotor_1","sg90_body_2","as5600_4"],
+        "children": [{
+            "name": "lower_leg_l",
+            "mass": 0.80,
+            "meshes": ["lower_leg","planet_0","planet_1","planet_2","magnet_ankle","gbm2804_3","as5600_5"],
+            "children": [{
+                "name": "wheel_l",
+                "mass": 0.80,
+                "meshes": ["wheel"],
+                "joint": {
+                  "origin": { "pos": [0,-0.1,0.0223] },
+                  "axis": [0,0,1]
+                }
+              }],
+            "joint": {
+              "origin": { "pos": [0,-0.1,0] },
+              "axis": [0,0,1],
+              "limits": [-2.6,2.6]
+            }
+          }],
+        "joint": {
+          "origin": { "pos": [-0.0441,0,-0.0128], "rot": [1.57,0,-1.57] },
+          "axis": [0,0,1],
+          "limits": [-1.9,1.9]
+        }
+      }]
+  }
+}
