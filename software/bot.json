@@ -5,14 +5,14 @@
     "scale": 0.001
   },
   "subsystems": [
-    { "name": "imu", "type": "imu", "parent": "head" },
-    { "name": "camera", "type": "camera", "parent": "head", "facing": [1,0,0], "offset": 0.04 },
-    { "name": "neck_l", "type": "servo", "joint": "upper_leg_l", "torque": 0.2, "speed": 8.7 },
-    { "name": "neck_r", "type": "servo", "joint": "upper_leg_r", "torque": 0.2, "speed": 8.7 },
-    { "name": "knee_l", "type": "motor", "joint": "lower_leg_l", "torque": 5.8, "speed": 40 },
-    { "name": "knee_r", "type": "motor", "joint": "lower_leg_r", "torque": 5.8, "speed": 40 },
-    { "name": "wheel_l", "type": "motor", "joint": "wheel_l", "torque": 1, "speed": 240 },
-    { "name": "wheel_r", "type": "motor", "joint": "wheel_r", "torque": 1, "speed": 240 }
+    { "kind": "IMU", "name": "imu", "joint": ["head"] },
+    { "kind": "Camera", "name": "camera", "joint": ["head"], "facing": [1, 0, 0], "offset": 0.04 },
+    { "kind": "Servo", "name": "neck_l", "joint": ["head", "upper_leg_l"], "maxTorque": 0.2, "noLoadSpeed": 8.7 },
+    { "kind": "Servo", "name": "neck_r", "joint": ["head", "upper_leg_r"], "maxTorque": 0.2, "noLoadSpeed": 8.7 },
+    { "kind": "Motor", "name": "knee_l", "joint": ["head", "upper_leg_l", "lower_leg_l"], "gear": 5.8 },
+    { "kind": "Motor", "name": "knee_r", "joint": ["head", "upper_leg_r", "lower_leg_r"], "gear": 5.8 },
+    { "kind": "Motor", "name": "wheel_l", "joint": ["head", "upper_leg_l", "lower_leg_l", "wheel_l"], "gear": 1 },
+    { "kind": "Motor", "name": "wheel_r", "joint": ["head", "upper_leg_r", "lower_leg_r", "wheel_r"], "gear": 1 }
   ],
   "parts": {
     "name": "head",
@@ -31,11 +31,13 @@
                 "mass": 0.08,
                 "meshes": ["wheel"],
                 "joint": {
+                  "damping": 0.004166666666666667,
                   "origin": { "pos": [0,-0.1,0.02235] },
                   "axis": [0,0,1]
                 }
               }],
             "joint": {
+              "damping": 0.145,
               "origin": { "pos": [0,-0.1,0] },
               "axis": [0,0,1],
               "limits": [-2.6,2.6]
@@ -60,11 +62,13 @@
                 "mass": 0.08,
                 "meshes": ["wheel"],
                 "joint": {
+                  "damping": 0.004166666666666667,
                   "origin": { "pos": [0,-0.1,0.02235] },
                   "axis": [0,0,1]
                 }
               }],
             "joint": {
+              "damping": 0.145,
               "origin": { "pos": [0,-0.1,0] },
               "axis": [0,0,1],
               "limits": [-2.6,2.6]
