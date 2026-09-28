@@ -1,0 +1,475 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="ria">
+  <mujoco>
+    <compiler discardvisual="false" fusestatic="false" />
+  </mujoco>
+  <link name="head">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/head_top.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/head_bottom.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/head_tray.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/battery_shoe.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/tray_spacer_0.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/tray_spacer_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/tray_spacer_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/tray_spacer_3.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/simplefocmini_dual_0.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/simplefocmini_dual_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/tca9548a_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/mp1584_3.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/xt60h_m_4.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/tattu_lipo_5.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/pipico_6.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/mpu6050_7.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-0.000508684 2.28536e-05 -0.0070686" />
+      <mass value="0.248373" />
+      <inertia ixx="0.000197886" ixy="2.19121e-06" ixz="2.16542e-06" iyy="0.000145722" iyz="-4.46007e-07" izz="0.00021414" />
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size="0.08 0.084 0.06" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="upper_leg_r">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/upper_leg.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/pinion.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/sprocket_upper.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/belt.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/ring.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/sun.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/pulley.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/magnet_knee.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/5010_body_0.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/5010_rotor_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/sg90_body_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/as5600_4.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-6.60249e-20 -0.0230998 0.0162152" />
+      <mass value="0.151281" />
+      <inertia ixx="0.000248851" ixy="-1.57411e-21" ixz="3.31057e-22" iyy="3.20411e-05" iyz="3.60401e-07" izz="0.000260492" />
+    </inertial>
+    <collision>
+      <origin xyz="0 -0.05 0.01415" />
+      <geometry>
+        <box size="0.02 0.1 0.0365" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="lower_leg_r">
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/lower_leg.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/planet_0.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/planet_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/planet_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/magnet_ankle.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/gbm2804_3.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/as5600_5.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="1.57106e-05 -0.0884864 0.0145793" />
+      <mass value="0.0567039" />
+      <inertia ixx="5.55023e-05" ixy="1.02569e-08" ixz="-2.26787e-09" iyy="7.25703e-06" iyz="4.13978e-06" izz="5.86006e-05" />
+    </inertial>
+    <collision>
+      <origin xyz="0 -0.05 0.0135" />
+      <geometry>
+        <box size="0.02 0.1 0.0237" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="wheel_r">
+    <visual>
+      <origin xyz="0 0.2 -0.02235" />
+      <geometry>
+        <mesh filename="stl/wheel.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="5.07557e-19 8.18792e-19 0.00037003" />
+      <mass value="0.0140451" />
+      <inertia ixx="4.12562e-06" ixy="-8.91538e-25" ixz="-3.36057e-24" iyy="4.12562e-06" iyz="5.929e-23" izz="8.00021e-06" />
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.01" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="hip_r" type="revolute">
+    <origin xyz="0.0441 0 -0.0128" rpy="1.5708 -0 1.5708" />
+    <parent link="head" />
+    <child link="upper_leg_r" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.9" upper="1.9" effort="0.25" velocity="8" />
+  </joint>
+  <joint name="knee_r" type="revolute">
+    <origin xyz="0 -0.1 0" rpy="0 -0 0" />
+    <parent link="upper_leg_r" />
+    <child link="lower_leg_r" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.6" upper="2.6" effort="3" velocity="30" />
+  </joint>
+  <joint name="wheel_r" type="continuous">
+    <origin xyz="0 -0.1 0.02235" rpy="0 -0 0" />
+    <parent link="lower_leg_r" />
+    <child link="wheel_r" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.3" velocity="100" />
+  </joint>
+  <link name="upper_leg_l">
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/upper_leg.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/pinion.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/sprocket_upper.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/belt.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/ring.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/sun.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/pulley.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/magnet_knee.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/5010_body_0.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/5010_rotor_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/sg90_body_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <mesh filename="stl/as5600_4.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="-6.60249e-20 -0.0230998 0.0162152" />
+      <mass value="0.151281" />
+      <inertia ixx="0.000248851" ixy="-1.57411e-21" ixz="3.31057e-22" iyy="3.20411e-05" iyz="3.60401e-07" izz="0.000260492" />
+    </inertial>
+    <collision>
+      <origin xyz="0 -0.05 0.01415" />
+      <geometry>
+        <box size="0.02 0.1 0.0365" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="lower_leg_l">
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/lower_leg.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/planet_0.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/planet_1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/planet_2.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/magnet_ankle.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/gbm2804_3.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <visual>
+      <origin xyz="0 0.1 0" />
+      <geometry>
+        <mesh filename="stl/as5600_5.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="1.57106e-05 -0.0884864 0.0145793" />
+      <mass value="0.0567039" />
+      <inertia ixx="5.55023e-05" ixy="1.02569e-08" ixz="-2.26787e-09" iyy="7.25703e-06" iyz="4.13978e-06" izz="5.86006e-05" />
+    </inertial>
+    <collision>
+      <origin xyz="0 -0.05 0.0135" />
+      <geometry>
+        <box size="0.02 0.1 0.0237" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="wheel_l">
+    <visual>
+      <origin xyz="0 0.2 -0.02235" />
+      <geometry>
+        <mesh filename="stl/wheel.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+    </visual>
+    <inertial>
+      <origin xyz="5.07557e-19 8.18792e-19 0.00037003" />
+      <mass value="0.0140451" />
+      <inertia ixx="4.12562e-06" ixy="-8.91538e-25" ixz="-3.36057e-24" iyy="4.12562e-06" iyz="5.929e-23" izz="8.00021e-06" />
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.01" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="hip_l" type="revolute">
+    <origin xyz="-0.0441 0 -0.0128" rpy="1.5708 -0 -1.5708" />
+    <parent link="head" />
+    <child link="upper_leg_l" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.9" upper="1.9" effort="0.25" velocity="8" />
+  </joint>
+  <joint name="knee_l" type="revolute">
+    <origin xyz="0 -0.1 0" rpy="0 -0 0" />
+    <parent link="upper_leg_l" />
+    <child link="lower_leg_l" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.6" upper="2.6" effort="3" velocity="30" />
+  </joint>
+  <joint name="wheel_l" type="continuous">
+    <origin xyz="0 -0.1 0.02235" rpy="0 -0 0" />
+    <parent link="lower_leg_l" />
+    <child link="wheel_l" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.3" velocity="100" />
+  </joint>
+</robot>
