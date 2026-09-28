@@ -2,7 +2,7 @@ from math import acos, cos, pi, sin, tan
 import cadquery as cq
 from config import config
 
-def outline(teeth, g, r_root, r_tip):
+def outline(teeth, g, r_root, r_tip, thin):
     pa = g.pressure_angle * pi / 180
     r_pitch = g.module * teeth / 2
     r_base = r_pitch * cos(pa)
@@ -11,7 +11,7 @@ def outline(teeth, g, r_root, r_tip):
         a = acos(r_base / r)
         return tan(a) - a
 
-    half = pi / (2 * teeth) + inv(r_pitch)
+    half = pi / (2 * teeth) + inv(r_pitch) - thin / (2 * r_pitch)
     start = max(r_base, r_root)
     flank = [start + (r_tip - start) * i / 10 for i in range(11)]
     pts = []
@@ -24,8 +24,8 @@ def outline(teeth, g, r_root, r_tip):
     return cq.Workplane('XY').polyline(pts).close()
 
 def spur_gear(teeth: int, g=config.gears):
-    return outline(teeth, g, g.module * (teeth/2 - 1.25), g.module * (teeth/2 + 1)).extrude(g.thickness)
+    return outline(teeth, g, g.module * (teeth/2 - 1.25), g.module * (teeth/2 + 1), g.backlash / 2).extrude(g.thickness)
 
 def ring_gear(teeth: int, g, case_r: float):
     return cq.Workplane('XY').circle(case_r).extrude(g.thickness) \
-        .cut(outline(teeth, g, g.module * (teeth/2 - 1), g.module * (teeth/2 + 1.25)).extrude(g.thickness))
+        .cut(outline(teeth, g, g.module * (teeth/2 - 1), g.module * (teeth/2 + 1.25), -g.backlash / 2).extrude(g.thickness))

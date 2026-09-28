@@ -1,6 +1,10 @@
 build
+dist
+pcb/imports
 agents.md
 __pycache__
 *.pyc
 .vscode
+.tscircuit
+.playwright_mcp
 .DS_Store
