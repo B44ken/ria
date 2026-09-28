@@ -1,9 +1,12 @@
 {
   "name": "ria",
-  "mesh_includes": "../build/stl/",
+  "mesh_config": {
+    "includes": "../build/stl/",
+    "scale": 0.001
+  },
   "subsystems": [
     { "name": "imu", "type": "imu", "parent": "head" },
-    { "name": "camera", "type": "camera", "parent": "head", "facing": [1,0,0], "offset": 0.04 }
+    { "name": "camera", "type": "camera", "parent": "head", "facing": [1,0,0], "offset": 0.04 },
     { "name": "neck_l", "type": "servo", "joint": "upper_leg_l", "torque": 0.2, "speed": 8.7 },
     { "name": "neck_r", "type": "servo", "joint": "upper_leg_r", "torque": 0.2, "speed": 8.7 },
     { "name": "knee_l", "type": "motor", "joint": "lower_leg_l", "torque": 5.8, "speed": 40 },
@@ -72,6 +75,7 @@
           "axis": [0,0,1],
           "limits": [-1.9,1.9]
         }
-      }]
+      }],
+    "joint": { "type": "solid" }
   }
 }
