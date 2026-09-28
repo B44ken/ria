@@ -17,13 +17,12 @@ ria is a small wheeled biped built for jumping and fast ground motion.
 
 ### specs
 
-(tentative, accurate-ish)
 
 - 10:1 two stage knee transmission
-- 100mm upper and lower leg joints
-- 700g mass
-- 20cm jump height
-- 30kmh top speed
+- 100mm upper and lower legs
+- 720g mass
+  - 150g/side motors, 200g plastic, 150g battery, 70g everything else
+- 20cm jump height, 30kmh top speed (tentative, accurate-ish)
 
 # printed parts
 ria is built mostly from 3d printed parts designed in cadquery.
@@ -43,3 +42,12 @@ tsci build
 
 # software
 botblocks impl coming soon...
+
+`ria.xml` is the mujoco model. mesh geoms render and collide; mujoco derives
+inertia from part masses and an effective plastic density of 700 kg/m³.
+printed parts use mesh volume; bought parts use convex-hull mass approximations.
+
+```bash
+python3 -m mujoco.viewer --mjcf=ria.xml
+python3 -m pytest tests
+```

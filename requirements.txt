@@ -6,3 +6,4 @@ shapely
 trimesh
 Pillow
 vtk
+mujoco
