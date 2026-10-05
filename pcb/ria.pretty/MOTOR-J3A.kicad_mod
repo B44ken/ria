@@ -1,0 +1,98 @@
+(footprint "MOTOR-J3A"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "MOTOR-J3A"
+		(at 0 -3 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "d6e33a42-ab76-440f-8b87-6d511e561da9")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "MOTOR-J3A"
+		(at 0 3 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "74c4a6fe-4fae-4ef1-bdb0-27f64f07734f")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9808a4b8-a106-454d-beb0-61079278c99f")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c15c4987-3e02-479b-85a3-d421615f2617")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Supplier Part Number" "C964714"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "54b70fe0-4a59-3a3f-3ffb-649e359d8efd")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_circle
+		(center 0 0)
+		(end 3.4 0)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "10fd8c5b-aad4-46ae-acee-2a98e5b6abc7")
+	)
+	(fp_text user "A"
+		(at 0 4.3 0)
+		(layer "F.SilkS")
+		(uuid "08be0028-f482-4fea-92ed-ed4e9bbcb434")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 6.4 6.4)
+		(drill 4.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "51352b20-3bcd-6d1f-2665-af1e10fdf11d")
+	)
+	(embedded_fonts no)
+)

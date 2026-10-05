@@ -37,6 +37,19 @@ def head_cavity(height):
                                   centered=(True, True, False)).edges('|Z').fillet(h.corner_r - config.wall)
 
 
+def hip_race_blank(clearance=0):
+    h = config.head
+    return cq.Workplane('YZ', origin=(h.width/2 - config.wall - clearance, 0, h.pivot_height - h.height/2)) \
+        .circle(h.race_outer + h.race_wall + clearance).circle(h.race_inner - h.race_wall - clearance) \
+        .extrude(config.wall + 2*clearance)
+
+
+def hip_race_groove():
+    h = config.head
+    return cq.Workplane('YZ', origin=(h.width/2, 0, h.pivot_height - h.height/2)) \
+        .circle(h.race_outer).circle(h.race_inner).extrude(-h.race_depth)
+
+
 def head_top():
     pivot_z = config.head.pivot_height - config.head.height/2
 
@@ -69,13 +82,18 @@ def head_top():
     side_z = floor_z + _e.side_screw_z - config.wall/2
     for x, y in _e.posts:
         side = np.sign(x)
-        seat = cq.Workplane('YZ', origin=(side*(config.head.width/2 + 0.5), y, side_z))
-        pad = seat.circle(_e.side_boss_d/2).extrude(-side*8).cut(inside)
-        clearance = seat.circle(_e.screw_d/2).extrude(-side*8)
-        main = main.union(pad).cut(clearance)
+        seat = cq.Workplane(cq.Plane(origin=(side*config.head.width/2, y, side_z),
+                                    xDir=(0, 1, 0), normal=(side, 0, 0)))
+        pad = seat.circle(_e.side_boss_d/2).extrude(-8).cut(inside)
+        main = seat.newObject([main.union(pad).val()]).pushPoints([(0, 0)]) \
+            .cskHole(_e.screw_d, 5.8, 90, 8)
     
+    race = hip_race_blank()
+    groove = hip_race_groove()
     return main.union(gear).union(gear.mirror('YZ')) \
-        .union(boss).union(boss.mirror('YZ')).cut(bore).cut(usb).cut(clamp_access)
+        .union(boss).union(boss.mirror('YZ')).union(race).union(race.mirror('YZ')) \
+        .cut(groove).cut(groove.mirror('YZ')) \
+        .cut(bore).cut(usb).cut(clamp_access)
 
 def tray_outline():
     h, e = config.head, config.electronics
@@ -120,26 +138,13 @@ def electronics_plate(width, depth, radius, cutaway=False):
 
 
 def battery_guides():
-    # a continuous rear wall joins the corner fences; heights start at the floor.
     guides = cq.Workplane('XY').box(34, 1.6, _e.battery_back_h, centered=(True, True, False)) \
         .translate((0, -38.5, 0))
-    for side in (-1, 1):
-        for end in (-1, 1):
-            if end > 0:
-                guides = guides.union(cq.Workplane('XY').box(7, 1.4, 10, centered=(True, True, False))
-                                      .translate((side*13.5, 38.6, 0)))
-            y0, y1 = (25, 37.9) if end > 0 else (-37.9, -25)
-            if side > 0 and end < 0:
-                y1 = -36
-            guides = guides.union(cq.Workplane('XY').box(1.6, y1-y0, 12, centered=(True, True, False))
-                                  .translate((side*16.2, (y0+y1)/2, 0)))
-    # the shoe rests on the floor between two guide rails. its ears meet the stops.
-    for y in (-35.4, -21.6):
-        guides = guides.union(cq.Workplane('XY').box(4, 1.2, 4, centered=(True, True, False))
-                              .translate((18.4, y, 0)))
-    for y in (-34, -23):
-        guides = guides.union(cq.Workplane('XY').box(1, 1, 2, centered=(True, True, False))
-                              .translate((16.9, y, 0)))
+    guides = guides.union(cq.Workplane('XY').pushPoints([(-13.5, 38.6), (13.5, 38.6)]).rect(7, 1.4).extrude(10)) \
+        .union(cq.Workplane('XY').pushPoints([(-16.2, 31.45), (16.2, 31.45), (-16.2, -31.45)]).rect(1.6, 12.9).extrude(12)) \
+        .union(cq.Workplane('XY').center(16.2, -36.95).rect(1.6, 1.9).extrude(12)) \
+        .union(cq.Workplane('XY').pushPoints([(18.4, -35.4), (18.4, -21.6)]).rect(4, 1.2).extrude(4)) \
+        .union(cq.Workplane('XY').pushPoints([(16.9, -34), (16.9, -23)]).rect(1, 1).extrude(2))
     x, y, z = _e.battery_screw_loc
     boss = cq.Workplane('XY').box(6, 8, 14, centered=(True, True, False)) \
         .translate((x-3, y, 0))
@@ -147,24 +152,22 @@ def battery_guides():
     return guides.union(boss.cut(pilot))
 
 
-def battery_shoe(opening=0):
+def battery_shoe():
     # the rounded printed face contacts the pack; keep the screw seat and stops fixed.
     face = cq.Workplane('XY').box(_e.battery_shoe_t, 10, 14, centered=(True, True, False)) \
         .faces('<X').edges().fillet(.4).translate((17.4-_e.battery_shoe_t/2, -28.5, 0))
     foot = cq.Workplane('XY').box(2.2, 12, 2, centered=(True, True, False)).translate((18.5, -28.5, 0))
     _, y, z = _e.battery_screw_loc
     socket = cq.Workplane('YZ', origin=(17.4, y, z)).circle(1.7).extrude(-.7)
-    return face.union(foot).cut(socket).translate((opening, 0, 0))
+    return face.union(foot).cut(socket)
 
 
 def head_bottom():
     h = config.head
     plate = electronics_plate(h.width, h.depth, h.corner_r)
-    return plate.union(battery_guides().translate((0, 0, _e.plate_t)))
-
-
-def head_tray():
-    return electronics_plate(*tray_outline(), cutaway=True)
+    race = hip_race_blank(config.head.race_clearance).translate((0, 0, config.wall/2 - floor_z + _e.plate_t))
+    return plate.union(battery_guides().translate((0, 0, _e.plate_t))) \
+        .cut(race).cut(race.mirror('YZ'))
 
 
 def tray_spacer(x_sign=1, y_sign=1):
@@ -196,7 +199,7 @@ def head():
     asm = cq.Assembly(name='head')
     asm.add(head_top(), name='head_top', color=cq.Color('white'), loc=cq.Location(cq.Vector(0, 0, config.wall/2)))
     asm.add(head_bottom(), name='head_bottom', color=cq.Color('lightgray'), loc=cq.Location(cq.Vector(0, 0, floor_z - e.plate_t)))
-    asm.add(head_tray(), name='head_tray', color=cq.Color('lightgray'), loc=cq.Location(cq.Vector(0, 0, floor_z + e.spacer_h)))
+    asm.add(electronics_plate(*tray_outline(), cutaway=True), name='head_tray', color=cq.Color('lightgray'), loc=cq.Location(cq.Vector(0, 0, floor_z + e.spacer_h)))
     asm.add(battery_shoe(), name='battery_shoe', color=cq.Color('orange'),
             loc=cq.Location(cq.Vector(0, 0, floor_z)))
     for i, (x, y) in enumerate(e.posts):

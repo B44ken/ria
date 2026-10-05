@@ -5,14 +5,18 @@
     "scale": 0.001
   },
   "subsystems": [
-    { "kind": "IMU", "name": "imu", "joint": ["head"] },
-    { "kind": "Camera", "name": "camera", "joint": ["head"], "facing": [1, 0, 0], "offset": 0.04 },
+    { "kind": "IMU", "name": "imu_head", "joint": ["head"] },
+    { "kind": "IMU", "name": "imu_knee_l", "joint": ["head", "upper_leg_l", "lower_leg_l"] },
+    { "kind": "IMU", "name": "imu_knee_r", "joint": ["head", "upper_leg_r", "lower_leg_r"] },
+    { "kind": "IMU", "name": "imu_wheel_l", "joint": ["head", "upper_leg_l", "lower_leg_l", "wheel_l"] },
+    { "kind": "IMU", "name": "imu_wheel_r", "joint": ["head", "upper_leg_r", "lower_leg_r", "wheel_r"] },
+    { "kind": "Camera", "name": "camera", "joint": ["head"], "facing": [0, 1, 0], "offset": 0.05 },
     { "kind": "Servo", "name": "neck_l", "joint": ["head", "upper_leg_l"], "maxTorque": 0.2, "noLoadSpeed": 8.7 },
     { "kind": "Servo", "name": "neck_r", "joint": ["head", "upper_leg_r"], "maxTorque": 0.2, "noLoadSpeed": 8.7 },
     { "kind": "Motor", "name": "knee_l", "joint": ["head", "upper_leg_l", "lower_leg_l"], "gear": 5.8 },
     { "kind": "Motor", "name": "knee_r", "joint": ["head", "upper_leg_r", "lower_leg_r"], "gear": 5.8 },
-    { "kind": "Motor", "name": "wheel_l", "joint": ["head", "upper_leg_l", "lower_leg_l", "wheel_l"], "gear": 1 },
-    { "kind": "Motor", "name": "wheel_r", "joint": ["head", "upper_leg_r", "lower_leg_r", "wheel_r"], "gear": 1 }
+    { "kind": "Motor", "name": "wheel_l", "joint": ["head", "upper_leg_l", "lower_leg_l", "wheel_l"], "gear": 0.6 },
+    { "kind": "Motor", "name": "wheel_r", "joint": ["head", "upper_leg_r", "lower_leg_r", "wheel_r"], "gear": 0.6 }
   ],
   "parts": {
     "name": "head",
@@ -21,63 +25,63 @@
     "children": [{
         "name": "upper_leg_r",
         "mass": 0.04,
-        "meshes": ["upper_leg","pinion","sprocket_upper","belt","ring","sun","pulley","magnet_knee","5010_body_0","5010_rotor_1","sg90_body_2","as5600_4"],
+        "meshes": ["upper_leg","hip_follower","pinion","sprocket_upper","belt","ring","sun","pulley","magnet_knee","5010_body_0","5010_rotor_1","sg90_body_2"],
         "children": [{
             "name": "lower_leg_r",
             "mass": 0.04,
-            "meshes": ["lower_leg","planet_0","planet_1","planet_2","magnet_ankle","gbm2804_3","as5600_5"],
+            "meshes": ["lower_leg","gbm2804_3"],
             "children": [{
                 "name": "wheel_r",
                 "mass": 0.08,
                 "meshes": ["wheel"],
                 "joint": {
-                  "damping": 0.004166666666666667,
-                  "origin": { "pos": [0,-0.1,0.02235] },
+                  "damping": 0.0042,
+                  "origin": { "pos": [0,-0.1,0.023] },
                   "axis": [0,0,1]
                 }
               }],
             "joint": {
               "damping": 0.145,
-              "origin": { "pos": [0,-0.1,0] },
+              "origin": { "pos": [0,-0.1,0], "rot": [0,0,1.571] },
               "axis": [0,0,1],
-              "limits": [-2.6,2.6]
+              "limits": [-4.17,1.03]
             }
           }],
         "joint": {
-          "origin": { "pos": [0.0441,0,-0.0128], "rot": [1.5707963267948966,0,1.5707963267948966] },
+          "origin": { "pos": [0.0441,0,-0.0128], "rot": [1.571,0.785,1.571] },
           "axis": [0,0,1],
-          "limits": [-1.9,1.9]
+          "limits": [-1.114,2.685]
         }
       },
       {
         "name": "upper_leg_l",
         "mass": 0.04,
-        "meshes": ["upper_leg","pinion","sprocket_upper","belt","ring","sun","pulley","magnet_knee","5010_body_0","5010_rotor_1","sg90_body_2","as5600_4"],
+        "meshes": ["upper_leg","hip_follower","pinion","sprocket_upper","belt","ring","sun","pulley","magnet_knee","5010_body_0","5010_rotor_1","sg90_body_2"],
         "children": [{
             "name": "lower_leg_l",
             "mass": 0.04,
-            "meshes": ["lower_leg","planet_0","planet_1","planet_2","magnet_ankle","gbm2804_3","as5600_5"],
+            "meshes": ["lower_leg","gbm2804_3"],
             "children": [{
                 "name": "wheel_l",
                 "mass": 0.08,
                 "meshes": ["wheel"],
                 "joint": {
-                  "damping": 0.004166666666666667,
-                  "origin": { "pos": [0,-0.1,0.02235] },
+                  "damping": 0.0042,
+                  "origin": { "pos": [0,-0.1,0.023] },
                   "axis": [0,0,1]
                 }
               }],
             "joint": {
               "damping": 0.145,
-              "origin": { "pos": [0,-0.1,0] },
+              "origin": { "pos": [0,-0.1,0], "rot": [0,0,-1.571] },
               "axis": [0,0,1],
-              "limits": [-2.6,2.6]
+              "limits": [-1.029,4.171]
             }
           }],
         "joint": {
-          "origin": { "pos": [-0.0441,0,-0.0128], "rot": [1.5707963267948966,0,-1.5707963267948966] },
+          "origin": { "pos": [-0.044,0,-0.013], "rot": [1.571,-0.785,-1.571] },
           "axis": [0,0,1],
-          "limits": [-1.9,1.9]
+          "limits": [-2.685,1.115]
         }
       }],
     "joint": { "type": "solid" }

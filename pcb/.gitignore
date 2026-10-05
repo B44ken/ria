@@ -30,3 +30,10 @@ yarn-error.log*
 
 # generated pcb check artifacts
 checks/
+
+# local kicad state
+*.kicad_prl
+*.kicad_sch.lck
+*.kicad_pcb.lck
+~*.lck
+*-backups/

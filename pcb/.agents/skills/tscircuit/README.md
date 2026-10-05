@@ -16,17 +16,6 @@ The canonical entrypoint is `SKILL.md`.
 - `WORKFLOW.md` – Recommended development workflow
 - `BUS_LANES.md` – Fixed-layer bus phases, fanout handoffs, and length matching
 - `CHECKLIST.md` – Pre-export/pre-fab checklist
-- `templates/` – Reference TSX examples (copy into your project)
-- `scripts/` – Helper shell scripts
-
-## Templates
-
-The files in `templates/` are **reference examples**—they are not standalone runnable projects. To use them:
-
-1. Create a tscircuit project: `tsci init`
-2. Copy the desired template into your project
-3. Install any additional dependencies (e.g., `npm install @tscircuit/common` for Arduino/RPi templates)
-4. Run `tsci build` or `tsci dev`
 
 ## License
 

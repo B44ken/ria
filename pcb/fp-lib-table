@@ -1,0 +1,1 @@
+(fp_lib_table (version 7) (lib (name "ria") (type "KiCad") (uri "${KIPRJMOD}/ria.pretty") (options "") (descr "ria footprints")))

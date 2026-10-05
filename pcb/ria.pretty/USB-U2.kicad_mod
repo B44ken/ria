@@ -1,0 +1,157 @@
+(footprint "USB-U2"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "USB-U2"
+		(at -0.1524 -2.6764 0)
+		(layer "F.SilkS")
+		(uuid "b36132b3-a2d7-4572-a7b2-45bc12e2656d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "USBLC6-2SC6"
+		(at 0 3 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "fae1a213-2b6b-4dc9-b746-8fc3495fca73")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bfe7f3a2-6fff-4c17-8b78-4f2d36df0d09")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e88067f1-0e5e-49fb-aea6-34d8de6c040d")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Supplier Part Number" "C2687116"
+		(at 0 0 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3efd538e-3294-d1ae-262c-4fce19c3cdee")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.539189 0.889203)
+		(end -1.539189 -0.889203)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "b3334339-67ff-4ce7-97ac-d0ee7b4c6950")
+	)
+	(fp_line
+		(start 1.539189 0.889203)
+		(end 1.539189 -0.889203)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "3581bbc6-7744-47f7-96ea-a85611ac7f1d")
+	)
+	(fp_circle
+		(center -1.668272 1.301496)
+		(end -1.518158 1.301496)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "497e391b-e86c-4238-a436-3625fb581394")
+	)
+	(fp_poly
+		(pts
+			(xy -2.0788 -1.9264) (xy 1.774 -1.9264) (xy 1.774 2.028) (xy -2.0788 2.028) (xy -2.0788 -1.9264)
+		)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "49fa15e0-42ae-f8a1-30a7-f8de5c0115a3")
+	)
+	(pad "1" smd rect
+		(at -0.94996 1.149096 270)
+		(size 1.072007 0.532003)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "5135d984-5eaf-65c4-6c28-f20479a27e44")
+	)
+	(pad "2" smd rect
+		(at 0 1.149096 270)
+		(size 1.072007 0.532003)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "309d0bd0-37d2-f230-5fbd-0fd008b2ee30")
+	)
+	(pad "3" smd rect
+		(at 0.94996 1.149096 270)
+		(size 1.072007 0.532003)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "0ebba7c0-5540-4adf-643b-12021db66ee3")
+	)
+	(pad "4" smd rect
+		(at 0.94996 -1.149096 270)
+		(size 1.072007 0.532003)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "402d892c-35c2-b5f4-544d-0aec21a33434")
+	)
+	(pad "5" smd rect
+		(at 0 -1.149096 270)
+		(size 1.072007 0.532003)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "41988000-63f7-421f-0987-043e50e939a3")
+	)
+	(pad "6" smd rect
+		(at -0.94996 -1.149096 270)
+		(size 1.072007 0.532003)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "729f77c0-1457-739f-49f0-908257c76b5d")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3dmodels/tscircuit_builtin.3dshapes/C2687116.step"
+		(offset
+			(xyz 0.0000127000000703 0.0000127000000703 0.048939)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 -90)
+		)
+	)
+)

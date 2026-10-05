@@ -1,0 +1,98 @@
+(footprint "MOTOR-J4C"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "MOTOR-J4C"
+		(at 0 -3 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "8f8241e1-1ede-4f2f-a83d-5102500d8ef9")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "MOTOR-J4C"
+		(at 0 3 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5c960d9d-03a9-4bf9-b157-de5ba916a4b2")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b479a7f4-5347-4e14-aa78-668288cea8b8")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "be4ac044-3ac3-471c-8a3b-9ada9bd81b8d")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Supplier Part Number" "C964714"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "58241080-4dc6-3adf-4368-653e390a8f9d")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_circle
+		(center 0 0)
+		(end 3.4 0)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "b8397bb4-125e-4826-9726-9d065a340fc1")
+	)
+	(fp_text user "C"
+		(at 0 4.3 0)
+		(layer "F.SilkS")
+		(uuid "35d53532-325f-40bf-bde6-ab922f9097d2")
+		(effects
+			(font
+				(size 1.2 1.2)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 6.4 6.4)
+		(drill 4.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "40516280-2ae9-a47f-1581-e67e001a287d")
+	)
+	(embedded_fonts no)
+)

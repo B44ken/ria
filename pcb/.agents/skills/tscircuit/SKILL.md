@@ -89,8 +89,6 @@ When this Skill is active:
 - Syntax primer: `SYNTAX.md`
 - Workflow patterns: `WORKFLOW.md`
 - Pre-export checklist: `CHECKLIST.md`
-- Ready-to-copy templates: `templates/`
-- Helper scripts: `scripts/`
 
 ## Builtin Elements
 
