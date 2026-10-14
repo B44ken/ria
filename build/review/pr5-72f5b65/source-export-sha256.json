@@ -1,0 +1,33 @@
+{
+  "base_commit": "72f5b65545d6cb2d292a5dab31ad3d310575a7b4",
+  "outline_mm": [
+    50,
+    69.45
+  ],
+  "process": "four layers, standard 0.3 mm tented routing vias, no filled/capped vias",
+  "source": {
+    "ria.kicad_pcb": "78564c2847df0ab76a1cdc7bd88127e3de6a0aa0defd4c1247653595a4438f0f",
+    "ria.kicad_sym": "ba7c6763858aacde6bf0e87c276a7bacc3c084048b5b9a2a74d60bab14bc6605",
+    "ria.kicad_pro": "ab7d394b289e38909093e78fce12a129ddbd16dce1992c57a4552c94946dfcd2",
+    "ria.kicad_sch": "d15912ac35d872b3cd4edb647f97d0cef83495c9cd8bd05051cf925b60cf5de8"
+  },
+  "exports": {
+    "ria-B_Cu.gbl": "c2340434824c0b663c802df17148c4537b3f925576ccd8c66d000993f329946c",
+    "ria-B_Mask.gbs": "29d8a7ea4afe77f73ef52943dbdac9f97b43e2cc095b332abc879cce2955e5bf",
+    "ria-B_Paste.gbp": "5dea1b98ffa2525ebb001adb4478de80d9c66c762249f0516f55609bfa56ecfe",
+    "ria-B_Silkscreen.gbo": "417a13a9890d73dc7ec32abf9b5282236198a13abfa96424e6f5a2f289a136ba",
+    "ria-Edge_Cuts.gm1": "91bcf9d88163420ecf6e70fc62c169406774c6d1386ed870529f5e6211d4a71b",
+    "ria-F_Cu.gtl": "f99d7e3acc243367574cc6d3a858699ba4fdf9007139fc1844cc7297ada5b905",
+    "ria-F_Mask.gts": "6bcf5a1d0179fbcebcb50547ec9ef294cea402c8e906e84d11e2c34785e5459a",
+    "ria-F_Paste.gtp": "05d35c41ac9a1553dbb7cf469e4aca9708c280f677791245d23d798dd2ca61e8",
+    "ria-F_Silkscreen.gto": "a4e036d14ee12caf0cf8796b9fedaab25bc438b99516dcede8d27f42add29e86",
+    "ria-In1_Cu.g1": "b429f2e1399410f56a83aca99f083c4bf4bf7a43355bcfe60a70c691929d127b",
+    "ria-In2_Cu.g2": "d9c339c8e6d2079368e20ee51c598415d6a8a45f8c2f2a20de890dcd72f4c8a7",
+    "ria-NPTH.drl": "8fc2543bf281554910d033be8dd45c43ba020de71708e7148554a2293a1760dd",
+    "ria-PTH.drl": "31405d5c009db0d657edd04fdc9cf25176b9120ca170918a38d8ee6c91eaf47f",
+    "ria-job.gbrjob": "9459703b2d967883e8c74584a0076321747bff502b632b0b8af5bdece7b7fde5",
+    "jlc-bom.csv": "ae1d0d28c67757fcd9f15ec69400936f96b6c6ab7762cc8379f7d553b5da4fa2",
+    "jlc-cpl.csv": "9058ff3c1690866b7384da7de702d9ee1fdd2c8700ece5f0d9d1c9a69ed9bd1e",
+    "ria-pr5-reviewed-gerbers.zip": "9f9c14d5dc8136cc1dd8fb457bd101b794234eba35ce316e63467eef0e86e7d3"
+  }
+}

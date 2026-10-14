@@ -9,7 +9,8 @@ ria is a small wheeled biped built for jumping and fast ground motion.
 - 2x 5010 260kv bldc
 - 2x gbm2804 145kv bldc
 - 2x sg90 servo
-- control pcb: 4x drv8316ctrgfr, doit esps3-32-n4, tokmas icm-42688-p, ap63300
+- control pcb: 4x ss6343m, doit esps3-32-n4, tokmas icm-42688-p, ap63300
+- 4x as5600
 - funfly 1300 4s lipo
 - m2, m3 screws
 - 6x 693zz bearings (planet gears)
@@ -32,7 +33,9 @@ python3 main.py
 ```
 
 # pcb
-open `pcb/ria.kicad_pro` in kicad or backplane. the current board is 50×65mm with four copper layers, four drv8316ct motor drivers, eight filtered phase-current adc inputs, a doit esp32-s3 module, usb-c data, vertical xt60 input and an imu. encoder headers are removed. fresh native checks pass; fabrication requires filled and capped vias. sensorless firmware and bench operation remain unverified. see [pcb/README.md](pcb/README.md) for pin mappings and verification. `ts-pcb/` preserves the original tscircuit source.
+backplane opens the [pcb from pr #5](hardware/oct05-mincaps/ria-backplane-mincaps/pcb/ria.kicad_pro): 50×69.45mm, four copper layers, four ss6343m motor drivers, a doit esp32-s3 module, four encoder headers, usb-c, horizontal xt60 and an imu. its 198 routing vias have 0.3mm drills and no holes inside solder pads; epoxy filling and copper capping are unnecessary for this layout. see [the review](hardware/oct05-mincaps/review-2026-10-14.md) for fresh checks, connector correction and pricing. firmware and sustained-current temperatures need bench verification.
+
+`pcb/` retains the separate drv8316ct sensorless revision. `ts-pcb/` preserves the original tscircuit source.
 
 # software
 ria is trained and driven in [botblocks.dev](https://botblocks.dev)

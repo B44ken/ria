@@ -1,0 +1,11 @@
+{
+  "via_count": 198,
+  "via_drills": {
+    "0.3": 198
+  },
+  "via_holes_intersect_smd_pads": 0,
+  "mask_exposed_via_holes": 0,
+  "via_in_pad_refs": {},
+  "esp_pth_thermal_holes": [],
+  "via_in_pad": []
+}

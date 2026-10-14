@@ -1,0 +1,47 @@
+{
+  "observed_date": "2026-10-14",
+  "currency": "CAD",
+  "draft_url": "https://cart.jlcpcb.com/smt-order/?pcbFileNo=b37353e392c94e28b2f8478970549db3",
+  "pcb_sha256": "78564c2847df0ab76a1cdc7bd88127e3de6a0aa0defd4c1247653595a4438f0f",
+  "uploaded_zip_sha256": "9f9c14d5dc8136cc1dd8fb457bd101b794234eba35ce316e63467eef0e86e7d3",
+  "pcb": {
+    "quantity": 5,
+    "price": 11.34,
+    "width_mm": 50,
+    "height_mm": 69.45,
+    "layers": 4,
+    "thickness_mm": 1.6,
+    "mask": "green",
+    "finish": "HASL",
+    "via_treatment": "free solder-mask plugging; no paid epoxy fill/cap",
+    "via_covering_fee": 0,
+    "build_days": 3
+  },
+  "assembly": {
+    "quantity": 2,
+    "side": "top",
+    "service": "economic",
+    "price": 96.97,
+    "placements_per_board": 68,
+    "original_placements_per_board": 69,
+    "part_types": 25,
+    "excluded": [{"reference": "POWER-U1", "part": "AP63300WU-7", "lcsc": "C2158012", "reason": "inventory shortage"}],
+    "fees": {
+      "setup": 11.68,
+      "stencil": 2.20,
+      "components": 38.03,
+      "extended_components": 35.05,
+      "smt_assembly": 1.50,
+      "hand_soldering": 5.12,
+      "manual_assembly": 1.66,
+      "special_components": 0.51,
+      "nitrogen_reflow": 1.22
+    },
+    "build_days": [4, 5],
+    "complete": false
+  },
+  "total_before_shipping": 108.31,
+  "shipping": "not included",
+  "order_placed": false,
+  "payment_submitted": false
+}
