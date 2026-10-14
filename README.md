@@ -9,8 +9,7 @@ ria is a small wheeled biped built for jumping and fast ground motion.
 - 2x 5010 260kv bldc
 - 2x gbm2804 145kv bldc
 - 2x sg90 servo
-- control pcb: 4x drv8316rrgfr, esp32-s3-wroom-1-n8, tokmas icm-42688-p, ap63300
-- 4x as5600
+- control pcb: 4x drv8316ctrgfr, doit esps3-32-n4, tokmas icm-42688-p, ap63300
 - funfly 1300 4s lipo
 - m2, m3 screws
 - 6x 693zz bearings (planet gears)
@@ -33,7 +32,7 @@ python3 main.py
 ```
 
 # pcb
-the pcb is a 50x63mm board with an esp32 s3 module built in Backplane (KiCad)
+open `pcb/ria.kicad_pro` in kicad or backplane. the current board is 50×65mm with four copper layers, four drv8316ct motor drivers, eight filtered phase-current adc inputs, a doit esp32-s3 module, usb-c data, vertical xt60 input and an imu. encoder headers are removed. fresh native checks pass; fabrication requires filled and capped vias. sensorless firmware and bench operation remain unverified. see [pcb/README.md](pcb/README.md) for pin mappings and verification. `ts-pcb/` preserves the original tscircuit source.
 
 # software
 ria is trained and driven in [botblocks.dev](https://botblocks.dev)
