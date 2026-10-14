@@ -1,0 +1,173 @@
+(footprint "ESP-SW2"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "ESP-SW2"
+		(at 0 -2.5494 0)
+		(layer "F.SilkS")
+		(uuid "9b5b10e2-53a8-4519-88ee-f8b4802e8f09")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "ESP-SW2"
+		(at 0 3 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b9962d4a-fd9f-428c-881f-bb5a725c0abd")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4bb285c2-544e-4f2d-8c4a-2fde0a062fe9")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6ee733da-10b1-4753-9c5b-0449e036fc6f")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Supplier Part Number" "C720477"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "19ef4bc0-66b8-6e7f-189f-d7426807e2fd")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -2.026209 -1.541196)
+		(end -2.026209 -1.110132)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "2b4c6402-0127-4c68-8b84-1a924f7fdb43")
+	)
+	(fp_line
+		(start -2.026209 1.541196)
+		(end -2.026209 1.110132)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "f816eaca-921a-4d0a-9654-aa3769dcc21b")
+	)
+	(fp_line
+		(start 2.026209 -1.541196)
+		(end -2.026209 -1.541196)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "4aa71336-40ad-4c43-94a6-15a710ea56fe")
+	)
+	(fp_line
+		(start 2.026209 -1.541196)
+		(end 2.026209 -1.110132)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "6c97a0ae-2677-4a23-a6bd-807a363e9a35")
+	)
+	(fp_line
+		(start 2.026209 1.110132)
+		(end 2.026209 1.541196)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a7d6de55-1b78-4110-9d08-6100a80ee1cd")
+	)
+	(fp_line
+		(start 2.026209 1.541196)
+		(end -2.026209 1.541196)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "e32c4f62-95db-4d74-bccf-e2a376877447")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 0.899922 0)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "366900ad-2a63-4253-a1dc-d37d4d093f8b")
+	)
+	(fp_poly
+		(pts
+			(xy -3.044 -1.7994) (xy 3.044 -1.7994) (xy 3.044 1.774) (xy -3.044 1.774) (xy -3.044 -1.7994)
+		)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "41fd33a0-4aab-dae1-28ab-169e63fdf7e3")
+	)
+	(pad "1" smd rect
+		(at -2.184908 0)
+		(size 1.229995 1.859991)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "709b6ca0-34f4-557f-257b-e8627fec2643")
+	)
+	(pad "2" smd rect
+		(at 2.184908 0)
+		(size 1.229995 1.859991)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "64131472-337c-ed8e-34f3-1072629cf18e")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3dmodels/tscircuit_builtin.3dshapes/C720477.step"
+		(offset
+			(xyz 0 0.0000127000000703 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

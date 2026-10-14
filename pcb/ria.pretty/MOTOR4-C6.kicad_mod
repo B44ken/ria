@@ -1,0 +1,135 @@
+(footprint "MOTOR4-C6"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "MOTOR4-C6"
+		(at 0 1.375 180)
+		(layer "F.SilkS")
+		(uuid "c343a539-7155-46a3-a6fc-5f3013676999")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "1uF"
+		(at 0 -3 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "da341bbc-e86e-4081-ac02-905d88c99e6c")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "4e1868f1-1044-45a9-ba88-8c1a956cc438")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "6b6f02a9-f776-4189-8eaa-85cb07b0bd13")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Supplier Part Number" "C15849, C6119852, C29936"
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "00d84080-0985-9521-13e3-6ac21e414063")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -0.825 0.875)
+		(end 1.425 0.875)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "f51dab8c-fa1f-442e-8345-6cf83023b302")
+	)
+	(fp_line
+		(start 1.425 -0.875)
+		(end -0.825 -0.875)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "8930dff1-c035-4c51-b02e-89e909637f98")
+	)
+	(fp_line
+		(start 1.425 0.875)
+		(end 1.425 -0.875)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "db246607-1cab-49ab-9395-b5571447d444")
+	)
+	(fp_rect
+		(start -1.48 0.73)
+		(end 1.48 -0.73)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "b59fe75c-584c-4edc-9a55-fbda2c3e18bc")
+	)
+	(pad "1" smd rect
+		(at 0.825 0)
+		(size 0.8 0.95)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "444b2280-0da9-283f-5f9d-72fe4e6e4243")
+	)
+	(pad "2" smd rect
+		(at -0.825 0)
+		(size 0.8 0.95)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "1fa88d80-0c3d-9ac0-072d-58001a984ac0")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3dmodels/tscircuit_builtin.3dshapes/cap0603.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

@@ -7,9 +7,7 @@ ria is a small wheeled biped built for jumping and fast ground motion.
 - 2x 5010 260kv bldc
 - 2x gbm2804 145kv bldc
 - 2x sg90 servo
-- 2x simplefocmini dual
-- mpu6050, tca9548a, mp1584, 4x as5600
-- raspberry pi pico 2w
+- 1x custom esp32-s3 pcb with four drv8316ct motor drivers and an icm-42688-p imu
 - funfly 1300 4s lipo
 - m2, m3 screws
 - 6x 693zz bearings (planet gears)
@@ -40,11 +38,9 @@ loads those same local meshes in botblocks. tests compare both models against
 the cad assembly and check articulated ground contact.
 
 # pcb
-the pcb is a 50x60mm esp32-based board, built in tscircuit. it has usb c (pd and data), xt60 input (up to 25v), four spi headers for encoders, and an imu.
+open `pcb/ria.kicad_pro` in kicad or backplane. the 50×65mm four-layer sensorless revision has a doit esp32-s3 module with 4mb flash, four drv8316ct motor drivers, eight filtered phase-current adc inputs, usb-c data, a vertical xt60pb input and an imu. all components mount on top; motor headers use 5.08mm pitch. the encoder headers are removed. the schematic has 104 components and 93 connected nets. native checks report zero erc violations, zero pcb errors, zero unrouted connections and zero schematic mismatches; remaining warnings and fabrication review items are in `pcb/README.md`. sensorless firmware and bench operation are not verified. local symbols, footprints and 3d models are included; `ts-pcb/` preserves the original tscircuit source and generated outputs.
 
-```bash
-tsci build
-```
+see `pcb/README.md` for the pin map, checks and fabrication review requirements.
 
 # software
 botblocks impl coming soon...

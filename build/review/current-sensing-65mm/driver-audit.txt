@@ -1,0 +1,1 @@
+pass: 288 pin/net assertions; 4 drv8316ct blocks, 8 filtered adc channels, 4 private faults, isolated avdd/buck outputs, c28323 avdd capacitors
