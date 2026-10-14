@@ -2,7 +2,7 @@
   "date": "2026-10-14",
   "vendor": "jlcpcb",
   "currency": "CAD",
-  "url": "https://cart.jlcpcb.com/shopcart/cart",
+  "url": "https://jlcpcb.com/user-center/orders/",
   "source_commit": "5c3606f9cbd59defd5ce12ece72264708f6c49da",
   "pcb_sha256": "1fff6f7f8d22bde5b384aa7697b88160119e8d21cdfc774fb0df4bbdcb69d6da",
   "pcb_quantity": 5,
@@ -31,17 +31,23 @@
     "pcb": 3,
     "assembly": "4-5"
   },
-  "order_placed": false,
+  "order_placed": true,
   "paid": false,
   "cart_item": "ria-value-engineered-gerbers_Y18",
   "coupon": {
     "value": 12.76,
     "minimum_order_excluding_freight": 1.42,
     "expires": "2026-10-30",
-    "unused": true,
-    "applied": false,
+    "applied": true,
     "regional_restriction": true,
-    "eligibility_confirmed_at_checkout": false
+    "eligibility_confirmed_at_checkout": true
   },
-  "total_before_shipping_if_coupon_applies": 97.62
+  "order_status": "awaiting_payment",
+  "discount": 12.76,
+  "total_before_shipping": 97.62,
+  "selected_payment_method": "paypal",
+  "payment_fee": 0.71,
+  "total_due": 136.1,
+  "payment_currency": "USD",
+  "total_due_usd": 95.99
 }
