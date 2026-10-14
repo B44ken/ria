@@ -1,1 +1,0 @@
-four layers, inner ground/battery planes, 69 top-mounted components, 59 connected nets, ss6343m pinout, mirrored 5.08 mm motor connectors and antenna-notch outline match

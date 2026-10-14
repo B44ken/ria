@@ -1,1 +1,0 @@
-pass: all placements, routes, nets, pad geometry, rule areas and logical zones preserved except approved XT60 tabs, 0.15 mm outer top-edge growth, existing driver model paths and regenerated zone fills

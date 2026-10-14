@@ -1,1 +1,0 @@
-pass: 198 routing vias, all0.3mm drill/0.6mm land; no routing-via holes intersect any SMD paste aperture

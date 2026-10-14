@@ -1,1 +1,0 @@
-pass: 142 pin/net assertions; four ss6343m blocks match manufacturer v1.2 pin table; nc pins isolated, charge-pump and local ldo bypasses correct, pwm module mapping and shared enable/fault correct

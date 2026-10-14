@@ -6,7 +6,7 @@
 	(property "Reference" "POWER-U1"
 		(at 0.101473 -2.524 0)
 		(layer "F.SilkS")
-		(uuid "5cab6cba-05a1-4f46-9608-227d54bd2189")
+		(uuid "2367033b-ce36-4ffe-8156-61cb3e0cced5")
 		(effects
 			(font
 				(size 1 1)
@@ -14,11 +14,11 @@
 			)
 		)
 	)
-	(property "Value" "AP63300WU-7"
+	(property "Value" "AP63301WU-7"
 		(at 0 3 90)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "fe2a53cd-612f-477a-bee1-314ed2680b66")
+		(uuid "63405e20-2703-4f4a-b038-84b50af5d51d")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -26,11 +26,11 @@
 			)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://www.diodes.com/datasheet/download/AP63300_AP63301.pdf"
 		(at 0 0 90)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "02f8b4aa-6df7-4e88-b876-63a514e1e5a3")
+		(uuid "4351bf73-b8cb-4efb-a73d-ff166e821934")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -38,11 +38,11 @@
 			)
 		)
 	)
-	(property "Description" ""
+	(property "Description" "3A 3.8V to 32V synchronous buck converter, forced PWM, TSOT26"
 		(at 0 0 90)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "adc50a47-b851-4401-86a2-707ebb12fd4c")
+		(uuid "5061f6fe-780e-4a42-ba68-dbf0e1f99b1b")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -50,15 +50,48 @@
 			)
 		)
 	)
-	(property "Supplier Part Number" "C2158012"
+	(property "Supplier Part Number" "C2158003"
 		(at 0 0 90)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "2a678512-69e8-08ae-01c8-69926d78dbd2")
+		(uuid "20e956c7-0d6e-4306-9218-fcae341804d4")
 		(effects
 			(font
 				(size 1.27 1.27)
 				(thickness 0.15)
+			)
+		)
+	)
+	(property "LCSC" "C2158003"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "bf6e744e-4847-4de1-90fa-7a63a0ce1b9d")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "MPN" "AP63301WU-7"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "ddef15b6-9959-48f6-9103-f80620aef865")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Manufacturer" "Diodes Incorporated"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "384775ca-b393-42c9-b672-7d42dd7f407e")
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
 		)
 	)
@@ -71,7 +104,7 @@
 			(type default)
 		)
 		(layer "F.SilkS")
-		(uuid "8610f629-a9b2-4843-b6ef-cbfbbbee58f9")
+		(uuid "65c36b93-ff9e-4dbd-8a3d-56ddbcb2c86b")
 	)
 	(fp_line
 		(start 0.876071 1.52621)
@@ -81,7 +114,7 @@
 			(type default)
 		)
 		(layer "F.SilkS")
-		(uuid "f6b220c0-2602-4971-b3b3-045f325c2c87")
+		(uuid "3c2bbe37-aab1-4ea1-b1cf-58b05bfe48d5")
 	)
 	(fp_circle
 		(center 1.287399 1.668526)
@@ -92,7 +125,7 @@
 		)
 		(fill no)
 		(layer "F.SilkS")
-		(uuid "54ab1098-bdd4-4be8-8120-1fd394c27fd9")
+		(uuid "b8578939-fd5d-4f1d-ba58-00fc079049b3")
 	)
 	(fp_poly
 		(pts
@@ -104,43 +137,43 @@
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "3601e040-56a7-2e41-1caf-c33e6ff94b43")
+		(uuid "b567b916-7ce7-47b1-8538-fa2afa953e36")
 	)
 	(pad "1" smd rect
 		(at 1.200023 0.94996 90)
 		(size 0.532003 0.799998)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "5fe0b0c0-41d7-4b1f-1c70-b9027ab8bd23")
+		(uuid "e424cfa5-a32c-4b3e-9b9a-38b8f46f5dd3")
 	)
 	(pad "2" smd rect
 		(at 1.200023 0 90)
 		(size 0.532003 0.799998)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "0c0a3cb0-1f75-2f70-32e0-2230464b14f0")
+		(uuid "a98e0ad1-7f0d-4b98-90ae-3afa956be3b4")
 	)
 	(pad "3" smd rect
 		(at 1.200023 -0.94996 90)
 		(size 0.532003 0.799998)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "26c5c646-6e81-b9da-03c9-39fa66ef45e6")
+		(uuid "7c462195-4d25-4b46-a016-2485a336a105")
 	)
 	(pad "4" smd rect
 		(at -1.200023 -0.94996 90)
 		(size 0.532003 0.799998)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "54d80888-406f-7798-2a49-08486afe77d8")
+		(uuid "ce0be9ce-bc95-4488-ba5e-9baa7c27be8d")
 	)
 	(pad "5" smd rect
 		(at -1.200023 0 90)
 		(size 0.532003 0.799998)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "496aeda0-7dd3-6981-4dc4-1a9e195b9ebd")
+		(uuid "6ed0e57e-f0a6-49c5-aa4f-ab9ea68b5df7")
 	)
 	(pad "6" smd rect
 		(at -1.200023 0.94996 90)
 		(size 0.532003 0.799998)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "4b2bbcfc-1f8c-c2e4-75ba-bd3c0b023d5c")
+		(uuid "f098a3a2-dd24-4e3b-bad6-a1eb9bd9e8ea")
 	)
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/3dmodels/tscircuit_builtin.3dshapes/C2158012.step"

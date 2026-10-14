@@ -2,7 +2,6 @@
 import subprocess
 import tempfile
 from collections import defaultdict
-from math import pi
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -21,11 +20,13 @@ with tempfile.TemporaryDirectory() as directory:
     schematic = ET.parse(netlist).getroot()
 
 board = pcbnew.LoadBoard(str(root / "ria.kicad_pcb"))
+for via in (item for item in board.GetTracks() if item.GetClass() == "PCB_VIA"):
+    assert via.GetDrillValue() >= pcbnew.FromMM(0.3), "routing via drill below 0.3 mm"
+    assert via.GetWidth(pcbnew.F_Cu) >= pcbnew.FromMM(0.6), "routing via land below 0.6 mm"
 footprints = {f.GetReference(): f for f in board.GetFootprints()}
 components = {c.attrib["ref"]: c for c in schematic.findall("components/comp")}
 assert footprints.keys() == components.keys()
-assert len(footprints) == 104
-assert not any(ref.startswith("ENC-") for ref in footprints)
+assert len(footprints) == 69
 esp = components["ESP-U1"]
 assert esp.findtext("value") == "ESPS3-32-N4"
 assert esp.findtext("fields/field[@name='LCSC']") == "C49164655"
@@ -38,10 +39,40 @@ for ref, footprint in footprints.items():
             if layers.Contains(pcbnew.F_Cu) or layers.Contains(pcbnew.B_Cu):
                 assert layers.Contains(pcbnew.F_Cu) and not layers.Contains(pcbnew.B_Cu), (ref, pad.GetNumber())
             else:
-                assert ref in {"ESP-U1", *[f"MOTOR{n}-U1" for n in range(1, 5)]} and not pad.GetNumber()
+                assert ref == "ESP-U1" and not pad.GetNumber()
                 assert list(layers.Seq()) == [pcbnew.F_Paste]
 for ref, component in components.items():
     assert footprints[ref].GetValue() == component.findtext("value"), ref
+
+# source part numbers and physical land patterns must agree after substitution.
+for refs, value, lcsc, mpn, library, size, pitch in [
+    (["ESP-C3", *[f"MOTOR{n}-C2" for n in range(1, 5)]], "1uF", "C28323", "CL21B105KBFNNNE", "C_0805_2012Metric", (1, 1.45), 1.9),
+    ([f"MOTOR{n}-C5" for n in range(1, 5)], "22uF", "C12891", "CL31A226KAHNNNE", "C_1206_3216Metric", (1.75, 1.125), 2.925),
+]:
+    local = pcbnew.FootprintLoad(str(root / "ria.pretty"), library)
+    for ref in refs:
+        footprint, component = footprints[ref], components[ref]
+        assert footprint.GetValue() == value
+        assert footprint.GetFPID().GetLibItemName() == library, ref
+        properties = {field.GetName(): field.GetText() for field in footprint.GetFields()}
+        for key, expected in [("LCSC", lcsc), ("MPN", mpn)]:
+            assert properties[key] == component.findtext(f"fields/field[@name='{key}']") == expected, ref
+        pads = sorted(footprint.Pads(), key=lambda pad: pad.GetNumber())
+        assert [pad.GetNumber() for pad in pads] == ["1", "2"]
+        for pad in [*pads, *local.Pads()]:
+            assert pad.GetAttribute() == pcbnew.PAD_ATTRIB_SMD
+            assert pad.GetSize() == pcbnew.VECTOR2I(*(pcbnew.FromMM(n) for n in size)), ref
+            assert pad.GetDrillSize() == pcbnew.VECTOR2I(0, 0)
+        a, b = [pad.GetPosition() for pad in pads]
+        assert (a.x - b.x) ** 2 + (a.y - b.y) ** 2 == pcbnew.FromMM(pitch) ** 2, ref
+
+holes = [via.GetEffectiveHoleShape() for via in board.GetTracks() if via.GetClass() == "PCB_VIA"]
+for ref, footprint in footprints.items():
+    for pad in footprint.Pads():
+        if pad.GetAttribute() == pcbnew.PAD_ATTRIB_SMD:
+            for layer in [pcbnew.F_Cu, pcbnew.F_Paste]:
+                if pad.GetLayerSet().Contains(layer):
+                    assert not any(pad.GetEffectiveShape(layer).Collide(hole, 0) for hole in holes), (ref, pad.GetNumber())
 
 pcb_nets = defaultdict(set)
 for ref, footprint in footprints.items():
@@ -58,168 +89,65 @@ schematic_nets = {
 paste = [pad for pad in footprints["ESP-U1"].Pads() if not pad.GetNumber()]
 assert len(paste) == 9
 thermal = [pad for pad in footprints["ESP-U1"].Pads() if pad.GetNumber() == "41" and pad.GetAttribute() == pcbnew.PAD_ATTRIB_PTH]
-assert len(thermal) == 12
+assert len(thermal) == 0, "lean design must not reintroduce module cooling holes"
+assert any(p.GetNumber() == "41" and p.GetAttribute() == pcbnew.PAD_ATTRIB_SMD for p in footprints["ESP-U1"].Pads()), "retain soldered module ground land"
 for window in paste:
     for hole in thermal:
         assert not window.GetEffectiveShape(pcbnew.F_Paste).Collide(hole.GetEffectiveHoleShape(), 0)
 assert pcb_nets == schematic_nets
-assert len(pcb_nets) == 93
+assert len(pcb_nets) == 59
 pin_nets = {node: name for name, nodes in pcb_nets.items() for node in nodes}
-pwm_module_pins = [("21", "22", "8"), ("9", "10", "11"), ("23", "28", "29"), ("30", "31", "32")]
+regulator = components["POWER-U1"]
+assert regulator.findtext("value") == "AP63301WU-7"
+assert regulator.findtext("fields/field[@name='MPN']") == "AP63301WU-7"
+assert regulator.findtext("fields/field[@name='LCSC']") == "C2158003"
+assert footprints["POWER-U1"].GetFPID().GetLibItemName() == "POWER-U1"
+for pin, net in [(1, "POWER_FB"), (2, "VIN"), (3, "VIN"), (4, "GND"), (5, "POWER_SW"), (6, "POWER_BST")]:
+    assert pin_nets["POWER-U1", str(pin)] == net
+assert footprints["POWER-R1"].GetValue() == "75kΩ"
+assert footprints["POWER-R2"].GetValue() == "24kΩ"
+assert pin_nets["POWER-R1", "1"] == "V3_3" and pin_nets["POWER-R1", "2"] == "POWER_FB"
+assert pin_nets["POWER-R2", "1"] == "POWER_FB" and pin_nets["POWER-R2", "2"] == "GND"
+assert abs(0.8 * (1 + 75 / 24) - 3.3) < 1e-9
 for channel in range(1, 5):
     ref = f"MOTOR{channel}-U1"
-    prefix = f"MOTOR{channel}"
     driver = footprints[ref]
-    assert driver.GetValue() == "DRV8316CTRGFR"
-    assert driver.GetFPID().GetLibItemName() == "DRV8316CTRGFR"
-    assert components[ref].findtext("fields/field[@name='LCSC']") == "C6602057"
-    assert {pad.GetNumber() for pad in driver.Pads() if pad.GetNumber()} == {str(n) for n in range(1, 42)}
-    # the imported ti land pattern is rotated 180 degrees in its local frame.
-    for pad in [pad for pad in driver.Pads() if pad.GetNumber() and pad.GetNumber() != "41"]:
-        n = int(pad.GetNumber())
-        if n <= 12:
-            x, y, width, height = 2.4, 2.75 - 0.5 * (n - 1), 0.6, 0.25
-        elif n <= 20:
-            x, y, width, height = 1.75 - 0.5 * (n - 13), -3.4, 0.25, 0.6
-        elif n <= 32:
-            x, y, width, height = -2.4, -2.75 + 0.5 * (n - 21), 0.6, 0.25
-        else:
-            x, y, width, height = -1.75 + 0.5 * (n - 33), 3.4, 0.25, 0.6
-        position, size = pad.GetFPRelativePosition(), pad.GetSize()
-        # imported mil-to-mm conversion differs by at most 0.0002 mm.
-        for actual, expected in [(position.x, x), (position.y, y), (size.x, width), (size.y, height)]:
-            assert abs(actual - pcbnew.FromMM(expected)) <= pcbnew.FromMM(0.0002), (ref, n)
-    ep = next(pad for pad in driver.Pads() if pad.GetNumber() == "41" and pad.GetAttribute() == pcbnew.PAD_ATTRIB_SMD)
-    assert not ep.GetLayerSet().Contains(pcbnew.F_Paste)
-    assert abs(ep.GetSize().x - pcbnew.FromMM(3.7)) <= 20
-    assert abs(ep.GetSize().y - pcbnew.FromMM(5.7)) <= 20
-    windows = [pad for pad in driver.Pads() if not pad.GetNumber()]
-    assert len(windows) == 12
-    # ti rgf0040e: 3 x 4 apertures, nominal 69% coverage; dimensions in mm.
-    expected = {(pcbnew.FromMM(x), pcbnew.FromMM(y)) for x in [-1.25, 0, 1.25] for y in [-2.025, -0.675, 0.675, 2.025]}
-    assert {(pad.GetFPRelativePosition().x, pad.GetFPRelativePosition().y) for pad in windows} == expected
-    for window in windows:
-        assert list(window.GetLayerSet().Seq()) == [pcbnew.F_Paste]
-        assert window.GetShape() == pcbnew.PAD_SHAPE_ROUNDRECT
-        assert window.GetSize() == pcbnew.VECTOR2I(pcbnew.FromMM(1.05), pcbnew.FromMM(1.15))
-        assert window.GetRoundRectCornerRadius() == pcbnew.FromMM(0.05)
-        assert window.GetFPRelativeOrientation().AsDegrees() % 360 == 0
-    coverage = 12 * (1.05 * 1.15 - (4 - pi) * 0.05 ** 2) / (pcbnew.ToMM(ep.GetSize().x) * pcbnew.ToMM(ep.GetSize().y))
-    assert 0.685 < coverage < 0.688
-    holes = [via for via in board.GetTracks() if isinstance(via, pcbnew.PCB_VIA) and ep.GetEffectiveShape(pcbnew.F_Cu).Collide(via.GetEffectiveHoleShape(), 0)]
-    expected_vias = set()
-    for x in [-0.625, 0.625]:
-        for y in [-1.35, 0, 1.35]:
-            probe = pcbnew.PAD(driver)
-            probe.SetFPRelativePosition(pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(y)))
-            expected_vias.add(tuple(probe.GetPosition()))
-    assert {tuple(via.GetPosition()) for via in holes} == expected_vias
-    for via in holes:
-        assert via.GetNetname() == "GND"
-        assert via.GetWidth(pcbnew.F_Cu) == pcbnew.FromMM(0.5)
-        assert via.GetDrillValue() == pcbnew.FromMM(0.2)
-        assert via.IsTented(pcbnew.F_Mask) and via.IsTented(pcbnew.B_Mask)
-        # holes sit in the ti 0.2 mm paste gaps: zero nominal process clearance.
-        for window in windows:
-            assert not window.GetEffectiveShape(pcbnew.F_Paste).Collide(via.GetEffectiveHoleShape(), 0)
-    for pin in [9, 10, 11]:
+    assert driver.GetValue() == "SS6343M-QF-TP"
+    assert driver.GetFPID().GetLibItemName() == "SS6343M-QF-TP"
+    assert {pad.GetNumber() for pad in driver.Pads()} == {str(n) for n in range(1, 26)}
+    for pin in [1, 2, 3, 24]:
+        assert pin_nets[ref, str(pin)] == "MOTOR_ENABLE"
+    for pin in [7, 13, 16]:
         assert pin_nets[ref, str(pin)] == "BAT"
-    for pin in [2, 4, 12, 15, 18, 21, 24, 26, 34, 35, 41]:
+    for pin in [8, 12, 15, 25]:
         assert pin_nets[ref, str(pin)] == "GND"
-    for pin in [25, 28, 30, 32, 37]:
-        assert pin_nets[ref, str(pin)] == prefix + "_AVDD"
-    assert prefix + "-C9" not in footprints
-    assert pcb_nets[prefix + "_AVDD"] == {
-        *[(ref, str(pin)) for pin in [25, 28, 30, 32, 37]],
-        (prefix + "-C6", "1"), (prefix + "-R1", "1"), (prefix + "-R3", "1"),
-    }
-    for pin in [1, 36, 38]:
-        assert (ref, str(pin)) not in pin_nets
-    for pwm, esp_pin, phase in zip([27, 29, 31], pwm_module_pins[channel - 1], "ABC"):
-        assert pin_nets[ref, str(pwm)] == prefix + f"_PWM_{phase}"
-        assert pcb_nets[prefix + f"_PWM_{phase}"] == {(ref, str(pwm)), ("ESP-U1", esp_pin)}
-    for outputs, phase in zip([(13, 14), (16, 17), (19, 20)], "ABC"):
-        for output in outputs:
-            assert pin_nets[ref, str(output)] == prefix + f"_{phase}"
-    assert pin_nets[ref, "23"] == "MOTOR_ENABLE"
-    assert pin_nets[ref, "22"] == prefix + "_FAULT"
-    assert pin_nets[prefix + "-R3", "1"] == prefix + "_AVDD"
-    assert pin_nets[prefix + "-R3", "2"] == prefix + "_FAULT"
-    assert footprints[prefix + "-R3"].GetValue() == "5.1kΩ"
-    assert pcb_nets[prefix + "_MODE"] == {(ref, "33"), (prefix + "-R1", "2")}
-    assert footprints[prefix + "-R1"].GetValue() == "47kΩ"
-    assert pin_nets[prefix + "-R1", "1"] == prefix + "_AVDD"
-    assert pcb_nets[prefix + "_CP"] == {(ref, "8"), (prefix + "-C2", "1")}
-    assert pin_nets[prefix + "-C2", "2"] == "BAT"
-    assert footprints[prefix + "-C2"].GetValue() == "1uF"
-    assert pcb_nets[prefix + "_CPH"] == {(ref, "7"), (prefix + "-C7", "1")}
-    assert pcb_nets[prefix + "_CPL"] == {(ref, "6"), (prefix + "-C7", "2")}
-    assert footprints[prefix + "-C7"].GetValue() == "47nF"
-    assert pcb_nets[prefix + "_SW_BK"] == {(ref, "5"), (prefix + "-R2", "1")}
-    assert pcb_nets[prefix + "_BUCK"] == {(ref, "3"), (prefix + "-R2", "2"), (prefix + "-C8", "1")}
-    assert footprints[prefix + "-R2"].GetValue() == "22Ω"
-    assert footprints[prefix + "-C8"].GetValue() == "22uF"
-    assert pin_nets[prefix + "-C8", "2"] == "GND"
-    assert components[prefix + "-C6"].findtext("fields/field[@name='LCSC']") == "C28323"
-    assert footprints[prefix + "-C6"].GetValue() == "1uF"
-    assert footprints[prefix + "-C6"].GetFPID().GetLibItemName() == "C_0805_2012Metric"
-    assert pin_nets[prefix + "-C6", "1"] == prefix + "_AVDD"
-    assert pin_nets[prefix + "-C6", "2"] == "GND"
-    for suffix, value, lcsc, mpn, footprint in [
-        ("C3", "100nF", "C14663", "CC0603KRX7R9BB104", "C_0603_1608Metric"),
-        ("C5", "10uF", "C89632", "CL31B106KBHNNNE", "C_1206_3216Metric"),
-        ("C10", "100nF", "C14663", "CC0603KRX7R9BB104", "C_0603_1608Metric"),
-    ]:
-        capacitor = prefix + "-" + suffix
-        component = components[capacitor]
-        assert footprints[capacitor].GetValue() == value
-        assert footprints[capacitor].GetFPID().GetLibItemName() == footprint
-        assert component.findtext("fields/field[@name='LCSC']") == lcsc
-        assert component.findtext("fields/field[@name='MPN']") == mpn
-        description = component.findtext("fields/field[@name='Description']")
-        assert "50V" in description and "X7R" in description
-        assert pin_nets[capacitor, "1"] == "BAT"
-        assert pin_nets[capacitor, "2"] == "GND"
-    for pin, phase, resistor, capacitor in [(40, "A", "R4", "C11"), (39, "B", "R5", "C12")]:
-        raw = prefix + f"_ISENSE_{phase}_RAW"
-        filtered = prefix + f"_ISENSE_{phase}"
-        assert pcb_nets[raw] == {(ref, str(pin)), (prefix + "-" + resistor, "1")}
-        assert pin_nets[prefix + "-" + resistor, "2"] == filtered
-        assert footprints[prefix + "-" + resistor].GetValue() == "330Ω"
-        assert pin_nets[prefix + "-" + capacitor, "1"] == filtered
-        assert pin_nets[prefix + "-" + capacitor, "2"] == "GND"
-        assert footprints[prefix + "-" + capacitor].GetValue() == "22pF"
-adc_pins = [("4", "5"), ("39", "38"), ("6", "7"), ("12", "17")]
-fault_pins = ["36", "25", "35", "19"]
-for channel, (adc_pair, fault_pin) in enumerate(zip(adc_pins, fault_pins), 1):
-    for pin, phase in zip(adc_pair, "AB"):
-        assert pin_nets["ESP-U1", pin] == f"MOTOR{channel}_ISENSE_{phase}"
-    assert pin_nets["ESP-U1", fault_pin] == f"MOTOR{channel}_FAULT"
-assert pin_nets["ESP-U1", "33"] == "IMU_SDA"
-assert pin_nets["ESP-U1", "34"] == "IMU_SCL"
-assert pin_nets["ESP-U1", "18"] == "VBAT_SENSE"
-assert pin_nets["SENSE-R1", "1"] == "BAT"
-assert pin_nets["SENSE-R1", "2"] == "VBAT_SENSE"
-assert pin_nets["SENSE-R2", "1"] == "VBAT_SENSE"
-assert pin_nets["SENSE-R2", "2"] == "GND"
-assert footprints["SENSE-R1"].GetValue() == "100kΩ"
-assert footprints["SENSE-R2"].GetValue() == "20kΩ"
-assert pin_nets["SENSE-C1", "1"] == "VBAT_SENSE"
-assert pin_nets["SENSE-C1", "2"] == "GND"
-assert footprints["SENSE-C1"].GetValue() == "100nF"
-for pin in [15, 16, 26, 37]:
+    for pwm, phase in zip([4, 5, 6], "ABC"):
+        assert pin_nets[ref, str(pwm)] == f"MOTOR{channel}_PWM_{phase}"
+    for output, phase in zip([9, 10, 11], "ABC"):
+        assert pin_nets[ref, str(output)] == f"MOTOR{channel}_{phase}"
+    assert pin_nets[ref, "20"] == "MOTOR_FAULT"
+    assert pcb_nets[f"MOTOR{channel}_VCP"] == {(ref, "14"), (f"MOTOR{channel}-C2", "1")}
+    assert pin_nets[f"MOTOR{channel}-C2", "2"] == "BAT"
+    assert pcb_nets[f"MOTOR{channel}_V3P3"] == {(ref, "18"), (f"MOTOR{channel}-C6", "1")}
+    assert footprints[f"MOTOR{channel}-C6"].GetValue() == "4.7uF"
+    assert pin_nets[f"MOTOR{channel}-C6", "2"] == "GND"
+assert pcb_nets["MOTOR_FAULT"] == {
+    ("ESP-U1", "36"), ("MOTOR-R2", "2"),
+    *[(f"MOTOR{channel}-U1", "20") for channel in range(1, 5)],
+}
+assert pin_nets["MOTOR-R2", "1"] == "V3_3"
+for pin in [25, 33, 34, 35, 37, 38, 39]:
     assert ("ESP-U1", str(pin)) not in pin_nets
 assert pin_nets["ESP-U1", "13"] == "ESP_USB_DM"
 assert pin_nets["ESP-U1", "14"] == "ESP_USB_DP"
 assert pin_nets["ESP-U1", "24"] == "MOTOR_ENABLE"
 assert pin_nets["ESP-U1", "27"] == "ESP_BOOT"
-assert not {"MOTOR_MISO", "MOTOR_MOSI", "MOTOR_SCLK", "MOTOR_FAULT", "SDA0", "SCL0"} & pcb_nets.keys()
+assert not {"MOTOR_MISO", "MOTOR_MOSI", "MOTOR_SCLK"} & pcb_nets.keys()
 assert board.GetCopperLayerCount() == 4
-board_outline = pcbnew.SHAPE_POLY_SET()
-assert board.GetBoardPolygonOutlines(board_outline, False)
-outline = board_outline.BBox()
-assert outline.GetWidth() == pcbnew.FromMM(50)
-assert outline.GetHeight() == pcbnew.FromMM(65)
+outline = pcbnew.SHAPE_POLY_SET()
+assert board.GetBoardPolygonOutlines(outline, False)
+assert outline.BBox().GetWidth() == pcbnew.FromMM(50)
+assert outline.BBox().GetHeight() == pcbnew.FromMM(69.45)
 assert any(z.GetLayer() == pcbnew.In1_Cu and z.GetNetname() == "GND" for z in board.Zones())
 assert any(z.GetLayer() == pcbnew.In2_Cu and z.GetNetname() == "BAT" for z in board.Zones())
 antenna = list(footprints["ESP-U1"].Zones())
@@ -234,6 +162,7 @@ for zone in [*board.Zones(), *antenna]:
         assert zone.GetLayerSet().Contains(pcbnew.In1_Cu)
         assert zone.GetLayerSet().Contains(pcbnew.In2_Cu)
 for left, right in [
+    ("ENC-J1", "ENC-J3"), ("ENC-J2", "ENC-J4"),
     ("MOTOR-J1", "MOTOR-J2"),
     ("MOTOR-J3", "MOTOR-J6"), ("MOTOR-J4", "MOTOR-J7"),
     ("MOTOR-J5", "MOTOR-J8"),
@@ -244,21 +173,33 @@ usb = footprints["USB-J1"]
 assert usb.GetPosition().x == pcbnew.FromMM(100) and usb.GetOrientationDegrees() == 0
 assert usb.GetPosition().y > pcbnew.FromMM(135)
 xt60 = footprints["POWER-J1"]
-assert xt60.GetValue() == "XT60PB-M.G.Y"
-assert components["POWER-J1"].findtext("fields/field[@name='LCSC']") == "C19268037"
+assert xt60.GetPosition() == pcbnew.VECTOR2I(pcbnew.FromMM(83.4), pcbnew.FromMM(75.7))
+assert xt60.GetOrientationDegrees() == -90
+assert xt60.GetValue() == "XT60PW-M"
+assert components["POWER-J1"].findtext("fields/field[@name='LCSC']") == "C98732"
 power_pads = {pad.GetNumber(): pad for pad in xt60.Pads()}
-assert power_pads.keys() == {"1", "2"}
+assert power_pads.keys() == {"1", "2", "3", "4"}
 assert pin_nets["POWER-J1", "1"] == "GND"
 assert pin_nets["POWER-J1", "2"] == "BAT"
-negative, positive = power_pads["1"], power_pads["2"]
-assert positive.GetPosition().x - negative.GetPosition().x == pcbnew.FromMM(7.2)
-assert positive.GetPosition().y == negative.GetPosition().y
-for pad in power_pads.values():
-    assert pad.GetAttribute() == pcbnew.PAD_ATTRIB_PTH
-    assert pad.GetDrillSize() == pcbnew.VECTOR2I(pcbnew.FromMM(4.6), pcbnew.FromMM(4.6))
+for number in ["1", "2"]:
+    drill = power_pads[number].GetDrillSize()
+    assert abs(drill.x - pcbnew.FromMM(2.9)) <= pcbnew.FromMM(0.00005)
+    assert drill.x == drill.y
+negative, positive = power_pads["1"].GetPosition(), power_pads["2"].GetPosition()
+assert abs(positive.x - negative.x - pcbnew.FromMM(7.2)) <= pcbnew.FromMM(0.0002)
+assert positive.y == negative.y
+# amass c98732, 2025v0: 0.8 x 1.9 mm tab slots, 13.5 mm pitch, 6 mm behind pins.
+left, right = power_pads["4"].GetPosition(), power_pads["3"].GetPosition()
+assert abs(right.x - left.x - pcbnew.FromMM(13.5)) <= pcbnew.FromMM(0.0002)
+assert left.y == right.y
+assert abs(negative.y - left.y - pcbnew.FromMM(6)) <= pcbnew.FromMM(0.00005)
+local_power = pcbnew.FootprintLoad(str(root / "ria.pretty"), "POWER-J1")
+for pad in [power_pads["3"], power_pads["4"], *[p for p in local_power.Pads() if p.GetNumber() in {"3", "4"}]]:
+    assert pad.GetDrillSize() == pcbnew.VECTOR2I(pcbnew.FromMM(0.8), pcbnew.FromMM(1.9))
+    assert pad.GetSize() == pcbnew.VECTOR2I(pcbnew.FromMM(1.4), pcbnew.FromMM(2.5))
 for ref, x, angle in [("MOTOR-J1", 78.5, -90), ("MOTOR-J2", 121.5, 90)]:
     header = footprints[ref]
-    assert header.GetPosition() == pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(91))
+    assert header.GetPosition() == pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(89))
     assert header.GetOrientationDegrees() == angle
     assert header.GetFPID().GetLibItemName() == "WJ2EDGR-5.08-03P-14-00A"
     assert components[ref].findtext("fields/field[@name='LCSC']") == "C70914"
@@ -270,4 +211,4 @@ for ref, x, angle in [("MOTOR-J1", 78.5, -90), ("MOTOR-J2", 121.5, 90)]:
     for a, b in zip(pads, pads[1:]):
         assert abs(a.GetPosition().y - b.GetPosition().y) == pcbnew.FromMM(5.08)
         assert a.GetPosition().x == b.GetPosition().x
-print(f"50 x 65 mm, four layers, {len(footprints)} top-mounted components, {len(pcb_nets)} connected nets, eight filtered current inputs, four drv8316ct configurations/faults, vertical xt60 and antenna keepout match")
+print("four layers, 69 top-mounted components, 59 connected nets, ss6343m pinout, C28323/0805 and C12891/1206 capacitors, AP63301 pinout/divider, no holes in smd copper/paste, mirrored motor connectors and antenna-notch outline match")

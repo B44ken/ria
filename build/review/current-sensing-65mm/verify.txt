@@ -1,1 +1,0 @@
-50 x 65 mm, four layers, 104 top-mounted components, 93 connected nets, eight filtered current inputs, four drv8316ct configurations/faults, vertical xt60 and antenna keepout match
