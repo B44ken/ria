@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-14",
+  "vendor": "jlcpcb",
+  "currency": "CAD",
+  "url": "https://cart.jlcpcb.com/smt-order/?pcbFileNo=5e9db1f968204c31996deeef74b71f01",
+  "source_commit": "5c3606f9cbd59defd5ce12ece72264708f6c49da",
+  "pcb_sha256": "1fff6f7f8d22bde5b384aa7697b88160119e8d21cdfc774fb0df4bbdcb69d6da",
+  "pcb_quantity": 5,
+  "assembled_quantity": 2,
+  "assembly_side": "top",
+  "pcba_type": "economic",
+  "placements_per_board": 69,
+  "part_types": 24,
+  "connectors_assembled": true,
+  "pcb_price": 11.34,
+  "assembly_price": 99.04,
+  "total_before_shipping_and_coupon": 110.38,
+  "assembly_fees": {
+    "setup": 11.68,
+    "stencil": 2.2,
+    "components": 44.49,
+    "extended_components": 30.67,
+    "smt_assembly": 1.49,
+    "hand_soldering": 5.12,
+    "manual_assembly": 1.66,
+    "special_components": 0.51,
+    "nitrogen": 1.22
+  },
+  "shipping_estimate": 37.77,
+  "build_days": {
+    "pcb": 3,
+    "assembly": "4-5"
+  },
+  "order_placed": false,
+  "paid": false,
+  "cart_item": "ria-value-engineered-gerbers_Y18",
+  "coupon": {
+    "value": 12.76,
+    "minimum_order_excluding_freight": 1.42,
+    "expires": "2026-10-30",
+    "unused": true,
+    "applied": false,
+    "regional_restriction": true,
+    "eligibility_confirmed_at_checkout": false
+  },
+  "total_before_shipping_if_coupon_applies": 97.62
+}
