@@ -9,7 +9,7 @@ ria is a small wheeled biped built for jumping and fast ground motion.
 - 2x 5010 260kv bldc
 - 2x gbm2804 145kv bldc
 - 2x sg90 servo
-- control pcb: 4x ss6343m, doit esps3-32-n4, tokmas icm-42688-p, ap63300
+- control pcb: 4x ss6343m, doit esps3-32-n4, tokmas icm-42688-p, ap63301
 - 4x as5600
 - funfly 1300 4s lipo
 - m2, m3 screws
@@ -36,6 +36,8 @@ python3 main.py
 backplane opens the [pcb from pr #5](hardware/oct05-mincaps/ria-backplane-mincaps/pcb/ria.kicad_pro): 50×69.45mm, four copper layers, four ss6343m motor drivers, a doit esp32-s3 module, four encoder headers, usb-c, horizontal xt60 and an imu. its 198 routing vias have 0.3mm drills and no holes inside solder pads; epoxy filling and copper capping are unnecessary for this layout. see [the review](hardware/oct05-mincaps/review-2026-10-14.md) for fresh checks, connector correction and pricing. firmware and sustained-current temperatures need bench verification.
 
 `pcb/` retains the separate drv8316ct sensorless revision. `ts-pcb/` preserves the original tscircuit source.
+
+the [value-engineering checkpoint](hardware/oct05-mincaps/value-engineering-2026-10-14.md) records the current capacitor substitutions, available regulator and verification status; its live quote is pending.
 
 # software
 ria is trained and driven in [botblocks.dev](https://botblocks.dev)

@@ -1,5 +1,5 @@
 {
-  "status": "reduced_bypass_candidate_validation_pending",
+  "status": "value_engineering_layout_verified_quote_pending",
   "manufacturing_ready": false,
   "routing_vias": 198,
   "minimum_routing_drill_mm": 0.3,
@@ -12,13 +12,13 @@
   "drc_violations": 0,
   "unconnected_items": 0,
   "schematic_parity": 0,
-  "board_sha256": "d4c210754f7143ea50357abc1c7c7ac3fd38924d02991d099fac64ac100dd1eb",
+  "board_sha256": "1fff6f7f8d22bde5b384aa7697b88160119e8d21cdfc774fb0df4bbdcb69d6da",
   "pads_placements_outline_zones_preserved": false,
   "schematic_identical": false,
   "baseline_preserved": true,
   "erc_violations": 0,
-  "verification_tool": "KiCad 10.0.6 Linux",
-  "verified_at_utc": "2026-10-05T18:31:00Z",
+  "verification_tool": "KiCad 10.0.6 macOS",
+  "verified_at_utc": "2026-10-14T10:35:45.956675+00:00",
   "removed_motor_thermal_vias": 24,
   "removed_module_thermal_holes": 12,
   "placements_outline_zones_preserved": true,
@@ -29,5 +29,6 @@
     "ESP-C2",
     "POWER-C2",
     "USB-C1"
-  ]
+  ],
+  "current_review": "../../value-engineering-2026-10-14.md"
 }

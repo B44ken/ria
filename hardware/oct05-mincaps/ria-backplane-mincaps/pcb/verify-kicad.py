@@ -44,6 +44,36 @@ for ref, footprint in footprints.items():
 for ref, component in components.items():
     assert footprints[ref].GetValue() == component.findtext("value"), ref
 
+# source part numbers and physical land patterns must agree after substitution.
+for refs, value, lcsc, mpn, library, size, pitch in [
+    (["ESP-C3", *[f"MOTOR{n}-C2" for n in range(1, 5)]], "1uF", "C28323", "CL21B105KBFNNNE", "C_0805_2012Metric", (1, 1.45), 1.9),
+    ([f"MOTOR{n}-C5" for n in range(1, 5)], "22uF", "C12891", "CL31A226KAHNNNE", "C_1206_3216Metric", (1.75, 1.125), 2.925),
+]:
+    local = pcbnew.FootprintLoad(str(root / "ria.pretty"), library)
+    for ref in refs:
+        footprint, component = footprints[ref], components[ref]
+        assert footprint.GetValue() == value
+        assert footprint.GetFPID().GetLibItemName() == library, ref
+        properties = {field.GetName(): field.GetText() for field in footprint.GetFields()}
+        for key, expected in [("LCSC", lcsc), ("MPN", mpn)]:
+            assert properties[key] == component.findtext(f"fields/field[@name='{key}']") == expected, ref
+        pads = sorted(footprint.Pads(), key=lambda pad: pad.GetNumber())
+        assert [pad.GetNumber() for pad in pads] == ["1", "2"]
+        for pad in [*pads, *local.Pads()]:
+            assert pad.GetAttribute() == pcbnew.PAD_ATTRIB_SMD
+            assert pad.GetSize() == pcbnew.VECTOR2I(*(pcbnew.FromMM(n) for n in size)), ref
+            assert pad.GetDrillSize() == pcbnew.VECTOR2I(0, 0)
+        a, b = [pad.GetPosition() for pad in pads]
+        assert (a.x - b.x) ** 2 + (a.y - b.y) ** 2 == pcbnew.FromMM(pitch) ** 2, ref
+
+holes = [via.GetEffectiveHoleShape() for via in board.GetTracks() if via.GetClass() == "PCB_VIA"]
+for ref, footprint in footprints.items():
+    for pad in footprint.Pads():
+        if pad.GetAttribute() == pcbnew.PAD_ATTRIB_SMD:
+            for layer in [pcbnew.F_Cu, pcbnew.F_Paste]:
+                if pad.GetLayerSet().Contains(layer):
+                    assert not any(pad.GetEffectiveShape(layer).Collide(hole, 0) for hole in holes), (ref, pad.GetNumber())
+
 pcb_nets = defaultdict(set)
 for ref, footprint in footprints.items():
     for pad in footprint.Pads():
@@ -67,6 +97,18 @@ for window in paste:
 assert pcb_nets == schematic_nets
 assert len(pcb_nets) == 59
 pin_nets = {node: name for name, nodes in pcb_nets.items() for node in nodes}
+regulator = components["POWER-U1"]
+assert regulator.findtext("value") == "AP63301WU-7"
+assert regulator.findtext("fields/field[@name='MPN']") == "AP63301WU-7"
+assert regulator.findtext("fields/field[@name='LCSC']") == "C2158003"
+assert footprints["POWER-U1"].GetFPID().GetLibItemName() == "POWER-U1"
+for pin, net in [(1, "POWER_FB"), (2, "VIN"), (3, "VIN"), (4, "GND"), (5, "POWER_SW"), (6, "POWER_BST")]:
+    assert pin_nets["POWER-U1", str(pin)] == net
+assert footprints["POWER-R1"].GetValue() == "75kΩ"
+assert footprints["POWER-R2"].GetValue() == "24kΩ"
+assert pin_nets["POWER-R1", "1"] == "V3_3" and pin_nets["POWER-R1", "2"] == "POWER_FB"
+assert pin_nets["POWER-R2", "1"] == "POWER_FB" and pin_nets["POWER-R2", "2"] == "GND"
+assert abs(0.8 * (1 + 75 / 24) - 3.3) < 1e-9
 for channel in range(1, 5):
     ref = f"MOTOR{channel}-U1"
     driver = footprints[ref]
@@ -169,4 +211,4 @@ for ref, x, angle in [("MOTOR-J1", 78.5, -90), ("MOTOR-J2", 121.5, 90)]:
     for a, b in zip(pads, pads[1:]):
         assert abs(a.GetPosition().y - b.GetPosition().y) == pcbnew.FromMM(5.08)
         assert a.GetPosition().x == b.GetPosition().x
-print("four layers, inner ground/battery planes, 69 top-mounted components, 59 connected nets, ss6343m pinout, mirrored 5.08 mm motor connectors and antenna-notch outline match")
+print("four layers, 69 top-mounted components, 59 connected nets, ss6343m pinout, C28323/0805 and C12891/1206 capacitors, AP63301 pinout/divider, no holes in smd copper/paste, mirrored motor connectors and antenna-notch outline match")

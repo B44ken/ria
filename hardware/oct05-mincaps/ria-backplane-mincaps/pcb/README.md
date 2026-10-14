@@ -1,8 +1,8 @@
 # RIA Backplane — simplified design
 
-Current authoritative status: [candidate-status.json](candidate-status.json) and [FABRICATION.md](FABRICATION.md).
+current authoritative status: [candidate-status.json](candidate-status.json) and [value-engineering checkpoint](../../value-engineering-2026-10-14.md). [FABRICATION.md](FABRICATION.md) records the original candidate.
 
-- Four layers, 50 × 69.3 mm; 69 components, all top-mounted
+- Four layers, 50 × 69.45 mm; 69 components, all top-mounted
 - SS6343M motor drivers and DOIT ESPS3-32-N4 module
 - 198 routing vias, minimum 0.3 mm drill / 0.6 mm land
 - Zero via-in-pad holes; 24 motor and 12 module cooling holes removed
