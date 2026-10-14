@@ -41,5 +41,9 @@ ria is trained and driven in [botblocks.dev](https://botblocks.dev)
 ```bash
 cd software
 botblocks import robot bot.json --save myriafork/robot --root ..
-botblocks run drive.py
+python3 drive.py --policy ria/jump
 ```
+
+Training previews and explicit checkpoint selection: [software/TRAINING.md](software/TRAINING.md).
+
+The assistant-authored [keyboard residual-controller experiments](software/experiments/keyboard_20261007/README.md) include preserved source and historical evidence, with runtime and validation limits.

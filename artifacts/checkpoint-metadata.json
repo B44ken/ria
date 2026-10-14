@@ -1,0 +1,72 @@
+{
+  "jump": {
+    "sha256": "ea71720edc226c69bc22f4c853a370745821834a8a4c481fdc6b2fef391056b9",
+    "metadata": {
+      "robot": "ria/robot",
+      "subsys": [
+        "imu_head",
+        "imu_knee_l",
+        "imu_knee_r",
+        "imu_wheel_l",
+        "imu_wheel_r",
+        "camera",
+        "neck_l",
+        "neck_r",
+        "knee_l",
+        "knee_r",
+        "wheel_l",
+        "wheel_r",
+        "command"
+      ],
+      "dt": 0.01,
+      "timestep": 0.005,
+      "algorithm": "recurrent_ppo"
+    },
+    "num_timesteps": 9673296,
+    "learning_rate": 0.0001,
+    "n_steps": 128,
+    "n_epochs": 3,
+    "observation_shape": [
+      87
+    ],
+    "action_shape": [
+      6
+    ],
+    "normalization_present": true
+  },
+  "pi4": {
+    "sha256": "73d3b93fed3343d1f2ffb0a053876b7f233c06c709734ee4db78a5788cd1ef88",
+    "metadata": {
+      "robot": "ria/robot",
+      "subsys": [
+        "imu_head",
+        "imu_knee_l",
+        "imu_knee_r",
+        "imu_wheel_l",
+        "imu_wheel_r",
+        "camera",
+        "neck_l",
+        "neck_r",
+        "knee_l",
+        "knee_r",
+        "wheel_l",
+        "wheel_r",
+        "command"
+      ],
+      "dt": 0.01,
+      "timestep": 0.005,
+      "algorithm": "recurrent_ppo"
+    },
+    "num_timesteps": 24201856,
+    "learning_rate": 0.0003,
+    "n_steps": 384,
+    "n_epochs": 1,
+    "observation_shape": [
+      87
+    ],
+    "action_shape": [
+      6
+    ],
+    "normalization_present": true
+  }
+}

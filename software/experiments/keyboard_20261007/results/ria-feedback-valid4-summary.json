@@ -1,0 +1,68 @@
+{
+  "proc": "dt8afe5ce9-60b8-4f9a-8357-9c8e6fab6134",
+  "alive": false,
+  "complete": true,
+  "controller": {
+    "kv": 0.6,
+    "ki": 0.02,
+    "accel": 1,
+    "dcap": 0.8,
+    "pitchKp": 4,
+    "pitchKd": 0.2
+  },
+  "standard": {
+    "cases": 14,
+    "seconds": 90,
+    "speedSamples": 20,
+    "speedMae": 0.037073847999568456,
+    "speedMaxAbs": 0.08548809900488474,
+    "turnSamples": 41,
+    "turnMae": 0.3073129459117063,
+    "turnMaxAbs": 1.3025226446103322,
+    "fallEntries": 0,
+    "fallSeconds": 0,
+    "kneeDownSeconds": 0,
+    "initialFalls": 0
+  },
+  "smallTilts": {
+    "cases": 5,
+    "seconds": 50,
+    "speedSamples": 5,
+    "speedMae": 0.03701575054451443,
+    "speedMaxAbs": 0.0541307005425444,
+    "turnSamples": 5,
+    "turnMae": 0.08332265914554626,
+    "turnMaxAbs": 0.176030709668079,
+    "fallEntries": 0,
+    "fallSeconds": 0,
+    "kneeDownSeconds": 0,
+    "initialFalls": 0
+  },
+  "all": {
+    "cases": 19,
+    "seconds": 140,
+    "speedSamples": 25,
+    "speedMae": 0.03706222850855765,
+    "speedMaxAbs": 0.08548809900488474,
+    "turnSamples": 46,
+    "turnMae": 0.2829661756110368,
+    "turnMaxAbs": 1.3025226446103322,
+    "fallEntries": 0,
+    "fallSeconds": 0,
+    "kneeDownSeconds": 0,
+    "initialFalls": 0
+  },
+  "baselineStandard": {
+    "speedMae": 0.41866,
+    "turnMae": 1.01706,
+    "fallEntries": 0
+  },
+  "comparison": {
+    "speedImprovementPct": 91.14464051985658,
+    "turnImprovementPct": 69.78418717561341
+  },
+  "limitations": [
+    "No jump cases or large-tilt recovery cases in this run",
+    "Single seed 90206; not evidence of near-never-fall reliability"
+  ]
+}
