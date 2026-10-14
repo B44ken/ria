@@ -43,11 +43,13 @@
     "eligibility_confirmed_at_checkout": true
   },
   "order_status": "awaiting_payment",
-  "discount": 12.76,
-  "total_before_shipping": 97.62,
-  "selected_payment_method": "paypal",
-  "payment_fee": 0.71,
-  "total_due": 136.1,
+  "discount": 15.5,
+  "total_before_shipping": 94.88,
+  "selected_payment_method": "credit_debit_card",
+  "payment_fee": 0,
+  "total_due": 132.65,
   "payment_currency": "USD",
-  "total_due_usd": 95.99
+  "total_due_usd": 93.56,
+  "checkout_channel": "jlcone_desktop",
+  "jlcone_discount": 2.74
 }
