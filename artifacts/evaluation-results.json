@@ -1,0 +1,235 @@
+{
+  "wall_time_s": 12.653946791000635,
+  "seeds": [
+    10001,
+    10002
+  ],
+  "wheel_radius_m": 0.03,
+  "landing_definition": "after >5cm clearance, 0.2s consecutive ground and upright >=0.9 without fall within 1.2s of release",
+  "episodes": {
+    "jump": [
+      {
+        "seed": 10001,
+        "duration_s": 24.0,
+        "completed": true,
+        "fell": false,
+        "speed_rmse_m_s": 0.47583448903433706,
+        "turn_rmse_rad_s": 1.546362587372936,
+        "jump_events": [
+          {
+            "release": 0.9249044086970668,
+            "peak_clearance_m": 0.03800277553592454,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 4.093759341009327,
+            "peak_clearance_m": 0.07252048879527442,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 6.974344234261795,
+            "peak_clearance_m": 0.0591077028886747,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 9.707109724000656,
+            "peak_clearance_m": 0.07101041285493964,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 12.62294463009739,
+            "peak_clearance_m": 0.08951125582692598,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 15.356557816597235,
+            "peak_clearance_m": 0.07810718327116506,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 17.826286900836937,
+            "peak_clearance_m": 0.05640222408459619,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 21.218662033110117,
+            "peak_clearance_m": 0.07807889213041205,
+            "above_5cm": true,
+            "stable_landing": true
+          }
+        ]
+      },
+      {
+        "seed": 10002,
+        "duration_s": 16.59,
+        "completed": false,
+        "fell": true,
+        "speed_rmse_m_s": 0.6801414821407683,
+        "turn_rmse_rad_s": 1.6399226181574313,
+        "jump_events": [
+          {
+            "release": 0.9443731489303412,
+            "peak_clearance_m": 0.08605641022810137,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 3.665519100162418,
+            "peak_clearance_m": 0.05846289079929767,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 6.781768256398238,
+            "peak_clearance_m": 0.05434352390016933,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 9.20674779303495,
+            "peak_clearance_m": 0.0991842769068525,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 12.451726552426402,
+            "peak_clearance_m": 0.0877299698107904,
+            "above_5cm": true,
+            "stable_landing": true
+          },
+          {
+            "release": 15.81198304245712,
+            "peak_clearance_m": 0.09070423045762269,
+            "above_5cm": true,
+            "stable_landing": true
+          }
+        ]
+      }
+    ],
+    "pi4": [
+      {
+        "seed": 10001,
+        "duration_s": 24.0,
+        "completed": true,
+        "fell": false,
+        "speed_rmse_m_s": 0.5871691720165297,
+        "turn_rmse_rad_s": 0.8078551369795853,
+        "jump_events": [
+          {
+            "release": 0.9249044086970668,
+            "peak_clearance_m": -0.004712718399947885,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 4.093759341009327,
+            "peak_clearance_m": -0.0045042090097111576,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 6.974344234261795,
+            "peak_clearance_m": -0.004487557215201027,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 9.707109724000656,
+            "peak_clearance_m": -0.004744333612725804,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 12.62294463009739,
+            "peak_clearance_m": -0.004638714139053354,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 15.356557816597235,
+            "peak_clearance_m": -0.004607297128072271,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 17.826286900836937,
+            "peak_clearance_m": -0.004541816822342962,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 21.218662033110117,
+            "peak_clearance_m": -0.004275497001225467,
+            "above_5cm": false,
+            "stable_landing": false
+          }
+        ]
+      },
+      {
+        "seed": 10002,
+        "duration_s": 24.0,
+        "completed": true,
+        "fell": false,
+        "speed_rmse_m_s": 0.656573171761909,
+        "turn_rmse_rad_s": 0.9032405143905271,
+        "jump_events": [
+          {
+            "release": 0.9443731489303412,
+            "peak_clearance_m": -0.004616070519295162,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 3.665519100162418,
+            "peak_clearance_m": -0.004610254925965784,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 6.781768256398238,
+            "peak_clearance_m": -0.00462453913076942,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 9.20674779303495,
+            "peak_clearance_m": -0.004686684502359206,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 12.451726552426402,
+            "peak_clearance_m": -0.0045184105943865405,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 15.81198304245712,
+            "peak_clearance_m": -0.004536221152047243,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 18.542461436336556,
+            "peak_clearance_m": -0.004506018949465854,
+            "above_5cm": false,
+            "stable_landing": false
+          },
+          {
+            "release": 21.342473942251118,
+            "peak_clearance_m": -0.004375972518518789,
+            "above_5cm": false,
+            "stable_landing": false
+          }
+        ]
+      }
+    ]
+  }
+}

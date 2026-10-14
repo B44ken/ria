@@ -1,0 +1,83 @@
+{
+  "source_date": "2026-10-07",
+  "preserved_on": "2026-10-14",
+  "policy": "ria/keyboard-residual-20261007-jump04-moving.zip",
+  "policy_training_steps": 1110016,
+  "policy_bytes_included": false,
+  "robot_runtime_pin_complete": false,
+  "implementation_changed_during_packaging": false,
+  "files": [
+    {
+      "path": "train_residual_jump04_moving.py",
+      "sha256": "a2e8015b51e9d94dfcc50a9dd9a56a9ad5d6aaa3d2251a3e602d63ccf71b60c1",
+      "status": "historically executed on 2026-10-07",
+      "source": "train_residual_jump04_moving.py"
+    },
+    {
+      "path": "evaluate_height_gain_schedule.py",
+      "sha256": "14974ccdf46f4a6d4e37ce6994a53968064d30ae56115fa14d9b71a4f8204881",
+      "status": "historically executed on 2026-10-07",
+      "source": "evaluate_height_gain_schedule.py"
+    },
+    {
+      "path": "validate_compiler_pose_keyboard.py",
+      "sha256": "98c4cb69269de68e20b01ee9badb99a10dd0cfa36c0b909b3a34e7235313cce6",
+      "status": "historically executed on 2026-10-07",
+      "source": "validate_compiler_pose_keyboard.py"
+    },
+    {
+      "path": "unrun/transfer_state49_runtime.py",
+      "sha256": "061f297f6707c8399342eb37b2b362ab329eece2cfd2130dae00adf601573e43",
+      "status": "unrun proposal",
+      "source": "transfer_state49_runtime.py"
+    },
+    {
+      "path": "results/ria-height-gain-results.json",
+      "sha256": "7fc143a216f73d8a69efd72a65d003a70996da7653e919285c6650041cd6d8f8",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-height-gain-results.json"
+    },
+    {
+      "path": "results/ria-compiler-pose-results.json",
+      "sha256": "ca1bd758980b9fed9da58b072ebfbf661c8bd9708339d25b37a82d1e1c08606b",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-compiler-pose-results.json"
+    },
+    {
+      "path": "results/ria-compiler-pose-summary.json",
+      "sha256": "d4dfb81be562fd44d477e30189ad2f7b358201a027fdddaf7083c33ccc60bdb0",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-compiler-pose-summary.json"
+    },
+    {
+      "path": "results/ria-compiler-pose-recovery.json",
+      "sha256": "5cf751ae2d15ac8d7bb0886ab1f7b9e4e1536ddc979f9eb8042513ba2919f8f2",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-compiler-pose-recovery.json"
+    },
+    {
+      "path": "results/ria-residual-moving4-results.json",
+      "sha256": "fcd82d1690be943d65e210da9a79c7d0561ff23dc55f1a509e67361445bd929e",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-residual-moving4-results.json"
+    },
+    {
+      "path": "results/ria-residual-moving4-summary.json",
+      "sha256": "41b88f918de3c8daff3d02a343737b9dfd9448610794a310db95ace194f87ed3",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-residual-moving4-summary.json"
+    },
+    {
+      "path": "results/ria-feedback-valid4-results.json",
+      "sha256": "03ba46540d837e0af91a0c9c40e33f8c78ed4017aacfca2bad2fa41871b8e4b4",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-feedback-valid4-results.json"
+    },
+    {
+      "path": "results/ria-feedback-valid4-summary.json",
+      "sha256": "ad0d694d49b2d69bf156a4dc3d07af37570308cf82acbcc24b4e57ef3803c792",
+      "status": "historical result; not rerun for this PR",
+      "source": "ria-feedback-valid4-summary.json"
+    }
+  ]
+}

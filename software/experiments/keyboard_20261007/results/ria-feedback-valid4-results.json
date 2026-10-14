@@ -1,0 +1,1060 @@
+[
+  {
+    "name": "speed_-0.5",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": -0.5,
+        "error": -0.06489723892207988,
+        "t": 3
+      },
+      {
+        "command": 0,
+        "error": -0.03365222020310117,
+        "t": 6
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.24778639389074533,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "speed_0.0",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": -0.03485504231687068,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "speed_0.5",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0.5,
+        "error": -0.02545552043278687,
+        "t": 3
+      },
+      {
+        "command": 0,
+        "error": 0.011973448384106264,
+        "t": 6
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.22229612251410727,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "speed_1.0",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 1,
+        "error": 0.02520935857843387,
+        "t": 3
+      },
+      {
+        "command": 0,
+        "error": -0.04516701524536779,
+        "t": 6
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.6574039826064789,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "speed_1.5",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 1.5,
+        "error": 0.06268736099329741,
+        "t": 3
+      },
+      {
+        "command": 0,
+        "error": -0.02134726908566858,
+        "t": 6
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 1.4548600116629264,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.0_-1.5",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": 0.04936039468298161,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      },
+      {
+        "command": -1.5,
+        "error": 0.4600706602634439,
+        "t": 2
+      },
+      {
+        "command": 1.5,
+        "error": -0.8804771868025939,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": -0.1027573912514784,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.0_-0.75",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": 0.0062136632434241935,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      },
+      {
+        "command": -0.75,
+        "error": -0.1768634635266979,
+        "t": 2
+      },
+      {
+        "command": 0.75,
+        "error": -0.7976703278120892,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": 0.10837459297428584,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.0_0.75",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": -0.041894729639592086,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      },
+      {
+        "command": 0.75,
+        "error": -0.5803776601647395,
+        "t": 2
+      },
+      {
+        "command": -0.75,
+        "error": 0.3860035502625063,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": 0.001609523856099838,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.0_1.5",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": 0.0005563174616790733,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      },
+      {
+        "command": 1.5,
+        "error": -1.1223487056879384,
+        "t": 2
+      },
+      {
+        "command": -1.5,
+        "error": 0.12494890586968443,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": 0.027117598934705302,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.6_-1.5",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0.6,
+        "error": 0.012002655378289262,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": -0.1728295875569254,
+        "t": 1
+      },
+      {
+        "command": -1.5,
+        "error": 0.8579117923097029,
+        "t": 2
+      },
+      {
+        "command": 1.5,
+        "error": -0.7282507349941114,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": -0.01391292461885881,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.2553469680605798,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.6_-0.75",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0.6,
+        "error": 0.08548809900488474,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": -0.1728295875569254,
+        "t": 1
+      },
+      {
+        "command": -0.75,
+        "error": 1.3025226446103322,
+        "t": 2
+      },
+      {
+        "command": 0.75,
+        "error": 0.05690457483288458,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": -0.25517021837075926,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.24646965279111935,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.6_0.75",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0.6,
+        "error": 0.041237823201533574,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": -0.1728295875569254,
+        "t": 1
+      },
+      {
+        "command": 0.75,
+        "error": -0.2435224177333325,
+        "t": 2
+      },
+      {
+        "command": -0.75,
+        "error": 0.40688953845257925,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": -0.031065262054976558,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.24700167749506527,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "turn_0.6_1.5",
+    "seconds": 6,
+    "speed_errors": [
+      {
+        "command": 0.6,
+        "error": 0.05233486436151347,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": -0.1728295875569254,
+        "t": 1
+      },
+      {
+        "command": 1.5,
+        "error": 0.05899186371626364,
+        "t": 2
+      },
+      {
+        "command": -1.5,
+        "error": 0.5227318339336873,
+        "t": 4
+      },
+      {
+        "command": 0,
+        "error": 0.1487212032232375,
+        "t": 6
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.2481169039144492,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "taps_reverse_diagonal",
+    "seconds": 12,
+    "speed_errors": [
+      {
+        "command": 1,
+        "error": 0.06982297711571817,
+        "t": 5
+      },
+      {
+        "command": -0.5,
+        "error": -0.0534647301365857,
+        "t": 8
+      },
+      {
+        "command": 0,
+        "error": 0.0038562316034547405,
+        "t": 11
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": -0.0889650162833123,
+        "t": 1
+      },
+      {
+        "command": 1.5,
+        "error": -0.5433101092421238,
+        "t": 4
+      },
+      {
+        "command": -1.5,
+        "error": 0.23435924889612592,
+        "t": 7
+      },
+      {
+        "command": 0,
+        "error": -0.06238709446099302,
+        "t": 10
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0.7015230593563935,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "small_tilt_-0.1",
+    "seconds": 10,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": 0.0052203509522454564,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.023447520401941254,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "small_tilt_-0.03",
+    "seconds": 10,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": -0.0541307005425444,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": -0.1257111246577792,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "small_tilt_0.0",
+    "seconds": 10,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": -0.03485504231687068,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.176030709668079,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "small_tilt_0.03",
+    "seconds": 10,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": -0.046931002388269374,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": -0.08508778179942296,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  },
+  {
+    "name": "small_tilt_0.1",
+    "seconds": 10,
+    "speed_errors": [
+      {
+        "command": 0,
+        "error": -0.04394165652264219,
+        "t": 2
+      }
+    ],
+    "turn_errors": [
+      {
+        "command": 0,
+        "error": 0.0063361592005089324,
+        "t": 1
+      }
+    ],
+    "fall_entries": 0,
+    "fall_seconds": 0,
+    "knee_down_seconds": 0,
+    "initial_fall": false,
+    "recovery_time": null,
+    "stop_distance_2s": 0,
+    "jump_peak": null,
+    "takeoff_latency": null,
+    "takeoff_speed": null,
+    "squat_drop": null,
+    "stable_landing_500ms": false,
+    "press_airborne_seconds": 0,
+    "press_partial_lift_seconds": 0,
+    "grounded_at_release": null,
+    "hold_fall_seconds": 0,
+    "prepress_speed": null,
+    "valid_release_jump": false,
+    "trace_columns": [
+      "t",
+      "v_cmd",
+      "w_cmd",
+      "space",
+      "v",
+      "w",
+      "height",
+      "wheel_z",
+      "upright",
+      "fall"
+    ]
+  }
+]
