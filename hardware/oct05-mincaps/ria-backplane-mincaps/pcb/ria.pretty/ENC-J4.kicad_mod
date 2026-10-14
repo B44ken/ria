@@ -1,0 +1,121 @@
+(footprint "ENC-J4"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "ENC-J4"
+		(at 0 -2.54 0)
+		(layer "F.SilkS")
+		(uuid "1126ec54-490c-4fdf-8998-a7272dfb7107")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "ENC-J4"
+		(at 0 3 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "09cc28a8-eb9a-48d5-a940-c406213e39dd")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "44fe2282-98d3-43e4-8359-7e534ccc1aad")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2c7b686f-a159-40a3-bbc3-5da9fb1620ed")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Supplier Part Number" "C2691448, C7501273, C509261"
+		(at 0 0 270)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1eb09ce0-2b19-1ec0-3781-a0a043ea2280")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -5.58 -1.77)
+		(end 5.58 1.77)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "d90ecced-176a-4757-8cd7-6dcc147f2b4d")
+	)
+	(pad "1" thru_hole rect
+		(at -3.81 0)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "31ad8960-3c4b-62ff-55bb-b0a2183d3bbd")
+	)
+	(pad "2" thru_hole circle
+		(at -1.27 0 270)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "52d98288-780d-f1b8-42f5-65f80ddcda38")
+	)
+	(pad "3" thru_hole circle
+		(at 1.27 0 270)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "4af073fe-15d7-e83e-1f40-a38254592f42")
+	)
+	(pad "4" thru_hole circle
+		(at 3.81 0 270)
+		(size 1.5 1.5)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "30cc63b2-2058-3bee-717c-db8e3d5e84d2")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3dmodels/tscircuit_builtin.3dshapes/pinrow4_p2.54_nopinlabels.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

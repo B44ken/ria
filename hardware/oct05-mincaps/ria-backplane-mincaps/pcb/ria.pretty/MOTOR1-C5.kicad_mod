@@ -1,0 +1,135 @@
+(footprint "MOTOR1-C5"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "MOTOR1-C5"
+		(at 0 2.225 180)
+		(layer "F.SilkS")
+		(uuid "3c2aa0d1-9c33-456b-980d-6622e85ffed5")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "10uF"
+		(at 0 -3 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "83178157-9c35-4a0e-bd99-bb7fec95e466")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "9cf9d343-21b3-4699-bfad-84552c1f7b50")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "5a0c7d36-b9fe-45b5-9880-9638ec8f3dd4")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Supplier Part Number" "C39232, C2918502, C381467"
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "00d365c0-098a-6fe1-13e8-45821e461b23")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.4625 1.725)
+		(end 2.225 1.725)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "0b429de4-53f7-40c0-8e01-c9dbfe0fd1fc")
+	)
+	(fp_line
+		(start 2.225 -1.725)
+		(end -1.4625 -1.725)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "1fddea75-7c03-428c-8e19-b599124eb293")
+	)
+	(fp_line
+		(start 2.225 1.725)
+		(end 2.225 -1.725)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "f2f3f07e-08d3-44ca-9849-500fe490fcf6")
+	)
+	(fp_rect
+		(start -2.28 1.58)
+		(end 2.28 -1.58)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "10df25d9-1b91-4ead-9edb-c3df0dd023ce")
+	)
+	(pad "1" smd rect
+		(at 1.4625 0)
+		(size 1.125 2.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "3305c5e0-1eee-84df-70e2-cf9e3d28e5a3")
+	)
+	(pad "2" smd rect
+		(at -1.4625 0)
+		(size 1.125 2.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "20604bd0-0cf5-5910-0675-99b019e08c70")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3dmodels/tscircuit_builtin.3dshapes/cap1210.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
