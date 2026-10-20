@@ -15,4 +15,4 @@ left = frame((-(outside + config.press_fit), 0, pivot_z), (0, -1, 0), (-1, 0, 0)
 knee_origin = np.array((0, -config.leg.length, 0))
 wheel_origin = np.array((0, -2 * config.leg.length,
                         config.leg.thickness + 0.3 + config.planetary.carrier_thickness
-                        + config.motor_lower.height - config.wheels.width / 2 + 1))
+                        + config.motor_lower.height))

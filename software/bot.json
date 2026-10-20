@@ -33,10 +33,10 @@
             "children": [{
                 "name": "wheel_r",
                 "mass": 0.08,
-                "meshes": ["wheel"],
+                "meshes": ["wheel","tire"],
                 "joint": {
                   "damping": 0.0042,
-                  "origin": { "pos": [0,-0.1,0.023] },
+                  "origin": { "pos": [0,-0.1,0.02535] },
                   "axis": [0,0,1]
                 }
               }],
@@ -64,10 +64,10 @@
             "children": [{
                 "name": "wheel_l",
                 "mass": 0.08,
-                "meshes": ["wheel"],
+                "meshes": ["wheel","tire"],
                 "joint": {
                   "damping": 0.0042,
-                  "origin": { "pos": [0,-0.1,0.023] },
+                  "origin": { "pos": [0,-0.1,0.02535] },
                   "axis": [0,0,1]
                 }
               }],

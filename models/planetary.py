@@ -3,7 +3,6 @@ import cadquery as cq
 from config import config
 from util.gear import spur_gear, ring_gear
 from transmission import sprocket_lower
-from hardware import planet_screw_z
 
 def sun():
     p, e = config.planetary, config.encoder
@@ -34,8 +33,7 @@ def planets():
     gear = spur_gear(p.planet, p) \
         .faces('<Z').workplane().circle(p.planet_hub_d/2).extrude(lift) \
         .faces('<Z').workplane().hole(p.bearing_od + 0.1, p.bearing_w - p.axial_clearance) \
-        .faces('>Z').workplane().hole(4.6) \
-        .rotate((0, 0, p.thickness/2), (1, 0, p.thickness/2), 180) \
+        .faces('>Z').workplane().hole(6.5) \
         .rotate((0, 0, 0), (0, 0, 1), 180 / p.planet) \
         .translate((0, 0, p.z))
 
@@ -47,8 +45,8 @@ def ring():
     case = p.module * (p.ring/2 + 1.25) + p.wall
     reach = p.module * (p.sun + p.planet) / 2 + p.module * (p.planet/2 + 1) + p.clearance
     gear_top = p.z + p.thickness
-    roof_z = planet_screw_z() + p.planet_head_clearance
-    top = roof_z + p.back
+    top = config.belt.z - config.belt.flange - p.axial_clearance
+    roof_z = top - p.back
     neck = cq.Workplane('XY').polyline([(-1.5, reach), (-5, 30), (-5, 45), (5, 45), (5, 30), (1.5, reach)]).close() \
         .extrude(top - l.thickness).translate((0, 0, l.thickness)) \
         .cut(cq.Workplane('XY').circle(reach).extrude(top)) \

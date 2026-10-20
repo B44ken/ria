@@ -23,7 +23,7 @@ def reward(bot, env):
     target = 0.08 if held else 0.20 if launch else 0.16
     posture = 1 + s['upright'] - 400 * (s['height'] - target) ** 2
     env.reward(motion=-(s['speed'] - speed) ** 2 + math.cos(s['turn'] - heading),
-               jump=[max(0, s['rise']) + 20 * max(0, s['lowest'] - 0.03) if launch else 0, 12],
+               jump=[max(0, s['rise']) + 20 * max(0, s['lowest'] - 0.0335) if launch else 0, 12],
                posture=posture, fall=[s['fall'], -40], done=s['fall'])
 
 GymEnv([Plane(), Ria()], dt=0.01, seconds=24, reward=reward, reset=reset) \

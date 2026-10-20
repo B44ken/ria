@@ -594,7 +594,7 @@
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/3dmodels/ria.3dshapes/ESP32-S3-WROOM-1.step"
 		(offset
-			(xyz 0 0 0)
+			(xyz 0 3.77 0)
 		)
 		(scale
 			(xyz 1 1 1)

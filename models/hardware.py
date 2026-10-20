@@ -14,10 +14,7 @@ def flathead(length):
 
 def planet_bearing_z():
     p, l = config.planetary, config.leg
-    carrier_top = l.thickness + .3 + p.carrier_thickness
-    hub_height = p.z - carrier_top - p.axial_clearance
-    pocket_depth = p.bearing_w - p.axial_clearance
-    return p.z + p.thickness + hub_height - pocket_depth
+    return l.thickness + .3 + p.carrier_thickness
 
 
 def planet_screw_z():

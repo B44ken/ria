@@ -60,8 +60,7 @@ class config:
         bearing_w = 4.0
         pin_d = 3.0
         screw = 10.0 # m3 flathead, including the head
-        planet_screw = 12.0
-        planet_head_clearance = 2.0
+        planet_screw = 10.0
         screw_type = 'iso10642'
         screw_floor = 2.5
         shaft_d = 18.0
@@ -94,8 +93,15 @@ class config:
         servo_spline_d = 4.8
 
     class wheels:
-        dia = 60.0
-        width = 8.0
+        dia = 67.0
+        width = 27.0
+        bead_dia = 48.0
+        lip_dia = 51.0
+        barrel_dia = 54.0
+        bead_outer = 1.8
+        bead_inner = 4.0
+        wall = 2.0
+        clearance = 0.2
 
     class motor_lower:
         dia = 34.8

@@ -36,6 +36,16 @@ python3 main.py
 
 open [pcb/ria.kicad_pro](pcb/ria.kicad_pro) in kicad or backplane.
 
+price-out command (kicad, python requests/gmalg, and an existing jlcone login required):
+
+```bash
+python3 pcb/priceout.py  # defaults to 5 pcbs, 2 assembled
+```
+
+each run validates a snapshot, uploads its gerbers/bom/cpl over http, selects the cheapest complete shipping service to canada, and saves a pre-coupon quote under `/tmp/ria-priceout-*`. it reuses the jlcone login without opening a browser or changing focus. it does not place an order. `--files-only` validates and exports without contacting jlcpcb.
+
+manufacturing options come from the latest saved ria cart item. the command exchanges jlcone's existing sign-in for a fresh cart session in memory. failed runs save `quote_status: failed`; they never return a previous quote.
+
 # software
 ria is trained and driven in [botblocks.dev](https://botblocks.dev)
 

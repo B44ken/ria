@@ -4,7 +4,7 @@ from util.gear import spur_gear
 from transmission import sprocket_upper, belt
 from planetary import sun, pulley, planets, ring
 from hardware import knee_screws, knee_bearings
-from lowerleg import lower_leg, wheel, ankle_z, ankle_board_z
+from lowerleg import lower_leg, wheel, tire, ankle_z, ankle_board_z
 from trimesh.transformations import rotation_matrix, translation_matrix, concatenate_matrices
 from math import radians
 
@@ -19,6 +19,7 @@ def upper_leg():
     return cq.Workplane('XY').circle(l.mount_r).extrude(l.thickness) \
         .union(cq.Workplane('XY').center(0, -l.length/2).slot2D(l.length + l.width, l.width, 90).extrude(l.thickness)) \
         .union(cq.Workplane('XY').center(0, -l.length).circle(16.5).extrude(l.thickness)) \
+        .union(tab) \
         .faces('<Z').workplane().pushPoints(l.motor_holes).cskHole(config.m3_dia, config.m3_csink_dia, 90) \
         .faces('<Z').workplane().pushPoints([(x, l.length - y) for x, y in p.mounts]).cskHole(config.m3_dia + 0.2, 6.3, 90) \
         .faces('>Z').workplane().circle(l.motor_center_dia/2).cutBlind(-l.motor_center_bore) \
@@ -27,8 +28,7 @@ def upper_leg():
         .faces('>Z').workplane(centerOption='ProjectedOrigin').pushPoints([(0, 0)]).hole(config.m3_dia) \
         .faces('>Z').workplane(centerOption='ProjectedOrigin').center(0, -centre - l.servo_slot_offset).rect(*l.servo_slot).cutThruAll() \
         .faces('<Z').workplane(origin=(0, -l.length, 0)).hole(p.shaft_d + 0.2) \
-        .pushPoints(e.holes).hole(config.m3_dia, l.thickness) \
-        .union(tab)
+        .pushPoints(e.holes).hole(config.m3_dia, l.thickness)
 
 def hip_follower():
     h, l = config.head, config.leg
@@ -73,6 +73,7 @@ def leg():
         asm.add(p, name=f'planet_{i}', color=cq.Color('orange'))
     asm.add(lower_leg(), name='lower_leg', color=cq.Color('cyan'))
     asm.add(wheel(), name='wheel', color=cq.Color('gray30'))
+    asm.add(tire(), name='tire', color=cq.Color('black'))
     asm.add(magnet.translate((0, -l.length, _e.gap)), name='magnet_knee', color=cq.Color('gray30'))
     asm.add(magnet.translate((0, -2*l.length, ankle_board_z + _e.height + _e.gap)), name='magnet_ankle', color=cq.Color('gray30'))
     return asm
