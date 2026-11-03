@@ -1,0 +1,11 @@
+- iframe [ref=f4e2]:
+  - generic [ref=f5e2]:
+    - generic [ref=f5e3]:
+      - button "pause" [ref=f5e4] [cursor=pointer]
+      - button "show sprocket" [ref=f5e5] [cursor=pointer]
+    - img "3d model of the knee planetary gearbox. drag to rotate. the translucent ring stays fixed, the sun gear turns, and three planets turn and carry the output around it." [ref=f5e6]
+    - generic [ref=f5e8]:
+      - generic [ref=f5e9]: ● fixed ring
+      - generic [ref=f5e10]: ● sun (input)
+      - generic [ref=f5e11]: ● planets
+      - generic [ref=f5e12]: ● carrier (output)

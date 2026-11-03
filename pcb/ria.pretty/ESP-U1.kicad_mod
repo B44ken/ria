@@ -1,7 +1,7 @@
 (footprint "ESP-U1"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "REF**"
 		(at -10.5 7.63 0)
@@ -98,6 +98,7 @@
 			)
 		)
 	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -9.7 -9.795)
@@ -543,24 +544,12 @@
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(uuid "13477c84-2ece-3da4-4a54-fec465dbbfe4")
 	)
-
-
-
-
-
-
 	(pad "41" smd rect
 		(at -1.5 -1.31)
 		(size 3.9 3.9)
 		(layers "F.Cu" "F.Mask")
 		(uuid "7f18a8c0-29c7-45c1-2b8a-1d3e7f247fc3")
 	)
-
-
-
-
-
-
 	(zone
 		(layers "F.Cu" "B.Cu" "In1.Cu" "In2.Cu")
 		(uuid "48b36623-caf0-4d7c-b932-0ee1ad702f20")

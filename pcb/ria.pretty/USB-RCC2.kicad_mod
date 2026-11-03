@@ -1,7 +1,7 @@
 (footprint "USB-RCC2"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "USB-RCC2"
 		(at 0 -1.375 0)
@@ -26,7 +26,7 @@
 			)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://pcbparts.dev/mcp/datasheet/C23186"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
@@ -62,12 +62,35 @@
 			)
 		)
 	)
+	(property "MPN" "0603WAF5101T5E"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "316b7f9b-08d3-465f-a453-78b1ee9d47e6")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9fb29c01-a680-4e9d-9973-cbd3ac396ecd")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -0.237258 -0.5225)
 		(end 0.237258 -0.5225)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -77,7 +100,7 @@
 		(start -0.237258 0.5225)
 		(end 0.237258 0.5225)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")

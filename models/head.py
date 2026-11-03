@@ -1,12 +1,10 @@
-from pathlib import Path
-
 import cadquery as cq
-import trimesh
-from shapely.geometry import Point, box
 import numpy as np
 from trimesh.transformations import rotation_matrix, translation_matrix, concatenate_matrices
 from config import config
 from util.gear import spur_gear
+import pcb
+import battery
 
 floor_z = -config.head.height/2 + config.wall/2
 X, Y, Z = (1, 0, 0), (0, 1, 0), (0, 0, 1)
@@ -15,21 +13,22 @@ def place(x, y, z, *rots):
     return concatenate_matrices(translation_matrix((x, y, z + floor_z)), *[rotation_matrix(np.radians(a), ax) for a, ax in rots])
 
 _e = config.electronics
-tray_z = _e.spacer_h + _e.plate_t
-# correct the reference assets to the measured 44 x 21 x 10 and 75 x 35 x 30 mm.
-_driver_scale = np.diag([1, 21/24, 10/10.55, 1])
-_battery_scale = np.diag([75/73, 1, 30/28.5, 1])
-meshes = [
-    ('simplefocmini_dual', place(-_e.driver_x, _e.driver_y, 0, (90, Z)) @ _driver_scale),
-    ('simplefocmini_dual', place(_e.driver_x, _e.driver_y, 0, (-90, Z)) @ _driver_scale),
-    ('tca9548a', place(*_e.tca_loc, tray_z)),
-    ('mp1584', place(*_e.mp_loc, tray_z)),
-    ('xt60h_m', place(*_e.xt60_loc, tray_z)),
-    ('tattu_lipo', place(-15.4, 0, 17.5, (120, (1, 1, 1))) @ _battery_scale),
-    # the asset's usb opening is at (10.5, 1.75, -52.3); rear is -y.
-    ('pipico', place(*_e.pico_loc, tray_z + 9.5, (180, Z), (90, X))),
-    ('mpu6050', place(*_e.imu_loc, tray_z)),
-]
+# measured battery envelope; the reference asset is 73 x 35 x 28.5 mm.
+_battery_scale = np.diag([75/73, 30/35, 35/28.5, 1])
+meshes = [('tattu_lipo', place(_e.battery_x, _e.battery_y,
+                              _e.shelf_z + _e.plate_t + _e.battery_size[2]/2,
+                              (_e.battery_angle, Z), (90, Y), (120, (1, 1, 1)))
+           @ _battery_scale @ translation_matrix((0, 0, -14.25)))]
+
+
+def battery_envelope(clearance=0):
+    e = config.electronics
+    w, d, h = e.battery_size
+    return cq.Workplane('XY').box(w+2*clearance, d+2*clearance, h+2*clearance,
+                                  centered=(True, True, False)) \
+        .rotate((0, 0, 0), Z, e.battery_angle) \
+        .translate((e.battery_x, e.battery_y, floor_z+e.shelf_z+e.plate_t-clearance))
+
 
 def head_cavity(height):
     h = config.head
@@ -48,6 +47,16 @@ def hip_race_groove():
     h = config.head
     return cq.Workplane('YZ', origin=(h.width/2, 0, h.pivot_height - h.height/2)) \
         .circle(h.race_outer).circle(h.race_inner).extrude(-h.race_depth)
+
+
+def head_ports():
+    h, e = config.head, config.electronics
+    usb_x, _ = pcb_xy(pcb.position(pcb.footprints['USB-J1']))
+    usb = cq.Workplane('XY').box(e.usb_opening[0], 2*config.wall+4, e.usb_opening[1]) \
+        .edges('|Y').fillet(.8).translate((usb_x, -h.depth/2, floor_z+e.pcb_z+pcb.thickness+1.6))
+    balance = cq.Workplane('XY').box(e.balance_opening[0], 2*config.wall+4, e.balance_opening[1]) \
+        .edges('|Y').fillet(.8).translate((e.balance_x, h.depth/2, floor_z+e.balance_z))
+    return usb.union(balance)
 
 
 def head_top():
@@ -71,13 +80,6 @@ def head_top():
         .cylinder(2*outside + 2, config.head.pivot_d/2) \
         .translate((0, 0, pivot_z))
 
-    usb = cq.Workplane('XY').box(_e.usb_opening[0], 2*config.wall + 4, _e.usb_opening[1]) \
-        .translate((0, -config.head.depth/2, floor_z + tray_z + 11.25 - config.wall/2))
-
-    sx, sy, sz = _e.battery_screw_loc
-    clamp_access = cq.Workplane('YZ', origin=(config.head.width/2, sy, floor_z + sz - config.wall/2)) \
-        .circle(2).extrude(-config.wall)
-
     inside = head_cavity(config.head.height).translate((0, 0, -config.head.height/2))
     side_z = floor_z + _e.side_screw_z - config.wall/2
     for x, y in _e.posts:
@@ -88,121 +90,112 @@ def head_top():
         main = seat.newObject([main.union(pad).val()]).pushPoints([(0, 0)]) \
             .cskHole(_e.screw_d, 5.8, 90, 8)
     
+    main = main.union(battery.cable_clip().translate((0, 0, -config.head.height/2)))
+    # shallow internal reliefs preserve the original outside dimensions.
+    for i in range(2):
+        main = main.cut(battery.lead(i, 2.8).translate((0, 0, -config.head.height/2)))
+    main = main.cut(battery_envelope(.4).translate((0, 0, -config.wall/2)))
     race = hip_race_blank()
     groove = hip_race_groove()
     return main.union(gear).union(gear.mirror('YZ')) \
         .union(boss).union(boss.mirror('YZ')).union(race).union(race.mirror('YZ')) \
         .cut(groove).cut(groove.mirror('YZ')) \
-        .cut(bore).cut(usb).cut(clamp_access)
+        .cut(bore).cut(head_ports().translate((0, 0, -config.wall/2)))
 
-def tray_outline():
-    h, e = config.head, config.electronics
-    inset = config.wall + e.tray_clearance
-    return h.width - 2*inset, h.depth - 2*inset, h.corner_r - inset
-
-
-def board_hole_points(upper=False):
-    e = config.electronics
-    names = ('pipico', 'mpu6050', 'tca9548a', 'mp1584') if upper else ('simplefocmini_dual',)
-    footprints = []
-    for name, transform in meshes:
-        if name in names:
-            mesh = trimesh.load(Path(__file__).parent / 'assets' / f'{name}.glb').to_mesh()
-            lo, hi = mesh.apply_scale(1000).apply_transform(transform).bounds
-            footprints.append(box(*lo[:2], *hi[:2]).buffer(-e.hole_d/2))
-    w, d, r = tray_outline()
-    interior = box(-w/2+r, -d/2+r, w/2-r, d/2-r).buffer(r).buffer(-2-e.hole_d/2)
-    exclusions = [Point(x, y).buffer(5+e.hole_d/2) for x, y in e.posts]
-    if upper:
-        exclusions += [box(x-sw/2, y-sd/2, x+sw/2, y+sd/2).buffer(.8+e.hole_d/2)
-                       for (x, y), (sw, sd) in e.wiring_bays]
-    return [(x*e.hole_pitch, y*e.hole_pitch)
-            for x in range(-int(w/2/e.hole_pitch), int(w/2/e.hole_pitch)+1)
-            for y in range(-int(d/2/e.hole_pitch), int(d/2/e.hole_pitch)+1)
-            if interior.covers(point := Point(x*e.hole_pitch, y*e.hole_pitch))
-            and any(footprint.covers(point) for footprint in footprints)
-            and not any(exclusion.covers(point) for exclusion in exclusions)]
+def pcb_xy(point):
+    a = np.radians(_e.pcb_angle)
+    return (point[0]*np.cos(a)-point[1]*np.sin(a), point[0]*np.sin(a)+point[1]*np.cos(a))
 
 
-def electronics_plate(width, depth, radius, cutaway=False):
-    e = config.electronics
-    outline = cq.Workplane('XY').rect(width, depth).val()
-    outline = outline.fillet2D(radius, outline.Vertices())
-    holes = cq.Workplane('XY').pushPoints(board_hole_points(upper=cutaway)).circle(e.hole_d/2).vals()
-    holes += cq.Workplane('XY').pushPoints(e.posts).circle(e.screw_d/2).vals()
-    if cutaway:
-        for loc, size in e.wiring_bays:
-            opening = cq.Workplane('XY').center(*loc).rect(*size).val()
-            holes.append(opening.fillet2D(e.wiring_bay_r, opening.Vertices()))
-    return cq.Workplane(obj=cq.Solid.extrudeLinear(outline, holes, (0, 0, e.plate_t)))
-
-
-def battery_guides():
-    guides = cq.Workplane('XY').box(34, 1.6, _e.battery_back_h, centered=(True, True, False)) \
-        .translate((0, -38.5, 0))
-    guides = guides.union(cq.Workplane('XY').pushPoints([(-13.5, 38.6), (13.5, 38.6)]).rect(7, 1.4).extrude(10)) \
-        .union(cq.Workplane('XY').pushPoints([(-16.2, 31.45), (16.2, 31.45), (-16.2, -31.45)]).rect(1.6, 12.9).extrude(12)) \
-        .union(cq.Workplane('XY').center(16.2, -36.95).rect(1.6, 1.9).extrude(12)) \
-        .union(cq.Workplane('XY').pushPoints([(18.4, -35.4), (18.4, -21.6)]).rect(4, 1.2).extrude(4)) \
-        .union(cq.Workplane('XY').pushPoints([(16.9, -34), (16.9, -23)]).rect(1, 1).extrude(2))
-    x, y, z = _e.battery_screw_loc
-    boss = cq.Workplane('XY').box(6, 8, 14, centered=(True, True, False)) \
-        .translate((x-3, y, 0))
-    pilot = cq.Workplane('YZ', origin=(x, y, z)).circle(_e.spacer_pilot_d/2).extrude(-6)
-    return guides.union(boss.cut(pilot))
-
-
-def battery_shoe():
-    # the rounded printed face contacts the pack; keep the screw seat and stops fixed.
-    face = cq.Workplane('XY').box(_e.battery_shoe_t, 10, 14, centered=(True, True, False)) \
-        .faces('<X').edges().fillet(.4).translate((17.4-_e.battery_shoe_t/2, -28.5, 0))
-    foot = cq.Workplane('XY').box(2.2, 12, 2, centered=(True, True, False)).translate((18.5, -28.5, 0))
-    _, y, z = _e.battery_screw_loc
-    socket = cq.Workplane('YZ', origin=(17.4, y, z)).circle(1.7).extrude(-.7)
-    return face.union(foot).cut(socket)
+def bullet_points():
+    # internal tangency, with the offset rotated along with the board.
+    return [pcb_xy((x + np.sign(x)*(diameter-_e.bullet_d)/2, y))
+            for _, (x, y), diameter in pcb.contacts]
 
 
 def head_bottom():
-    h = config.head
-    plate = electronics_plate(h.width, h.depth, h.corner_r)
-    race = hip_race_blank(config.head.race_clearance).translate((0, 0, config.wall/2 - floor_z + _e.plate_t))
-    return plate.union(battery_guides().translate((0, 0, _e.plate_t))) \
-        .cut(race).cut(race.mirror('YZ'))
+    h, e = config.head, config.electronics
+    plate = cq.Workplane('XY').box(h.width, h.depth, e.plate_t, centered=(True, True, False)) \
+        .edges('|Z').fillet(h.corner_r)
+    # build guides in pcb coordinates, then turn them with the board.
+    w = (pcb.outline.bounds[2] - pcb.outline.bounds[0])/2
+    d = (pcb.outline.bounds[3] - pcb.outline.bounds[1])/2
+    for side in (-1, 1):
+        rail = cq.Workplane('XY').box(3.2, 2*d + 1.6 - 15, e.pcb_z + pcb.thickness + 2,
+                                     centered=(True, True, False)).translate((side*(w + 1), -7.5, e.plate_t))
+        slot = cq.Workplane('XY').box(2*w + 2*e.pcb_clearance, 2*d + 4,
+                                     pcb.thickness + .4, centered=(True, True, False)) \
+            .translate((0, 0, e.plate_t + e.pcb_z))
+        plate = plate.union(rail.cut(slot).rotate((0, 0, 0), Z, e.pcb_angle))
+        stop = cq.Workplane('XY').box(3.2, .6, e.pcb_z + pcb.thickness,
+                                     centered=(True, True, False)).translate((side*(w-1), -d-.6, e.plate_t))
+        plate = plate.union(stop.rotate((0, 0, 0), Z, e.pcb_angle))
+    # each blind pocket starts exactly at the pcb underside, leaving the floor intact.
+    for x, y in bullet_points():
+        boss = cq.Workplane('XY').center(x, y).circle(e.bullet_d/2 + 1.6).extrude(e.pcb_z)
+        hole = cq.Workplane('XY', origin=(x, y, e.pcb_z)).circle(e.bullet_d/2).extrude(-e.bullet_depth)
+        plate = plate.union(boss.cut(hole).translate((0, 0, e.plate_t)))
+    for x, y in e.posts:
+        post = cq.Workplane('XY').center(x, y).circle(e.post_radius).extrude(e.shelf_z)
+        pilot = cq.Workplane('XY', origin=(x, y, e.shelf_z)).circle(e.spacer_pilot_d/2).extrude(-8)
+        side = np.sign(x)
+        reach = side*h.width/2 - x
+        lug = cq.Workplane('XY').box(abs(reach), 7, 7, centered=(True, True, True)) \
+            .translate((reach/2 + x, y, e.side_screw_z))
+        side_hole = cq.Workplane('YZ', origin=(side*(h.width/2-config.wall), y, e.side_screw_z)) \
+            .circle(e.spacer_pilot_d/2).extrude(-side*6)
+        post = post.union(lug.intersect(head_cavity(e.shelf_z))).cut(pilot).cut(side_hole)
+        plate = plate.union(post.translate((0, 0, e.plate_t)))
+    # an m3 x 8 pan-head screw clamps the bare pcb edge after insertion.
+    stop = cq.Workplane('XY').center(26.8, 20).circle(3).extrude(e.pcb_z)
+    plate = plate.union(stop.translate((0, 0, e.plate_t)))
+    pilot = cq.Workplane('XY', origin=(26.8, 20, e.plate_t + e.pcb_z)) \
+        .circle(e.spacer_pilot_d/2).extrude(-7)
+    relief = cq.Workplane('XY', origin=(26.8, 20, e.plate_t+e.pcb_z+pcb.thickness)) \
+        .circle(3).extrude(4)
+    plate = plate.cut(pilot).cut(relief)
+    wires = cq.Workplane('XY').pushPoints([(-31, 0), (31, 0)]).rect(6, 18).extrude(e.plate_t) \
+        .edges('|Z').fillet(1.5)
+    plate = plate.cut(wires)
+    race = hip_race_blank(h.race_clearance).translate((0, 0, config.wall/2 - floor_z + e.plate_t))
+    return plate.cut(race).cut(race.mirror('YZ'))
 
 
-def tray_spacer(x_sign=1, y_sign=1):
-    e = config.electronics
-    x, y = e.posts[-1]
-    # a 45-degree underside supports the projecting boss when printed upright.
-    reach = config.head.width/2 - x
-    boss = cq.Workplane('XZ').polyline([(0, e.side_screw_z - reach - e.side_boss_d/2),
-                                       (reach, e.side_screw_z - e.side_boss_d/2),
-                                       (reach, e.side_screw_z + e.side_boss_d/2),
-                                       (0, e.side_screw_z + e.side_boss_d/2)]).close() \
-        .extrude(e.side_boss_d/2, both=True)
-    boss = boss.intersect(head_cavity(e.spacer_h).translate((-x, -y, 0)))
-    side_pilot = cq.Workplane('YZ', origin=(reach - config.wall, 0, e.side_screw_z)) \
-        .circle(e.spacer_pilot_d/2).extrude(-e.spacer_pilot_depth)
-    spacer = cq.Workplane('XY').circle(e.spacer_d/2).extrude(e.spacer_h) \
-        .union(boss).cut(side_pilot) \
-        .faces('>Z').workplane().hole(e.spacer_pilot_d, e.spacer_pilot_depth) \
-        .faces('<Z').workplane().hole(e.spacer_pilot_d, e.spacer_pilot_depth)
-    if x_sign < 0:
-        spacer = spacer.mirror('YZ')
-    if y_sign < 0:
-        spacer = spacer.mirror('XZ')
-    return spacer
+def battery_tray():
+    h, e = config.head, config.electronics
+    inset = config.wall + e.tray_clearance
+    tray = cq.Workplane('XY').box(h.width-2*inset, h.depth-2*inset, e.plate_t,
+                                 centered=(True, True, False)).edges('|Z').fillet(h.corner_r-inset)
+    # clear the xt60 column without removing a cradle mounting hole.
+    opening = cq.Workplane('XY').box(18, 12, 10).translate((-16.6, 27.975, 0))
+    tray = tray.cut(opening)
+    guides = cq.Workplane('XY')
+    for side in (-1, 1):
+        guide = cq.Workplane('XY').box(1.6, 54, 5, centered=(True, True, False)) \
+            .translate((side*(e.battery_size[0]/2+e.battery_clearance+.8), 0, e.plate_t))
+        end = cq.Workplane('XY').box(3.6, 1.2, 5, centered=(True, True, False)) \
+            .translate((side*9, side*(e.battery_size[1]/2+e.battery_clearance+.6), e.plate_t))
+        guides = guides.union(guide).union(end)
+    guides = guides.rotate((0, 0, 0), Z, e.battery_angle).translate((e.battery_x, e.battery_y, 0))
+    tray = tray.union(guides)
+    pivot_x = h.width/2+config.gears.thickness-h.pivot_length-.2+2.5
+    pivots = cq.Workplane('XY').pushPoints([(-pivot_x, 0), (pivot_x, 0)]).rect(5, 12).extrude(e.plate_t)
+    tray = tray.cut(pivots)
+    holes = cq.Workplane('XY').pushPoints(e.posts).circle(e.screw_d/2).extrude(e.plate_t)
+    return tray.cut(holes)
 
 
 def head():
     e = config.electronics
     asm = cq.Assembly(name='head')
     asm.add(head_top(), name='head_top', color=cq.Color('white'), loc=cq.Location(cq.Vector(0, 0, config.wall/2)))
-    asm.add(head_bottom(), name='head_bottom', color=cq.Color('lightgray'), loc=cq.Location(cq.Vector(0, 0, floor_z - e.plate_t)))
-    asm.add(electronics_plate(*tray_outline(), cutaway=True), name='head_tray', color=cq.Color('lightgray'), loc=cq.Location(cq.Vector(0, 0, floor_z + e.spacer_h)))
-    asm.add(battery_shoe(), name='battery_shoe', color=cq.Color('orange'),
-            loc=cq.Location(cq.Vector(0, 0, floor_z)))
-    for i, (x, y) in enumerate(e.posts):
-        asm.add(tray_spacer(np.sign(x), np.sign(y)), name=f'tray_spacer_{i}', color=cq.Color('gray'),
-                loc=cq.Location(cq.Vector(x, y, floor_z)))
+    asm.add(head_bottom(), name='head_bottom', color=cq.Color('lightgray'), loc=cq.Location(cq.Vector(0, 0, floor_z-e.plate_t)))
+    asm.add(battery_tray(), name='head_tray', color=cq.Color('lightgray'), loc=cq.Location(cq.Vector(0, 0, floor_z+e.shelf_z)))
+    asm.add(pcb.substrate().rotate((0, 0, 0), Z, e.pcb_angle), name='control_pcb', color=cq.Color('seagreen'), loc=cq.Location(cq.Vector(0, 0, floor_z+e.pcb_z)))
+    for name, shape in pcb.connectors().items():
+        asm.add(cq.Workplane(obj=shape).rotate((0, 0, 0), Z, e.pcb_angle), name=name.lower().replace('-', '_'), color=cq.Color('goldenrod'),
+                loc=cq.Location(cq.Vector(0, 0, floor_z+e.pcb_z)))
+    for i, color in enumerate(('gray20', 'firebrick')):
+        asm.add(battery.lead(i), name=f'battery_lead_{i}', color=cq.Color(color),
+                loc=cq.Location(cq.Vector(0, 0, floor_z)))
     return asm

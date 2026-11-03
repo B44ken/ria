@@ -1,0 +1,6 @@
+cadquery
+numpy
+trimesh
+shapely
+sexpdata
+scipy

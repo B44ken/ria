@@ -1,12 +1,13 @@
 (footprint "POWER-R1"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "POWER-R1"
 		(at 0 -1.375 0)
-		(layer "F.SilkS")
-		(uuid "6e6b4db1-df84-4907-a556-985e5d8eff91")
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "52fba637-76e8-4d10-b859-514b7670e49b")
 		(effects
 			(font
 				(size 0.4 0.4)
@@ -14,11 +15,11 @@
 			)
 		)
 	)
-	(property "Value" "75kΩ"
+	(property "Value" "75k 1%"
 		(at 0 3 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "eaf8d0cf-464e-48a4-bbef-68684f74e255")
+		(uuid "e394e36e-4152-4a2e-866b-784468907434")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -26,11 +27,11 @@
 			)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://pcbparts.dev/mcp/datasheet/C23242"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "26a59407-230f-41e5-b01b-1f529352c1e8")
+		(uuid "1a3f3f2b-cef6-487d-b85a-a4bc781ad728")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -38,11 +39,11 @@
 			)
 		)
 	)
-	(property "Description" ""
+	(property "Description" "Resistor"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "cc3d020c-168b-4b2c-9285-8415e5d4a20d")
+		(uuid "1ac436ed-75b3-46d7-8d80-13aa2bc74be6")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -62,12 +63,49 @@
 			)
 		)
 	)
+	(property "LCSC" "C23242"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d7f38f97-e0a0-4c2b-81a8-b575c7f29137")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "MPN" "0603WAF7502T5E"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f5d4355f-87d7-4fdf-8c66-91ae8e02a1fd")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0dde6eb1-9731-5055-be64-a3b02e6ebff3")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -0.237258 -0.5225)
 		(end 0.237258 -0.5225)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -77,7 +115,7 @@
 		(start -0.237258 0.5225)
 		(end 0.237258 0.5225)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")

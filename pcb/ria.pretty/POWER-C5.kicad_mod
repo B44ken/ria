@@ -1,12 +1,13 @@
 (footprint "POWER-C5"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "POWER-C5"
 		(at 0 -1.775 0)
-		(layer "F.SilkS")
-		(uuid "eb339efa-aea4-470a-a148-040653927582")
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3bb0404d-7b54-41a3-8771-f03799de6e72")
 		(effects
 			(font
 				(size 0.4 0.4)
@@ -18,7 +19,7 @@
 		(at 0 3 180)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "50c10466-2c01-4b00-b284-b264ff7fabbd")
+		(uuid "229ad1cb-7685-4f0b-955d-207a4abaf30a")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -26,11 +27,11 @@
 			)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://product.samsungsem.com/mlcc/CL31A226KAHNNN.do"
 		(at 0 0 180)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "8c5b38e3-b146-475a-85f0-b0bc30bbb2e0")
+		(uuid "beaace41-c64d-4b53-944f-8fab941c7b95")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -38,11 +39,11 @@
 			)
 		)
 	)
-	(property "Description" ""
+	(property "Description" "22 uF 25 V X5R 1206 ceramic capacitor"
 		(at 0 0 180)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "c46ef1b2-fec3-4cb3-a196-5271ffc82239")
+		(uuid "79b21c1f-e793-4c1f-9ddd-f80cf51f5ed6")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -62,37 +63,44 @@
 			)
 		)
 	)
+	(property "LCSC" "C12891"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "20efdf19-cc5e-4b6a-834b-17f634ffe9c2")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "MPN" "CL31A226KAHNNNE"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bd0bfb92-e8cd-4b12-97bd-5b22bae7115b")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Manufacturer" "Samsung Electro-Mechanics"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "34a46683-be8f-5604-b810-552e4b2744ae")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
-	(fp_line
-		(start -2.225 -1.275)
-		(end -2.225 1.275)
-		(stroke
-			(width 0.1)
-			(type default)
-		)
-		(layer "F.SilkS")
-		(uuid "ec0acd0e-0e84-4a8f-9330-0fbf035890fe")
-	)
-	(fp_line
-		(start -2.225 1.275)
-		(end 1.4625 1.275)
-		(stroke
-			(width 0.1)
-			(type default)
-		)
-		(layer "F.SilkS")
-		(uuid "4491e072-792e-4058-a045-62e31b4d122e")
-	)
-	(fp_line
-		(start 1.4625 -1.275)
-		(end -2.225 -1.275)
-		(stroke
-			(width 0.1)
-			(type default)
-		)
-		(layer "F.SilkS")
-		(uuid "494add00-4d9f-40ef-81a0-403f6d6f1c65")
-	)
 	(fp_rect
 		(start -2.28 -1.13)
 		(end 2.28 1.13)
@@ -103,6 +111,36 @@
 		(fill no)
 		(layer "F.CrtYd")
 		(uuid "252838d7-0e7e-4d7e-9bfe-e02750ffdf22")
+	)
+	(fp_line
+		(start -2.225 -1.275)
+		(end -2.225 1.275)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "ec0acd0e-0e84-4a8f-9330-0fbf035890fe")
+	)
+	(fp_line
+		(start -2.225 1.275)
+		(end 1.4625 1.275)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "4491e072-792e-4058-a045-62e31b4d122e")
+	)
+	(fp_line
+		(start 1.4625 -1.275)
+		(end -2.225 -1.275)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.Fab")
+		(uuid "494add00-4d9f-40ef-81a0-403f6d6f1c65")
 	)
 	(pad "1" smd rect
 		(at -1.4625 0 180)

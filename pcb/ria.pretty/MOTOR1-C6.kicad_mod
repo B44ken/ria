@@ -1,7 +1,7 @@
 (footprint "MOTOR1-C6"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "MOTOR1-C6"
 		(at 0 1.375 180)
@@ -27,7 +27,7 @@
 			(justify mirror)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://pcbparts.dev/mcp/datasheet/C19666"
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
@@ -66,12 +66,35 @@
 			(justify mirror)
 		)
 	)
+	(property "MPN" "CL10A475KO8NNNC"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "cf23f531-ba24-48c3-90d3-830beb64be21")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Manufacturer" "Samsung Electro-Mechanics"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9b03ef90-26d9-4f54-bece-7abca60aaecf")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -0.825 0.875)
 		(end 1.425 0.875)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -81,7 +104,7 @@
 		(start 1.425 -0.875)
 		(end -0.825 -0.875)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -91,7 +114,7 @@
 		(start 1.425 0.875)
 		(end 1.425 -0.875)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")

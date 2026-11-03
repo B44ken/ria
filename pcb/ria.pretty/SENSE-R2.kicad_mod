@@ -1,0 +1,183 @@
+(footprint "SENSE-R2"
+	(version 20260901)
+	(generator "pcbnew")
+	(generator_version "10.99")
+	(layer "F.Cu")
+	(property "Reference" "SENSE-R2"
+		(at 0 -1.375 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "ad915a84-115b-49e5-8621-75e18138bf79")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "1.5k 1%"
+		(at 0 3 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "75bdb218-241b-4cc3-b0c9-367b3ba36834")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://pcbparts.dev/mcp/datasheet/C22843"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5b387839-612e-4e8a-ad69-bc0e411793ce")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "1% 0603 battery-sense divider resistor"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "52397587-a376-4d30-9e0d-1e4a31bdec0f")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Supplier Part Number" "C22843"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4aac6512-d72a-4202-88d8-ea99a6c742c7")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "LCSC" "C22843"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "34cfcede-fca4-4020-8cf1-9a1722f518d5")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "MPN" "0603WAF1501T5E"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6c8e2d8f-040e-485f-92f3-6847f09a1e75")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Manufacturer" "UNI-ROYAL"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "43b708f1-c380-4013-ba2c-a27716620490")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -0.237258 -0.5225)
+		(end 0.237258 -0.5225)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f69f4940-9c11-4fc7-b17a-2715c8e682a0")
+	)
+	(fp_line
+		(start -0.237258 0.5225)
+		(end 0.237258 0.5225)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "8f458f08-de86-4a74-90e5-b82a451d9972")
+	)
+	(fp_rect
+		(start -1.48 -0.73)
+		(end 1.48 0.73)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "83256582-e6f0-4048-abd5-be2cf156ffac")
+	)
+	(fp_rect
+		(start -0.8 -0.4125)
+		(end 0.8 0.4125)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "6782f0a9-b278-40f7-a7be-0ef76b550eb9")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "27b2c7c2-e50a-4fb2-a74c-da473137904a")
+		(effects
+			(font
+				(size 0.4 0.4)
+				(thickness 0.06)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -0.825 0)
+		(size 0.8 0.95)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "4f1fbc22-15f5-4f65-9674-03888a720f8f")
+	)
+	(pad "2" smd roundrect
+		(at 0.825 0)
+		(size 0.8 0.95)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "62938526-d381-4838-af56-1b5ac1bf1c20")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3dmodels/kicad.3dshapes/R_0603_1608Metric.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

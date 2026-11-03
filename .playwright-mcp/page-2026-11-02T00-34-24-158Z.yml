@@ -1,0 +1,12 @@
+- generic [active] [ref=e1]:
+  - heading "top-left motor" [level=1] [ref=e2]
+  - paragraph [ref=e3]: motor 1 · open-loop six-step drive
+  - status [ref=e4]: 0.0 hz
+  - slider "motor speed" [ref=e5] [cursor=pointer]: "0"
+  - generic [ref=e6]:
+    - generic [ref=e7]: reverse
+    - generic [ref=e8]: stop
+    - generic [ref=e9]: forward
+  - button "stop" [ref=e10] [cursor=pointer]
+  - paragraph [ref=e11]: connected · stopped
+  - paragraph [ref=e12]: electrical frequency · 0.8 v drive limit at 16.8 v supply

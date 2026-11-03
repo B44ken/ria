@@ -1,0 +1,13 @@
+2026-11-03 04:01:38.724 [main] INFO  Freerouting v1.9.0 (build-date: 2023-10-30)
+2026-11-03 04:01:39.751 [main] INFO  Opening '/tmp/ria-phase-current/ria.dsn'...
+2026-11-03 04:01:40.249 [ForkJoinPool.commonPool-worker-1] INFO  New version available: v2.5.0
+2026-11-03 04:01:40.728 [main] WARN  Non-ansi character 'Ω' found at position 1475 just after 'ESP-R2'.
+2026-11-03 04:01:40.729 [main] WARN  Non-ansi character 'Ω' found at position 1593 just after 'MOTOR-R2'.
+2026-11-03 04:01:40.729 [main] WARN  Non-ansi character 'Ω' found at position 1649 just after 'MOTOR-R1'.
+2026-11-03 04:01:40.730 [main] WARN  Non-ansi character 'Ω' found at position 1707 just after 'USB-RCC2'.
+2026-11-03 04:01:40.730 [main] WARN  Non-ansi character 'Ω' found at position 1765 just after 'USB-RCC1'.
+2026-11-03 04:01:40.731 [main] WARN  Non-ansi character 'Ω' found at position 1819 just after 'ESP-R1'.
+2026-11-03 04:01:40.731 [main] WARN  Non-ansi character 'Ω' found at position 6881 just after 'ESP-R3'.
+2026-11-03 04:01:40.732 [main] WARN  Non-ansi character 'Ω' found at position 6936 just after 'ESP-R4'.
+2026-11-03 04:01:40.732 [main] WARN  Non-ansi character 'Ω' found at position 7028 just after 'ENC-RD0'.
+2026-11-03 04:01:40.732 [main] WARN  Non-ansi character 'Ω' found at position 7085 just after 'ENC-RC0'.

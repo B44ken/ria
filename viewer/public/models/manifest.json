@@ -1,0 +1,723 @@
+{
+  "sourceHash": "4727e539d819e4aaea75ed8e1aeff464d79d54d6a060b2849566bd154f5339a4",
+  "generatedAt": "2026-11-02T05:14:54.079710+00:00",
+  "units": "mm",
+  "modelScale": 0.001,
+  "knee": [
+    0.0,
+    -100.0,
+    0.0
+  ],
+  "wheel": [
+    0.0,
+    -200.0,
+    25.35
+  ],
+  "planetary": {
+    "sun": 18,
+    "planet": 12,
+    "ring": 42,
+    "count": 3,
+    "module": 1.0,
+    "orbitRadius": 15.0,
+    "gearZ": 11.7,
+    "gearThickness": 5.0,
+    "carrierZ": 5.3,
+    "carrierThickness": 4.8
+  },
+  "belt": {
+    "motor": 16,
+    "pulley": 48
+  },
+  "sourceFiles": [
+    "models/assets/5010_body.glb",
+    "models/assets/5010_rotor.glb",
+    "models/assets/as5600.glb",
+    "models/assets/gbm2804.glb",
+    "models/assets/mp1584.glb",
+    "models/assets/mpu6050.glb",
+    "models/assets/pipico.glb",
+    "models/assets/pipico.step",
+    "models/assets/sg90_body.glb",
+    "models/assets/simplefocmini_dual.glb",
+    "models/assets/tattu_lipo.glb",
+    "models/assets/tca9548a.glb",
+    "models/assets/xt60h_m.glb",
+    "models/battery.py",
+    "models/config.py",
+    "models/hardware.py",
+    "models/head.py",
+    "models/lowerleg.py",
+    "models/main.py",
+    "models/pcb.py",
+    "models/planetary.py",
+    "models/requirements.txt",
+    "models/tests/test_head.py",
+    "models/transmission.py",
+    "models/upperleg.py",
+    "models/util/belt.py",
+    "models/util/frames.py",
+    "models/util/gear.py",
+    "pcb/.DS_Store",
+    "pcb/3dmodels/ria.3dshapes/AMASS_XT60-M_reference.step",
+    "pcb/3dmodels/ria.3dshapes/ESP32-S3-WROOM-1.step",
+    "pcb/3dmodels/ria.3dshapes/SS6343M-QF-TP.step",
+    "pcb/3dmodels/ria.3dshapes/XFCN_PZ254V-11-03P.step",
+    "pcb/3dmodels/ria.3dshapes/XFCN_PZ254V-11-04P.step",
+    "pcb/3dmodels/ria.3dshapes/f5c88ed9b9bd431ea66868c32d137cdb",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C165948.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C167963.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C2158012.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C2687116.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C54308212.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C720477.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C8678.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/C98732.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/cap0603.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/cap0805.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/cap1206.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/cap1210.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/pinrow3_p2.54_nopinlabels.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/pinrow4_p2.54_nopinlabels.step",
+    "pcb/3dmodels/tscircuit_builtin.3dshapes/res0603.step",
+    "pcb/__pycache__/jlc_cart.cpython-313.pyc",
+    "pcb/__pycache__/jlc_http.cpython-313.pyc",
+    "pcb/__pycache__/jlcpcb.cpython-313.pyc",
+    "pcb/__pycache__/priceout.cpython-313.pyc",
+    "pcb/__pycache__/quote.cpython-313.pyc",
+    "pcb/__pycache__/verify-kicad.cpython-313.pyc",
+    "pcb/fp-lib-table",
+    "pcb/ria.kicad_pcb",
+    "pcb/ria.kicad_pro",
+    "pcb/ria.kicad_sch",
+    "pcb/ria.kicad_sym",
+    "pcb/ria.pretty/C_0805_2012Metric.kicad_mod",
+    "pcb/ria.pretty/C_1206_3216Metric.kicad_mod",
+    "pcb/ria.pretty/ENC-J1.kicad_mod",
+    "pcb/ria.pretty/ENC-J2.kicad_mod",
+    "pcb/ria.pretty/ENC-J3.kicad_mod",
+    "pcb/ria.pretty/ENC-J4.kicad_mod",
+    "pcb/ria.pretty/ENC-RC0.kicad_mod",
+    "pcb/ria.pretty/ENC-RC1.kicad_mod",
+    "pcb/ria.pretty/ENC-RC2.kicad_mod",
+    "pcb/ria.pretty/ENC-RC3.kicad_mod",
+    "pcb/ria.pretty/ENC-RD0.kicad_mod",
+    "pcb/ria.pretty/ENC-RD1.kicad_mod",
+    "pcb/ria.pretty/ENC-RD2.kicad_mod",
+    "pcb/ria.pretty/ENC-RD3.kicad_mod",
+    "pcb/ria.pretty/ESP-C1.kicad_mod",
+    "pcb/ria.pretty/ESP-C2.kicad_mod",
+    "pcb/ria.pretty/ESP-C3.kicad_mod",
+    "pcb/ria.pretty/ESP-R1.kicad_mod",
+    "pcb/ria.pretty/ESP-R2.kicad_mod",
+    "pcb/ria.pretty/ESP-R3.kicad_mod",
+    "pcb/ria.pretty/ESP-R4.kicad_mod",
+    "pcb/ria.pretty/ESP-SW1.kicad_mod",
+    "pcb/ria.pretty/ESP-SW2.kicad_mod",
+    "pcb/ria.pretty/ESP-U1.kicad_mod",
+    "pcb/ria.pretty/IMU-C1.kicad_mod",
+    "pcb/ria.pretty/IMU-C2.kicad_mod",
+    "pcb/ria.pretty/IMU-U1.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J1.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J2.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J3A.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J3B.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J3C.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J4A.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J4B.kicad_mod",
+    "pcb/ria.pretty/MOTOR-J4C.kicad_mod",
+    "pcb/ria.pretty/MOTOR-RE.kicad_mod",
+    "pcb/ria.pretty/MOTOR-RS.kicad_mod",
+    "pcb/ria.pretty/MOTOR1-C2.kicad_mod",
+    "pcb/ria.pretty/MOTOR1-C3.kicad_mod",
+    "pcb/ria.pretty/MOTOR1-C5.kicad_mod",
+    "pcb/ria.pretty/MOTOR1-C6.kicad_mod",
+    "pcb/ria.pretty/MOTOR2-C2.kicad_mod",
+    "pcb/ria.pretty/MOTOR2-C3.kicad_mod",
+    "pcb/ria.pretty/MOTOR2-C5.kicad_mod",
+    "pcb/ria.pretty/MOTOR2-C6.kicad_mod",
+    "pcb/ria.pretty/MOTOR3-C2.kicad_mod",
+    "pcb/ria.pretty/MOTOR3-C3.kicad_mod",
+    "pcb/ria.pretty/MOTOR3-C5.kicad_mod",
+    "pcb/ria.pretty/MOTOR3-C6.kicad_mod",
+    "pcb/ria.pretty/MOTOR4-C2.kicad_mod",
+    "pcb/ria.pretty/MOTOR4-C3.kicad_mod",
+    "pcb/ria.pretty/MOTOR4-C5.kicad_mod",
+    "pcb/ria.pretty/MOTOR4-C6.kicad_mod",
+    "pcb/ria.pretty/POWER-C1.kicad_mod",
+    "pcb/ria.pretty/POWER-C2.kicad_mod",
+    "pcb/ria.pretty/POWER-C3.kicad_mod",
+    "pcb/ria.pretty/POWER-C4.kicad_mod",
+    "pcb/ria.pretty/POWER-C5.kicad_mod",
+    "pcb/ria.pretty/POWER-C6.kicad_mod",
+    "pcb/ria.pretty/POWER-C7.kicad_mod",
+    "pcb/ria.pretty/POWER-C8.kicad_mod",
+    "pcb/ria.pretty/POWER-D1.kicad_mod",
+    "pcb/ria.pretty/POWER-D2.kicad_mod",
+    "pcb/ria.pretty/POWER-D3.kicad_mod",
+    "pcb/ria.pretty/POWER-J1.kicad_mod",
+    "pcb/ria.pretty/POWER-L1.kicad_mod",
+    "pcb/ria.pretty/POWER-R1.kicad_mod",
+    "pcb/ria.pretty/POWER-R2.kicad_mod",
+    "pcb/ria.pretty/POWER-R3.kicad_mod",
+    "pcb/ria.pretty/POWER-U1.kicad_mod",
+    "pcb/ria.pretty/SENSE-R1.kicad_mod",
+    "pcb/ria.pretty/SENSE-R2.kicad_mod",
+    "pcb/ria.pretty/SERVO-C1.kicad_mod",
+    "pcb/ria.pretty/SERVO-C10.kicad_mod",
+    "pcb/ria.pretty/SERVO-C11.kicad_mod",
+    "pcb/ria.pretty/SERVO-C2.kicad_mod",
+    "pcb/ria.pretty/SERVO-C5.kicad_mod",
+    "pcb/ria.pretty/SERVO-C6.kicad_mod",
+    "pcb/ria.pretty/SERVO-C7.kicad_mod",
+    "pcb/ria.pretty/SERVO-C8.kicad_mod",
+    "pcb/ria.pretty/SERVO-C9.kicad_mod",
+    "pcb/ria.pretty/SERVO-D1.kicad_mod",
+    "pcb/ria.pretty/SERVO-J1.kicad_mod",
+    "pcb/ria.pretty/SERVO-J2.kicad_mod",
+    "pcb/ria.pretty/SERVO-L1.kicad_mod",
+    "pcb/ria.pretty/SERVO-R1.kicad_mod",
+    "pcb/ria.pretty/SERVO-R2.kicad_mod",
+    "pcb/ria.pretty/SERVO-R3.kicad_mod",
+    "pcb/ria.pretty/SERVO-U1.kicad_mod",
+    "pcb/ria.pretty/SS6343M-QF-TP.kicad_mod",
+    "pcb/ria.pretty/USB-C1.kicad_mod",
+    "pcb/ria.pretty/USB-J1.kicad_mod",
+    "pcb/ria.pretty/USB-RCC1.kicad_mod",
+    "pcb/ria.pretty/USB-RCC2.kicad_mod",
+    "pcb/ria.pretty/USB-U2.kicad_mod",
+    "pcb/ria.pretty/WJ2EDGR-5.08-03P-14-00A.kicad_mod",
+    "pcb/sym-lib-table",
+    "software/bot.json"
+  ],
+  "meshes": [
+    {
+      "cadName": "head_top",
+      "part": "head_top",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "head_bottom",
+      "part": "head_bottom",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "head_tray",
+      "part": "head_tray",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "control_pcb",
+      "part": "control_pcb",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "power_j1",
+      "part": "power_j1",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "servo_j2",
+      "part": "servo_j2",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "enc_j4",
+      "part": "enc_j4",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "esp_u1",
+      "part": "esp_u1",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "enc_j2",
+      "part": "enc_j2",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "motor_j1",
+      "part": "motor_j1",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "enc_j3",
+      "part": "enc_j3",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "enc_j1",
+      "part": "enc_j1",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "servo_j1",
+      "part": "servo_j1",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "motor_j2",
+      "part": "motor_j2",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "usb_j1",
+      "part": "usb_j1",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "battery_lead_0",
+      "part": "battery_lead_0",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "battery_lead_1",
+      "part": "battery_lead_1",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "tattu_lipo_0",
+      "part": "tattu_lipo_0",
+      "side": "head",
+      "link": "head"
+    },
+    {
+      "cadName": "right_leg/upper_leg/upper_leg",
+      "part": "upper_leg",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/upper_leg",
+      "part": "upper_leg",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/hip_screw",
+      "part": "hip_screw",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/hip_screw",
+      "part": "hip_screw",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/pivot_screw",
+      "part": "pivot_screw",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/pivot_screw",
+      "part": "pivot_screw",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/pivot_nut",
+      "part": "pivot_nut",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/pivot_nut",
+      "part": "pivot_nut",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/pivot_nut_insert",
+      "part": "pivot_nut_insert",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/pivot_nut_insert",
+      "part": "pivot_nut_insert",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/pinion",
+      "part": "pinion",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/pinion",
+      "part": "pinion",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/sprocket_upper",
+      "part": "sprocket_upper",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/sprocket_upper",
+      "part": "sprocket_upper",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/belt",
+      "part": "belt",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/belt",
+      "part": "belt",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/ring",
+      "part": "ring",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/ring",
+      "part": "ring",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/sun",
+      "part": "sun",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/sun",
+      "part": "sun",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/pulley",
+      "part": "pulley",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/pulley",
+      "part": "pulley",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/drive_bearing",
+      "part": "drive_bearing",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/drive_bearing",
+      "part": "drive_bearing",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/ring_screw_0",
+      "part": "ring_screw_0",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/ring_screw_0",
+      "part": "ring_screw_0",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/ring_screw_1",
+      "part": "ring_screw_1",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/ring_screw_1",
+      "part": "ring_screw_1",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_screw_0",
+      "part": "planet_screw_0",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_screw_0",
+      "part": "planet_screw_0",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_screw_1",
+      "part": "planet_screw_1",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_screw_1",
+      "part": "planet_screw_1",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_screw_2",
+      "part": "planet_screw_2",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_screw_2",
+      "part": "planet_screw_2",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/pulley_screw",
+      "part": "pulley_screw",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/pulley_screw",
+      "part": "pulley_screw",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_bearing_0",
+      "part": "planet_bearing_0",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_bearing_0",
+      "part": "planet_bearing_0",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_bearing_1",
+      "part": "planet_bearing_1",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_bearing_1",
+      "part": "planet_bearing_1",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_bearing_2",
+      "part": "planet_bearing_2",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_bearing_2",
+      "part": "planet_bearing_2",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_0",
+      "part": "planet_0",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_0",
+      "part": "planet_0",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_1",
+      "part": "planet_1",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_1",
+      "part": "planet_1",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/planet_2",
+      "part": "planet_2",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/planet_2",
+      "part": "planet_2",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/lower_leg",
+      "part": "lower_leg",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/lower_leg",
+      "part": "lower_leg",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/wheel/wheel",
+      "part": "wheel",
+      "side": "right",
+      "link": "wheel"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/wheel/wheel",
+      "part": "wheel",
+      "side": "left",
+      "link": "wheel"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/wheel/tire",
+      "part": "tire",
+      "side": "right",
+      "link": "wheel"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/wheel/tire",
+      "part": "tire",
+      "side": "left",
+      "link": "wheel"
+    },
+    {
+      "cadName": "right_leg/upper_leg/magnet_knee",
+      "part": "magnet_knee",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/magnet_knee",
+      "part": "magnet_knee",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/wheel/magnet_ankle",
+      "part": "magnet_ankle",
+      "side": "right",
+      "link": "wheel"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/wheel/magnet_ankle",
+      "part": "magnet_ankle",
+      "side": "left",
+      "link": "wheel"
+    },
+    {
+      "cadName": "right_leg/upper_leg/5010/5010_body_0",
+      "part": "5010_body_0",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/5010/5010_body_0",
+      "part": "5010_body_0",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/5010/5010_rotor_1",
+      "part": "5010_rotor_1",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/5010/5010_rotor_1",
+      "part": "5010_rotor_1",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/sg90/sg90_body_2",
+      "part": "sg90_body_2",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/sg90/sg90_body_2",
+      "part": "sg90_body_2",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/gbm2804/gbm2804_3",
+      "part": "gbm2804_3",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/gbm2804/gbm2804_3",
+      "part": "gbm2804_3",
+      "side": "left",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/as5600/as5600_4",
+      "part": "as5600_4",
+      "side": "right",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/as5600/as5600_4",
+      "part": "as5600_4",
+      "side": "left",
+      "link": "upper_leg"
+    },
+    {
+      "cadName": "right_leg/upper_leg/lower_leg/as5600/as5600_5",
+      "part": "as5600_5",
+      "side": "right",
+      "link": "lower_leg"
+    },
+    {
+      "cadName": "left_leg/upper_leg/lower_leg/as5600/as5600_5",
+      "part": "as5600_5",
+      "side": "left",
+      "link": "lower_leg"
+    }
+  ]
+}

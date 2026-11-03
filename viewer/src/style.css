@@ -1,0 +1,41 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #111; color: #eee; font-size: 13px; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input, select { font: inherit; }
+[role='button'] { user-select: none; white-space: nowrap; }
+[role='button'][aria-disabled='true'] { cursor: default !important; }
+[role='button']:focus-visible, input:focus-visible, select:focus-visible, [contenteditable]:focus-visible { outline: 2px solid #aaa !important; outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.workspace { width: 100%; height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr) 230px; }
+#viewport { min-width: 0; min-height: 0; position: relative; background: #161616; }
+#canvas-host { position: absolute; inset: 0; }
+#canvas-host canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+#loading { position: absolute; inset: 0; display: grid; place-items: center; color: #999; }
+.toolbar { position: absolute; top: 16px; left: 16px; right: 16px; }
+.assembly-picker { display: flex; min-width: 0; }
+.assembly-picker select { max-width: 100%; }
+.settings-panel { position: absolute; left: 16px; top: 64px; width: 280px; max-width: calc(100% - 32px); max-height: calc(100% - 80px); overflow-y: auto; }
+.range-label { display: flex; justify-content: space-between; gap: 16px; }
+output { font-variant-numeric: tabular-nums; color: #aaa; }
+input[type='range'] { width: 100%; margin: 0; accent-color: #aaa; cursor: pointer; }
+input[type='checkbox'] { width: 14px; height: 14px; margin: 0; flex-shrink: 0; accent-color: #888; cursor: pointer; }
+#parts-panel { min-width: 0; padding: 16px; display: flex; flex-direction: column; align-items: stretch; gap: 12px; overflow-y: auto; background: #111; }
+#part-search { font-size: 13px; background: #111; }
+.part-name span { overflow-wrap: anywhere; white-space: normal; text-align: left; }
+#selection-info { line-height: 1.6; }
+@media (max-width: 760px) {
+  .workspace { height: auto; min-height: 100dvh; display: flex; flex-direction: column; }
+  #viewport { height: 62dvh; min-height: 380px; flex-shrink: 0; }
+  .toolbar { left: 12px; right: 12px; top: 12px; }
+  .toolbar > [role='button'] { padding-inline: 10px !important; }
+  .assembly-picker select { font-size: 13px !important; padding-inline: 8px !important; }
+  .settings-panel { left: 12px; top: 58px; max-width: calc(100% - 24px); max-height: calc(100% - 70px); }
+  #parts-panel { padding: 16px; overflow: visible; }
+  #parts { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px !important; }
+  #part-search { min-height: 34px; }
+}
+@media (max-width: 359px) {
+  .toolbar { gap: 6px !important; }
+  .toolbar > [role='button'] { padding-inline: 8px !important; }
+  .assembly-picker select { max-width: 144px; }
+}

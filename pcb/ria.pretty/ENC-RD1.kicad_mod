@@ -1,7 +1,7 @@
 (footprint "ENC-RD1"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "ENC-RD1"
 		(at 0 -1.375 0)
@@ -26,7 +26,7 @@
 			)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://pcbparts.dev/mcp/datasheet/C23162"
 		(at 0 0 270)
 		(layer "F.Fab")
 		(hide yes)
@@ -62,12 +62,35 @@
 			)
 		)
 	)
+	(property "MPN" "0603WAF4701T5E"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "550542fa-b35c-4808-b4d3-4b6e3f1142a5")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8cfdf354-4eb9-424b-85a7-47e2fb78d402")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -0.237258 -0.5225)
 		(end 0.237258 -0.5225)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -77,7 +100,7 @@
 		(start -0.237258 0.5225)
 		(end 0.237258 0.5225)
 		(stroke
-			(width 0.12)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")

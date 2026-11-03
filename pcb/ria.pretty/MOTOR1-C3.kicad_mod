@@ -1,7 +1,7 @@
 (footprint "MOTOR1-C3"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "MOTOR1-C3"
 		(at 0 -1.375 180)
@@ -27,7 +27,7 @@
 			(justify mirror)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://pcbparts.dev/mcp/datasheet/C14663"
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
@@ -66,12 +66,35 @@
 			(justify mirror)
 		)
 	)
+	(property "MPN" "CC0603KRX7R9BB104"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "92adcbdd-e5cd-47b7-bd6a-5d3cb26e36b2")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Manufacturer" "YAGEO"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "32573281-4901-461a-8acb-b764af3b4f9d")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -0.825 0.875)
 		(end 1.425 0.875)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -81,7 +104,7 @@
 		(start 1.425 -0.875)
 		(end -0.825 -0.875)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -91,7 +114,7 @@
 		(start 1.425 0.875)
 		(end 1.425 -0.875)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")

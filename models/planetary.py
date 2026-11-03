@@ -8,22 +8,32 @@ def sun():
     p, e = config.planetary, config.encoder
     shoulder_z = config.leg.thickness + .3 + p.carrier_thickness + p.axial_clearance
     shoulder = cq.Workplane('XY', origin=(0, 0, shoulder_z - p.z)).circle(p.shaft_d/2 + 1).extrude(p.shoulder_t)
+    pilot_depth = p.screw - (pulley_screw_seat() - (p.z + p.thickness)) + 1.0
+    pilot = cq.Workplane('XY', origin=(0, 0, p.thickness - pilot_depth)) \
+        .circle(config.m3_pilot_dia/2).extrude(pilot_depth)
     return spur_gear(p.sun, p) \
-        .faces('>Z').workplane().rect(p.square, p.square).extrude(p.clearance + p.back + 2.0) \
-        .faces('>Z').workplane().hole(config.m3_pilot_dia, p.screw - p.screw_floor + 1.0) \
+        .faces('>Z').workplane().rect(p.square + 0.2, p.square + 0.2).cutBlind(-p.drive_socket_depth) \
         .faces('<Z').workplane().circle(p.shaft_d/2).extrude(p.z - e.gap) \
         .faces('<Z').workplane().hole(e.magnet_dia + 2*config.press_fit, e.magnet_h) \
-        .union(shoulder) \
+        .union(shoulder).cut(pilot) \
         .translate((0, -config.leg.length, p.z))
+
+def drive_bearing_z():
+    p = config.planetary
+    return p.z + p.thickness + p.clearance + 1.0
+
+def pulley_screw_seat():
+    return config.belt.z - config.belt.flange + 0.5
 
 def pulley():
     p, b = config.planetary, config.belt
-    hub_z = p.z + p.thickness + p.clearance
-    screw_seat = hub_z + p.back + 2.0 + p.screw_floor
-    recess = b.z + b.band + b.flange - screw_seat
-    return cq.Workplane('XY').circle(p.drive_d/2).extrude(b.z - b.flange - hub_z).translate((0, 0, hub_z)) \
-        .union(sprocket_lower()) \
-        .faces('<Z').workplane().rect(p.square + 0.2, p.square + 0.2).cutBlind(-(p.back + 2.0)) \
+    gear_top = p.z + p.thickness
+    shaft = cq.Workplane('XY', origin=(0, 0, gear_top)).circle(p.drive_bearing_id/2 + config.press_fit) \
+        .extrude(b.z - b.flange - gear_top)
+    drive = cq.Workplane('XY', origin=(0, 0, gear_top - p.drive_socket_depth)) \
+        .rect(p.square, p.square).extrude(p.drive_socket_depth)
+    recess = b.z + b.band + b.flange - pulley_screw_seat()
+    return sprocket_lower().union(shaft).union(drive) \
         .faces('>Z').workplane().cboreHole(config.m3_dia + 0.2, 6.5, recess) \
         .translate((0, -config.leg.length, 0))
 
@@ -45,18 +55,21 @@ def ring():
     case = p.module * (p.ring/2 + 1.25) + p.wall
     reach = p.module * (p.sun + p.planet) / 2 + p.module * (p.planet/2 + 1) + p.clearance
     gear_top = p.z + p.thickness
-    top = config.belt.z - config.belt.flange - p.axial_clearance
+    top = drive_bearing_z() + p.drive_bearing_w
     roof_z = top - p.back
     neck = cq.Workplane('XY').polyline([(-1.5, reach), (-5, 30), (-5, 45), (5, 45), (5, 30), (1.5, reach)]).close() \
         .extrude(top - l.thickness).translate((0, 0, l.thickness)) \
         .cut(cq.Workplane('XY').circle(reach).extrude(top)) \
         .cut(cq.Workplane('XY').circle(case).extrude(top - p.z).translate((0, 0, p.z)))
-    bore = p.drive_d/2 + config.press_fit
+    bearing_top = drive_bearing_z() + p.drive_bearing_w
+    housing_r = p.drive_bearing_od/2 + p.wall
     back = cq.Workplane('XY').circle(case).circle(reach).extrude(top - gear_top).translate((0, 0, gear_top)) \
-        .union(cq.Workplane('XY').circle(case).circle(bore).extrude(p.back).translate((0, 0, roof_z))) \
-        .union(cq.Workplane('XY').circle(p.shaft_d/2 + 1).circle(bore) \
-               .extrude(roof_z - gear_top - p.clearance).translate((0, 0, gear_top + p.clearance)))
+        .union(cq.Workplane('XY').circle(case).circle(housing_r).extrude(p.back).translate((0, 0, roof_z))) \
+        .union(cq.Workplane('XY', origin=(0, 0, gear_top + p.clearance)).circle(housing_r).circle(6.35) \
+               .extrude(bearing_top - gear_top - p.clearance)) \
+        .cut(cq.Workplane('XY', origin=(0, 0, drive_bearing_z())).circle(p.drive_bearing_od/2 + config.press_fit) \
+             .extrude(p.drive_bearing_w))
     return ring_gear(p.ring, p, case).rotate((0, 0, 0), (0, 0, 1), 180 / p.ring).translate((0, 0, p.z)) \
         .union(neck).union(back) \
-        .faces('<Z').workplane().pushPoints([(x, -y) for x, y in p.mounts]).hole(config.m3_pilot_dia, p.mount_screw + 1.0 - l.thickness) \
+        .faces('<Z').workplane().pushPoints([(x, -y) for x, y in p.mounts]).hole(config.m3_pilot_dia) \
         .translate((0, -l.length, 0))

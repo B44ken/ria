@@ -1,0 +1,210 @@
+(footprint "SERVO-J2"
+	(version 20260901)
+	(generator "pcbnew")
+	(generator_version "10.99")
+	(layer "F.Cu")
+	(property "Reference" "SERVO-J2"
+		(at 0 4 90)
+		(layer "F.Fab")
+		(uuid "ebe12b9d-2097-4318-b702-9e2111ac15c9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Value" "PZ254V-11-03P"
+		(at 0 3 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c44c615f-6005-49de-a1cc-ea2016dfb436")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.xfconn.com/uploads/soft/20240711/4-240G111205C08.pdf"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "926e86eb-7fa2-4ea9-9e6a-3978a15c56cb")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" "vertical 1x3 2.54 mm servo header; 1 ground, 2 5 V, 3 PWM"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8da8f4c8-0a4f-4977-b544-f0c450b73502")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "MPN" "PZ254V-11-03P"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "007e0555-2c34-4f98-b5fc-74c564350e2d")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Manufacturer" "XFCN"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "56067494-2c02-4f73-8f5a-288fa8f0c110")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "LCSC" "C2937625"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e35b2a13-2549-41a4-970a-ec82dd7b8709")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Supplier Part Number" "C2937625"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "676e1e26-b58d-4846-b583-360f9776c5ff")
+		(effects
+			(font
+				(size 1 1)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_rect
+		(start -3.96 -1.4)
+		(end 3.96 1.4)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "2560d04b-5a0c-4cc9-8e21-6194705ae1db")
+	)
+	(fp_rect
+		(start -4.31 -1.75)
+		(end 4.31 1.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "0cdbd472-9cd7-48ba-9506-eb5f99ee3690")
+	)
+	(fp_rect
+		(start -3.81 -1.25)
+		(end 3.81 1.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "e1a612c9-2241-40d3-8248-6946c1736c2a")
+	)
+	(fp_text user "g"
+		(at -2.54 2.2 90)
+		(layer "F.SilkS")
+		(uuid "736d3466-4ccc-41db-96ef-cdbcab19a90f")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(fp_text user "5v"
+		(at 0 2.2 90)
+		(layer "F.SilkS")
+		(uuid "27077d4a-ae0c-4273-884d-eaf4dc951d91")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(fp_text user "s"
+		(at 2.54 2.2 90)
+		(layer "F.SilkS")
+		(uuid "00a19506-9191-4559-b1b8-59e226683ee0")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "4b157eb0-7b59-4345-9237-6c0ac7132df6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole rect
+		(at -2.54 0)
+		(size 2.2 2.2)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "fc8a3507-67ba-44b0-a73f-ab50e6ad2e97")
+	)
+	(pad "2" thru_hole circle
+		(at 0 0)
+		(size 2.2 2.2)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "c5b92d17-a3d2-496a-92d6-d65922de28c1")
+	)
+	(pad "3" thru_hole circle
+		(at 2.54 0)
+		(size 2.2 2.2)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "028af599-cbcd-4301-8a7e-b085fa04b65f")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/3dmodels/ria.3dshapes/XFCN_PZ254V-11-03P.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

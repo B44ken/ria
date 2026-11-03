@@ -1,7 +1,7 @@
 (footprint "MOTOR4-C2"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "MOTOR4-C2"
 		(at 0 1.375 0)
@@ -15,7 +15,7 @@
 		)
 	)
 	(property "Value" "1uF"
-		(at 0 -3 -90)
+		(at 0 -3 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "de6e32ce-72bd-43a1-93f6-e1698605a26e")
@@ -28,7 +28,7 @@
 		)
 	)
 	(property "Datasheet" ""
-		(at 0 0 -90)
+		(at 0 0 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "d06fa337-e1db-443c-ad08-97869d897933")
@@ -41,7 +41,7 @@
 		)
 	)
 	(property "Description" ""
-		(at 0 0 -90)
+		(at 0 0 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "2ce09844-04c4-4e38-81bf-7d00277410cd")
@@ -54,7 +54,7 @@
 		)
 	)
 	(property "Supplier Part Number" "C15849, C6119852, C29936"
-		(at 0 0 -90)
+		(at 0 0 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "4d257200-5783-47a1-61e1-1d426c3ef2e3")

@@ -1,7 +1,7 @@
 (footprint "MOTOR3-C2"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "MOTOR3-C2"
 		(at 0 1.375 0)
@@ -15,7 +15,7 @@
 		)
 	)
 	(property "Value" "1uF"
-		(at 0 -3 -90)
+		(at 0 -3 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "d5784ae6-4180-406d-bb1d-5201caa29699")
@@ -28,7 +28,7 @@
 		)
 	)
 	(property "Datasheet" ""
-		(at 0 0 -90)
+		(at 0 0 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "e85cb410-5f9e-4a37-b145-bc80392c5d16")
@@ -41,7 +41,7 @@
 		)
 	)
 	(property "Description" ""
-		(at 0 0 -90)
+		(at 0 0 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "aefdcbfe-747c-48dd-8e3d-4e0cbe85b3ae")
@@ -54,7 +54,7 @@
 		)
 	)
 	(property "Supplier Part Number" "C15849, C6119852, C29936"
-		(at 0 0 -90)
+		(at 0 0 270)
 		(layer "B.Fab")
 		(hide yes)
 		(uuid "3958bea0-2efa-e8ff-249d-135e1a3f3dbd")

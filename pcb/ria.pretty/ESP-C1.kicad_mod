@@ -1,7 +1,7 @@
 (footprint "ESP-C1"
-	(version 20260206)
+	(version 20260901)
 	(generator "pcbnew")
-	(generator_version "10.0")
+	(generator_version "10.99")
 	(layer "F.Cu")
 	(property "Reference" "ESP-C1"
 		(at 0 1.6 0)
@@ -26,7 +26,7 @@
 			)
 		)
 	)
-	(property "Datasheet" ""
+	(property "Datasheet" "https://pcbparts.dev/mcp/datasheet/C15850"
 		(at 0 0 180)
 		(layer "F.Fab")
 		(hide yes)
@@ -62,12 +62,35 @@
 			)
 		)
 	)
+	(property "MPN" "CL21A106KAYNNNE"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9407b6b4-9090-4f80-bb01-b55f325ddefa")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Manufacturer" "Samsung Electro-Mechanics"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9bbe32c9-618e-4ee6-ae6f-51d03c232024")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_line
 		(start -1.625 -1.1)
 		(end -1.625 1.1)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -77,7 +100,7 @@
 		(start -1.625 1.1)
 		(end 0.9125 1.1)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")
@@ -87,7 +110,7 @@
 		(start 0.9125 -1.1)
 		(end -1.625 -1.1)
 		(stroke
-			(width 0.1)
+			(width 0.15)
 			(type default)
 		)
 		(layer "F.SilkS")

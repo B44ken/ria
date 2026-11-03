@@ -1,0 +1,1 @@
+reference models copied from the [official kicad 3d library](https://gitlab.com/kicad/libraries/kicad-packages3D), retrieved 2026-11-03. see LICENSE.md. the retained sunlord inductor model is a dimensional reference, not a vendor model of the fitted part.
